@@ -1,6 +1,6 @@
 # Cornelia (api + software + folders)
 Copyright (c) 2026 AvatarKage. All Rights Reserved.<br><br>
-This license will be revised to be more permissive when the update will be completed. In the meantime, everyone is free to download and use on personal computers.
+This license will be revised to be more permissive when the update is completed. In the meantime, everyone is free to download and use on personal computers.
 
 # External Licenses
 
