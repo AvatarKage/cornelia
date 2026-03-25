@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5, h6 {
 .grid {
     padding: 32px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(256px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 32px;
 }
 
@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 16px;
     padding: 32px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(164px, 1fr));
     gap: 16px;
     box-shadow: 0 16px 40px rgba(0,0,0,0.4);
 }
