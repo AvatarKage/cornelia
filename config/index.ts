@@ -3,6 +3,9 @@ import { fileURLToPath } from "url";
 import { dirname, resolve } from "path";
 
 import log from "../packages/avatarkage-utilities/logging/index.js";
+import colors from "./data/colors.js";
+import ignored from "./rules/ignore.js";
+import exact from "./rules/exact.js";
 
 const file = fileURLToPath(import.meta.url);
 const dir =  resolve(dirname(file), "..")
@@ -111,6 +114,13 @@ const config = {
         owner: process.env.METADATA_OWNER as string,
         legal: process.env.METADATA_LEGAL as string,
         trademark: process.env.METADATA_TRADEMARK as string
+    },
+
+    colors: colors,
+
+    rules: {
+        ignored,
+        exact
     },
 
     messages: {

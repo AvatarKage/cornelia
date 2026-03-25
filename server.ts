@@ -88,3 +88,5 @@ process.on("SIGTERM", shutdown); // Host shutdown
 DEVELOPER SANDBOX
 ———————————————————————————————————————————————————————————————— 
 */
+
+// log.config.info(config.rules.exact);
