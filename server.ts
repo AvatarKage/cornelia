@@ -19,6 +19,8 @@ import log from "./packages/avatarkage-utilities/logging/index.js";
 import { toMs } from "./packages/avatarkage-utilities/formatting/index.js";
 import Snowflake from "./packages/avatarkage-utilities/snowflake/index.js";
 import { random } from "./src/helpers/index.js";
+import path from "path";
+import fs from "fs";
 
 // Start stopwatch
 const sw = new Stopwatch(true);
@@ -49,7 +51,7 @@ Middlewares
 ———————————————————————————————————————————————————————————————— 
 */
 
-// Middleware here
+server.use(express.json());
 
 /* 
 ————————————————————————————————————————————————————————————————
@@ -57,7 +59,33 @@ Routes
 ———————————————————————————————————————————————————————————————— 
 */
 
-// server.use("/", routes.root);
+server.get("/", (req, res) => {
+    const indexPath = path.join(config.folders.frontend, "index.html");
+    res.sendFile(indexPath);
+});
+
+server.use(express.static(config.folders.frontend)); 
+server.use("/resources", express.static(config.folders.resources));
+
+server.post("/api/render", (req, res) => {
+    const { style, variant } = req.body;
+
+    if (!style || !variant) {
+        return res.status(400).send("Style and variant are required");
+    }
+
+    const svgPath = path.join(config.folders.resources, "svg", style, `${variant}.svg`);
+
+    fs.readFile(svgPath, "utf8", (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(404).send("Folder not found");
+        }
+
+        res.setHeader("Content-Type", "image/svg+xml");
+        res.send(data); // Raw SVG
+    });
+});
 
 /* 
 ————————————————————————————————————————————————————————————————
@@ -65,18 +93,19 @@ Server
 ———————————————————————————————————————————————————————————————— 
 */
 
-let httpsConfig;
+// let httpsConfig;
 
-httpsConfig = { // ENABLE BACK LATER
+// httpsConfig = { // ENABLE BACK LATER
 //    cert: fs.readFileSync(config.ssl.crt),
 //    key: fs.readFileSync(config.ssl.key)
-};
+// };
 
-const httpsServer = https.createServer(httpsConfig, server);
+// const httpsServer = https.createServer(httpsConfig, server);
 
-httpsServer.listen(config.ports.proxy, () => {
+// Use httpServer.listen if public
+server.listen(config.port, () => {
     sw.stop();
-    log.server.success(`API running on ${config.routes.api}/v1/cornelia`).tree(1);
+    log.server.success(`Cornelia Studio running on http://${config.ip}:${config.port}`).tree(1);
     log.sw.info(`Took ${toMs(sw.read())}s`).tree(1).end();
 });
 
@@ -88,5 +117,3 @@ process.on("SIGTERM", shutdown); // Host shutdown
 DEVELOPER SANDBOX
 ———————————————————————————————————————————————————————————————— 
 */
-
-// log.config.info(config.rules.exact);

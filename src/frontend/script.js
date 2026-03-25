@@ -1,3 +1,4 @@
+// Custom selection inputs
 const selects = document.querySelectorAll(".select");
 
 selects.forEach(select => {
@@ -30,6 +31,7 @@ document.addEventListener("click", () => {
     selects.forEach(select => select.classList.remove("open"));
 });
 
+// Custom color picker inputs
 const colorPickers = document.querySelectorAll(".color-wrapper input[type='color']");
 
 colorPickers.forEach(picker => {
@@ -44,3 +46,48 @@ colorPickers.forEach(picker => {
         if (picker.value) picker.dataset.empty = "false";
     });
 });
+
+// Update folder (api)
+const styleSelect = document.getElementById("styleSelect");
+const varientSelect = document.getElementById("varientSelect");
+const previewDiv = document.getElementById("preview");
+
+async function updatePreview() {
+    const style = styleSelect.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, '');
+    const variant = varientSelect.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, '');
+
+    try {
+        const response = await fetch("/api/render", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ 
+                style, 
+                variant
+            })
+        });
+
+        if (!response.ok) throw new Error("SVG not found");
+
+        const svg = await response.text();
+
+        if (svg) {
+            previewDiv.innerHTML = svg;
+        } else {
+            previewDiv.textContent = "No folder available for this option.";
+        }
+    } catch (err) {
+        previewDiv.textContent = "No folder available for this option.";
+        console.error(err);
+    }
+}
+
+[styleSelect, varientSelect].forEach(select => {
+    const options = select.querySelectorAll(".option");
+    options.forEach(option => {
+        option.addEventListener("click", () => updatePreview());
+    });
+});
+
+updatePreview();

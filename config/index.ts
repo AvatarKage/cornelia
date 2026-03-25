@@ -68,10 +68,7 @@ const config = {
         snowflake: toBoolean(process.env.DEBUG_SNOWFLAKE, "DEBUG_SNOWFLAKE")
     },
 
-    ports: {
-        proxy: toNumber(process.env.PORT_PROXY, "PORT_PROXY")
-        // Add more ports here as needed
-    },
+    port: toNumber(process.env.PORT, "PORT"),
 
     domains: {
         api: toDomain("API")
@@ -88,6 +85,8 @@ const config = {
         config: resolve(dir, "config"),
         logs: resolve(dir, "logs"),
         packages: resolve(dir, "packages"),
+        resources: resolve(dir, "src", "resources"),
+        frontend: resolve(dir, "src", "frontend"),
         // Add more folders here as needed
     },
 

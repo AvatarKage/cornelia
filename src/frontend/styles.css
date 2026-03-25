@@ -1,11 +1,15 @@
 @font-face {
     font-family: "playwrite-nerdfont";
-    src: url("./resources/fonts/playwrite/nerdfont.ttf") format("truetype");
+    src: url("../resources/fonts/playwrite/nerdfont.ttf") format("truetype");
 }
 
 @font-face {
     font-family: "playwrite-cursive";
-    src: url("./resources/fonts/playwrite/cursive.ttf") format("truetype");
+    src: url("../resources/fonts/playwrite/cursive.ttf") format("truetype");
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 * { 
@@ -23,8 +27,10 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 32px;
-    background: #483c18;
-    background-size: 400% 400%;
+    background: linear-gradient(to bottom, #5e3d2e, #2c1b14);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -79,7 +85,7 @@ input[type="range"] {
 }
 
 input[type="range"]::-webkit-slider-runnable-track {
-    background: #ffca38;
+    background: #f9d26f;
     height: 6px;
     border-radius: 3px;
 }
@@ -89,7 +95,7 @@ input[type="range"]::-webkit-slider-thumb {
     height: 16px;
     width: 16px;
     border-radius: 50%;
-    background: #ffca38;
+    background: #f9d26f;
     margin-top: -5px;
     transition: transform 0.3s ease;
 }
@@ -134,7 +140,7 @@ input[type="range"]::-webkit-slider-thumb:hover {
     top: calc(100% + 4px);
     left: 0;
     font-size: 14px;
-    background: #483c18;
+    background: #38231a;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 4px;
@@ -198,7 +204,7 @@ button {
     padding: 8px;
     border-radius: 8px;
     border: none;
-    background: #ffca38;
+    background: #f9d26f;
     color: #1a1a1a;
     cursor: pointer;
     font-size: 12px;
@@ -244,8 +250,14 @@ button .text {
     grid-column: 1 / -1;
 }
 
+#preview svg {
+    width: 100%;
+    height: auto;
+    max-height: 34vh;
+}
+
 a {
-    color: #ffca38;
+    color: #f9d26f;
     text-decoration: none;
 }
 
