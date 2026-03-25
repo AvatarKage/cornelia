@@ -15,9 +15,9 @@ This license will be revised to be more permissive when the update is completed.
 | Material Design Icons | Apache 2.0 |
 | Original Source (Seti-UI but modified) | MIT |
 | Octicons | MIT |
+| Playwrite Deutschland Grundschrift | SIL OFL 1.1 |
+| Playwrite Perú | SIL OFL 1.1 |
 | Pomicons | SIL OFL 1.1 |
 | Powerline Extra Symbols | MIT |
 | Powerline Symbols | Free License |
 | Weather Icons | SIL OFL 1.1 |
-| Playwrite Deutschland Grundschrift | SIL OFL 1.1 |
-| Playwrite Perú | SIL OFL 1.1 |
