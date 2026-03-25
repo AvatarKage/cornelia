@@ -1,0 +1,18 @@
+# Folders
+.vscode
+node_modules
+dist
+logs
+databases
+ssl
+.select
+
+# Files
+notes.md
+package-lock.json
+
+# Extensions
+*.env
+*.log
+*.ini
+*.lnk
