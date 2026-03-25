@@ -4,4 +4,6 @@
 
 `http://127.0.0.1:32303` to access the UI<br>
 
+To open `/src/resources/folders.free`, [Lunacy](https://lunacyapp.com) is required<br>
+
 Copyright (c) 2026 AvatarKage. All Rights Reserved.<br>
