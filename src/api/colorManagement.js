@@ -26,8 +26,19 @@ function updateStops(svgDoc, newColors, backColorChanged, backColorHex) {
     });
 }
 
+function updateColor(svgDoc, baseColor, backColor) {
+    svgDoc.querySelectorAll('[fill]').forEach(el => {
+        const fill = el.getAttribute('fill');
+        if (!fill) return;
+        if (fill.toLowerCase() === "#ffca38") el.setAttribute('fill', baseColor);
+        if (fill.toLowerCase() === "#1f1600") el.setAttribute('fill', backColor);
+    });
+    return svgDoc;
+}
+
 export {
     darkenColor,
     adjustColor,
-    updateStops
+    updateStops,
+    updateColor
 };

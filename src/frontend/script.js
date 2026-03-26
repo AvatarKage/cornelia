@@ -1,5 +1,5 @@
 import { hexToHsl, hslToHex } from "../api/convert.js";
-import { adjustColor, updateStops } from "../api/colorManagement.js";
+import { adjustColor, updateStops, updateColor, darkenColor } from "../api/colorManagement.js";
 import addTextElement from "../api/addTextElement.js";
 import createOverlayGradient from "../api/createOverlayGradient.js";
 
@@ -136,46 +136,66 @@ async function injectFont(svgDoc) {
 async function recolor(
     svgDoc, 
     style = "shaded",
-    varient = "left1",
+    variant = "left1",
     baseColor = "#ffca38",
     backColor = "#000000",
     iconColor = "#000000",
     mediumIcon = "",
     smallIcon = "",
     text = "",
-    saturation = parseFloat("100") / 100,
-    brightness = parseFloat("100") / 100,
-    contrast = parseFloat("100") / 100,
+    saturation = 1,
+    brightness = 1,
+    contrast = 1,
     isCustomBackColor = false,
     isCustomIconColor = false
 ) {
     let [h, s, l] = hexToHsl(baseColor);
-    s = Math.min(1, Math.max(0, s*saturation));
-    l = Math.min(1, Math.max(0, l*brightness));
-    l = 0.5 + (l-0.5)*contrast;
+    s = Math.min(1, Math.max(0, s * saturation));
+    l = Math.min(1, Math.max(0, l * brightness));
+    l = 0.5 + (l - 0.5) * contrast;
 
-    const newColors = offsets.map(o =>
-        hslToHex((h+o.dh+1)%1, Math.min(1, Math.max(0,s+o.ds)), Math.min(1, Math.max(0,l+o.dl)))
-    );
+    let overlayFill;
 
-    updateStops(svgDoc, newColors, isCustomBackColor, backColor);
+    if (style === "shaded") {
+        const newColors = offsets.map(o =>
+            hslToHex(
+                (h + o.dh + 1) % 1,
+                Math.min(1, Math.max(0, s + o.ds)),
+                Math.min(1, Math.max(0, l + o.dl))
+            )
+        );
 
-    const overlayId = "overlayGradient";
-    const baseOverlayColor = isCustomIconColor ? iconColor : baseColor;
-    const adjustedOverlayColor = adjustColor(baseOverlayColor, saturation, brightness, contrast);
-    const overlayFill = isCustomIconColor ? baseOverlayColor : createOverlayGradient(svgDoc, overlayId, adjustedOverlayColor);
+        const adjustedBackColor = isCustomBackColor 
+            ? adjustColor(backColor, saturation, brightness, contrast) 
+            : adjustColor(backColor, saturation, brightness, contrast);
+
+        updateStops(svgDoc, newColors, isCustomBackColor, adjustedBackColor);
+
+        const overlayId = "overlayGradient";
+        const baseOverlayColor = isCustomIconColor ? iconColor : baseColor;
+        const adjustedOverlayColor = adjustColor(baseOverlayColor, saturation, brightness, contrast);
+        overlayFill = isCustomIconColor ? adjustedOverlayColor : createOverlayGradient(svgDoc, overlayId, adjustedOverlayColor);
+
+    } else {
+        const adjustedBase = adjustColor(baseColor, saturation, brightness, contrast);
+        const adjustedBack = isCustomBackColor ? adjustColor(backColor, saturation, brightness, contrast) 
+            : adjustColor(darkenColor(adjustedBase, 0.55), saturation, brightness, contrast);
+        updateColor(svgDoc, adjustedBase, adjustedBack);
+
+        overlayFill = isCustomIconColor 
+            ? adjustColor(iconColor, saturation, brightness, contrast) 
+            : adjustedBack;
+    }
 
     let mediumIconY = "69%";
-
-    if (style === "shaded" && varient === "center1") {
-        mediumIconY = "72%"
-    }
+    if (style === "shaded" && variant === "center1") mediumIconY = "72%";
 
     addTextElement(svgDoc, "50%", mediumIconY, "112", mediumIcon, overlayFill);
     addTextElement(svgDoc, "87%", "73%", "96", smallIcon, overlayFill, "end");
     addTextElement(svgDoc, "88%", "75%", "68", text, overlayFill, "end");
 
-    await injectFont(svgDoc);
+    if (typeof injectFont === "function") await injectFont(svgDoc);
+
     return new XMLSerializer().serializeToString(svgDoc);
 }
 
