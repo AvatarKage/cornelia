@@ -7,4 +7,6 @@
 
 To open `/src/resources/folders.free`, [Lunacy](https://lunacyapp.com) is required<br>
 
+Cornelia illustration by [Luji9](https://vgen.co/luji9)<br>
+
 Copyright (c) 2026 AvatarKage. All Rights Reserved.<br>
