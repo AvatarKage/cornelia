@@ -19,19 +19,19 @@ const offsets = baseHSL.map(([h,s,l]) => ({ dh: h - ref[0], ds: s - ref[1], dl: 
 
 function recolor(
     data,
-    style,
-    varient,
-    baseColor,
-    backColor,
-    iconColor,
-    mediumIcon,
-    smallIcon,
-    text,
-    saturation,
-    brightness,
-    contrast,
-    isCustomBackColor,
-    isCustomIconColor
+    style = "shaded",
+    varient = "left1",
+    baseColor = "#ffca38",
+    backColor = "#000000",
+    iconColor = "#000000",
+    mediumIcon = "",
+    smallIcon = "",
+    text = "",
+    saturation = 100,
+    brightness = 100,
+    contrast = 100,
+    isCustomBackColor = false,
+    isCustomIconColor = false
 ) {
     let [h, s, l] = hexToHsl(baseColor);
 

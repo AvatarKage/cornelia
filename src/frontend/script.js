@@ -133,7 +133,22 @@ async function injectFont(svgDoc) {
     svgDoc.documentElement.insertBefore(style, svgDoc.documentElement.firstChild);
 }
 
-async function recolor(svgDoc, style, varient, baseColor, backColor, iconColor, mediumIcon, smallIcon, text, saturation, brightness, contrast, isCustomBackColor, isCustomIconColor) {
+async function recolor(
+    svgDoc, 
+    style = "shaded",
+    varient = "left1",
+    baseColor = "#ffca38",
+    backColor = "#000000",
+    iconColor = "#000000",
+    mediumIcon = "",
+    smallIcon = "",
+    text = "",
+    saturation = 100,
+    brightness = 100,
+    contrast = 100,
+    isCustomBackColor = false,
+    isCustomIconColor = false
+) {
     let [h, s, l] = hexToHsl(baseColor);
     s = Math.min(1, Math.max(0, s*saturation));
     l = Math.min(1, Math.max(0, l*brightness));
