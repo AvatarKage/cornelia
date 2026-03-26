@@ -6,6 +6,7 @@ logs
 databases
 ssl
 .select
+generated
 
 # Files
 notes.md

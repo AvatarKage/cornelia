@@ -87,6 +87,7 @@ const config = {
         packages: resolve(dir, "packages"),
         resources: resolve(dir, "src", "resources"),
         frontend: resolve(dir, "src", "frontend"),
+        generated: resolve(dir, "generated"),
         // Add more folders here as needed
     },
 
