@@ -1,3 +1,13 @@
+import { hexToHsl, hslToHex } from "../api/convert.js";
+import { adjustColor, updateStops } from "../api/colorManagement.js";
+import addTextElement from "../api/addTextElement.js";
+import createOverlayGradient from "../api/createOverlayGradient.js";
+
+// Disable rightclick
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+});
+
 // Custom selection inputs
 const selects = document.querySelectorAll(".select");
 
@@ -48,6 +58,7 @@ colorPickers.forEach(picker => {
 });
 
 // Update folder
+let svgFontBase64 = null;
 let isCustomBackColor = false;
 let isCustomIconColor = false;
 
@@ -76,33 +87,124 @@ const e = {
     downloadZIP: document.getElementById("downloadZIP")
 };
 
+const baseStops = [
+    "#FABA1B","#F0B122", // shadow
+    "#FABA1B","#F0B122", // back
+    "#FFEDBA","#FFDC78", // shine
+    "#FFE69C","#FFCA38", // front
+];
+
+const baseHSL = baseStops.map(hexToHsl);
+const ref = baseHSL[2];
+const offsets = baseHSL.map(([h,s,l]) => ({ dh: h - ref[0], ds: s - ref[1], dl: l - ref[2] }));
+
+async function loadFont(url) {
+    if (svgFontBase64) return svgFontBase64;
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Font not found at " + url);
+
+    const arrayBuffer = await res.arrayBuffer();
+    const bytes = new Uint8Array(arrayBuffer);
+    let binary = "";
+    for (let i = 0; i < bytes.length; i++) {
+        binary += String.fromCharCode(bytes[i]);
+    }
+
+    svgFontBase64 = btoa(binary);
+    return svgFontBase64;
+}
+
+async function injectFont(svgDoc) {
+    const base64Font = await loadFont("../resources/fonts/jetbrains/nerdfont.ttf");
+
+    const style = svgDoc.createElementNS("http://www.w3.org/2000/svg", "style");
+    style.textContent = `
+        @font-face {
+            font-family: 'jetbrains-nerdfont';
+            src: url("data:font/ttf;base64,${base64Font}") format("truetype");
+        }
+        
+        text { 
+            font-family: 'jetbrains-nerdfont';
+            font-weight: 400; 
+        }
+    `;
+    svgDoc.documentElement.insertBefore(style, svgDoc.documentElement.firstChild);
+}
+
+async function recolor(svgDoc, style, varient, baseColor, backColor, iconColor, mediumIcon, smallIcon, text, saturation, brightness, contrast, isCustomBackColor, isCustomIconColor) {
+    let [h, s, l] = hexToHsl(baseColor);
+    s = Math.min(1, Math.max(0, s*saturation));
+    l = Math.min(1, Math.max(0, l*brightness));
+    l = 0.5 + (l-0.5)*contrast;
+
+    const newColors = offsets.map(o =>
+        hslToHex((h+o.dh+1)%1, Math.min(1, Math.max(0,s+o.ds)), Math.min(1, Math.max(0,l+o.dl)))
+    );
+
+    updateStops(svgDoc, newColors, isCustomBackColor, backColor);
+
+    const overlayId = "overlayGradient";
+    const baseOverlayColor = isCustomIconColor ? iconColor : baseColor;
+    const adjustedOverlayColor = adjustColor(baseOverlayColor, saturation, brightness, contrast);
+    const overlayFill = isCustomIconColor ? baseOverlayColor : createOverlayGradient(svgDoc, overlayId, adjustedOverlayColor);
+
+    let mediumIconY = "0%";
+    if (style==="shaded" && varient.includes("left")) mediumIconY="69%";
+    if (style==="shaded" && (varient==="center1" || varient==="center3")) mediumIconY="72%";
+    if (style==="shaded" && varient==="center2") mediumIconY="69%";
+
+    addTextElement(svgDoc, "50%", mediumIconY, "112", mediumIcon, overlayFill);
+    addTextElement(svgDoc, "87%", "73%", "96", smallIcon, overlayFill, "end");
+    addTextElement(svgDoc, "88%", "75%", "68", text, overlayFill, "end");
+
+    await injectFont(svgDoc);
+    return new XMLSerializer().serializeToString(svgDoc);
+}
+
+async function fetchSVG(style, variant) {
+    const res = await fetch(`../resources/svg/${style}/${variant}.svg`);
+    if (!res.ok) throw new Error("SVG not found");
+    const text = await res.text();
+    return new DOMParser().parseFromString(text, "image/svg+xml");
+}
+
 async function updatePreview() {
     try {
-        const response = await fetch("/api/render", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                preset: e.preset.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, ''),
-                style: e.style.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, ''),
-                varient: e.varient.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, ''),
-                baseColor: e.baseColor.value,
-                backColor: e.backColor.value,
-                iconColor: e.iconColor.value,
-                mediumIcon: e.mediumIcon.value,
-                smallIcon: e.smallIcon.value,
-                text: e.text.value,
-                saturation: parseFloat(e.saturation.value || "100") / 100,
-                brightness: parseFloat(e.brightness.value || "100") / 100,
-                contrast: parseFloat(e.contrast.value || "100") / 100,
-                isCustomBackColor,
-                isCustomIconColor
-            })
-        });
+        const preset = e.preset.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, '');
+        const style = e.style.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, '');
+        const varient = e.varient.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, '');
+        const baseColor = e.baseColor.value;
+        const backColor = e.backColor.value;
+        const iconColor = e.iconColor.value;
+        const mediumIcon = e.mediumIcon.value;
+        const smallIcon = e.smallIcon.value;
+        const text = e.text.value;
+        const saturation = parseFloat(e.saturation.value || "100") / 100;
+        const brightness = parseFloat(e.brightness.value || "100") / 100;
+        const contrast = parseFloat(e.contrast.value || "100") / 100;
 
-        if (!response.ok) throw new Error("SVG not found");
+        const svgDoc = await fetchSVG(style, varient);
 
-        const svg = await response.text();
-        e.preview.innerHTML = svg || "No folder available for this option.";
+        const svgString = await recolor(
+            svgDoc,
+            style,
+            varient,
+            baseColor,
+            backColor,
+            iconColor,
+            mediumIcon,
+            smallIcon,
+            text,
+            saturation,
+            brightness,
+            contrast,
+            isCustomBackColor,
+            isCustomIconColor
+        );
+
+        e.preview.innerHTML = svgString || "No folder available for this option.";
     } catch (err) {
         e.preview.textContent = "No folder available for this option.";
         console.error(err);
@@ -121,9 +223,7 @@ e.contrast.oninput = updatePreview;
 
 [e.preset, e.style, e.varient].forEach(select => {
     const options = select.querySelectorAll(".option");
-    options.forEach(option => {
-        option.addEventListener("click", () => updatePreview());
-    });
+    options.forEach(option => option.addEventListener("click", () => updatePreview()));
 });
 
 updatePreview();
@@ -267,9 +367,4 @@ e.downloadZIP.addEventListener("click", async () => {
         const zipBlob = await zipInstance.generateAsync({ type: "blob" });
         downloadBlob("folder.zip", zipBlob);
     };
-});
-
-// Disable rightclick
-document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
 });

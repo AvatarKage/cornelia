@@ -1,6 +1,6 @@
-import { svgFont } from "../../../server.js";
+import { svgFont } from "../../server.js";
 
-function injectFont(svgString: string) {
+function injectFont(svgString) {
     const style = `
         <style>
             @font-face {

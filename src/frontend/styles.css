@@ -8,6 +8,11 @@
     src: url("../resources/fonts/playwrite/cursive.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "jetbrains-nerdfont";
+    src: url("../resources/fonts/jetbrains/nerdfont.ttf") format("truetype");
+}
+
 ::-webkit-scrollbar {
     display: none;
 }

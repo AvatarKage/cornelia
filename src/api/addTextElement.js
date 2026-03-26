@@ -1,12 +1,4 @@
-function addTextElement(
-    svgDoc: Document, 
-    x: string, 
-    y: string, 
-    fontSize: string, 
-    content: string, 
-    fill: string, 
-    anchor: string = "middle"
-): void {
+function addTextElement(svgDoc, x, y, fontSize, content, fill, anchor = "middle") {
     if (!content) return;
 
     const txt = svgDoc.createElementNS("http://www.w3.org/2000/svg", "text");

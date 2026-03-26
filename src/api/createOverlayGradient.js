@@ -1,6 +1,6 @@
 import { darkenColor } from "./colorManagement.js";
 
-function createOverlayGradient(svgDoc: Document, id: string, baseHex: string): string {
+function createOverlayGradient(svgDoc, id, baseHex) {
     const top = darkenColor(baseHex, 0.2);
     const bottom = darkenColor(baseHex, 0.3);
 

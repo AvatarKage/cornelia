@@ -1,14 +1,10 @@
 import { JSDOM } from "jsdom";
 import XMLSerializer from "xmlserializer";
 
-import { 
-    addTextElement, 
-    adjustColor, 
-    createOverlayGradient, 
-    hexToHsl, 
-    hslToHex, 
-    updateStops 
-} from "../../helpers/index.js";
+import { hexToHsl, hslToHex } from "./convert.js";
+import { adjustColor, updateStops } from "./colorManagement.js";
+import createOverlayGradient from "./createOverlayGradient.js";
+import addTextElement from "./addTextElement.js";
 
 const baseStops = [
     "#FABA1B","#F0B122", // shadow
@@ -22,21 +18,21 @@ const ref = baseHSL[2];
 const offsets = baseHSL.map(([h,s,l]) => ({ dh: h - ref[0], ds: s - ref[1], dl: l - ref[2] }));
 
 function recolor(
-    data: string,
-    style: string,
-    varient: string,
-    baseColor: string,
-    backColor: string,
-    iconColor: string,
-    mediumIcon: string,
-    smallIcon: string,
-    text: string,
-    saturation: number,
-    brightness: number,
-    contrast: number,
-    isCustomBackColor: boolean,
-    isCustomIconColor: boolean
-): string {
+    data,
+    style,
+    varient,
+    baseColor,
+    backColor,
+    iconColor,
+    mediumIcon,
+    smallIcon,
+    text,
+    saturation,
+    brightness,
+    contrast,
+    isCustomBackColor,
+    isCustomIconColor
+) {
     let [h, s, l] = hexToHsl(baseColor);
 
     s = Math.min(1, Math.max(0, s * saturation));
@@ -63,17 +59,17 @@ function recolor(
         ? baseOverlayColor
         : createOverlayGradient(svgDoc, overlayId, adjustedOverlayColor);
 
-    let mediumIconY: string = "0%";
+    let mediumIconY = "0%";
 
     switch (true) {
         case style === "shaded" && varient.includes("left"):
-            mediumIconY = "69%"
+            mediumIconY = "69%";
             break;
-        case style === "shaded" && varient === "center1" || varient === "center3":
-            mediumIconY = "72%"
+        case style === "shaded" && (varient === "center1" || varient === "center3"):
+            mediumIconY = "72%";
             break;
         case style === "shaded" && varient === "center2":
-            mediumIconY = "69%"
+            mediumIconY = "69%";
             break;
     }
 

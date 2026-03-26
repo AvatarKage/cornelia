@@ -1,12 +1,12 @@
 import { hexToHsl, hslToHex } from "./convert.js";
 
-function darkenColor(hex: string, amount: number = 0.3): string {
+function darkenColor(hex, amount = 0.3) {
     let [h, s, l] = hexToHsl(hex);
     l = Math.max(0, l - amount);
     return hslToHex(h, s, l);
 }
 
-function adjustColor(hex: string, satVal: number, briVal: number, conVal: number): string {
+function adjustColor(hex, satVal, briVal, conVal) {
     let [h, s, l] = hexToHsl(hex);
     s = Math.min(1, Math.max(0, s * satVal));
     l = Math.min(1, Math.max(0, l * briVal));
@@ -14,10 +14,9 @@ function adjustColor(hex: string, satVal: number, briVal: number, conVal: number
     return hslToHex(h, s, l);
 }
 
-function updateStops(svgDoc: Document, newColors: string[], backColorChanged: boolean, backColorHex: string): void {
+function updateStops(svgDoc, newColors, backColorChanged, backColorHex) {
     const stops = svgDoc.querySelectorAll("stop");
     stops.forEach((stop, i) => {
-        // @ts-ignore
         if (backColorChanged && stop.parentNode?.id === "gradient_2") {
             stop.setAttribute("stop-color", backColorHex);
         } else {
@@ -31,4 +30,4 @@ export {
     darkenColor,
     adjustColor,
     updateStops
-}
+};

@@ -18,10 +18,12 @@ import config from "./config/index.js";
 import log from "./packages/avatarkage-utilities/logging/index.js";
 import { toMs } from "./packages/avatarkage-utilities/formatting/index.js";
 import Snowflake from "./packages/avatarkage-utilities/snowflake/index.js";
-import { injectFont } from "./src/helpers/index.js";
 import path from "path";
 import fs from "fs";
-import { recolor } from "./src/backend/index.js";
+// @ts-ignore
+import recolor from "./src/api/recolor.js";
+// @ts-ignore
+import injectFont from "./src/api/injectFont.js";
 
 // Start stopwatch
 const sw = new Stopwatch(true);
