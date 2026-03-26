@@ -143,9 +143,9 @@ async function recolor(
     mediumIcon = "",
     smallIcon = "",
     text = "",
-    saturation = 100,
-    brightness = 100,
-    contrast = 100,
+    saturation = parseFloat("100") / 100,
+    brightness = parseFloat("100") / 100,
+    contrast = parseFloat("100") / 100,
     isCustomBackColor = false,
     isCustomIconColor = false
 ) {
