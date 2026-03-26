@@ -59,18 +59,10 @@ function recolor(
         ? baseOverlayColor
         : createOverlayGradient(svgDoc, overlayId, adjustedOverlayColor);
 
-    let mediumIconY = "0%";
+    let mediumIconY = "69%";
 
-    switch (true) {
-        case style === "shaded" && varient.includes("left"):
-            mediumIconY = "69%";
-            break;
-        case style === "shaded" && (varient === "center1" || varient === "center3"):
-            mediumIconY = "72%";
-            break;
-        case style === "shaded" && varient === "center2":
-            mediumIconY = "69%";
-            break;
+    if (style === "shaded" && varient === "center1") {
+        mediumIconY = "72%"
     }
 
     addTextElement(svgDoc, "50%", mediumIconY, "112", mediumIcon, overlayFill);

@@ -165,10 +165,11 @@ async function recolor(
     const adjustedOverlayColor = adjustColor(baseOverlayColor, saturation, brightness, contrast);
     const overlayFill = isCustomIconColor ? baseOverlayColor : createOverlayGradient(svgDoc, overlayId, adjustedOverlayColor);
 
-    let mediumIconY = "0%";
-    if (style==="shaded" && varient.includes("left")) mediumIconY="69%";
-    if (style==="shaded" && (varient==="center1" || varient==="center3")) mediumIconY="72%";
-    if (style==="shaded" && varient==="center2") mediumIconY="69%";
+    let mediumIconY = "69%";
+
+    if (style === "shaded" && varient === "center1") {
+        mediumIconY = "72%"
+    }
 
     addTextElement(svgDoc, "50%", mediumIconY, "112", mediumIcon, overlayFill);
     addTextElement(svgDoc, "87%", "73%", "96", smallIcon, overlayFill, "end");
