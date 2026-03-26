@@ -12,6 +12,16 @@
     display: none;
 }
 
+::selection {
+    background: #f9d26f;
+    color: #2c1b14;
+}
+
+::-moz-selection {
+    background: #f9d26f;
+    color: #2c1b14;
+}
+
 * { 
     margin: 0;
     padding: 0;
@@ -31,6 +41,7 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    user-select: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
