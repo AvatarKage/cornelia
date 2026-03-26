@@ -2,7 +2,6 @@ import shuffle from "./src/shuffle.js";
 import random from "./src/random.js";
 import { hexToHsl, hslToHex } from "./src/convert.js";
 import draw from "./src/draw.js";
-import { downloadSVG, downloadPNG, downloadICO } from "./src/download.js";
 import addTextElement from "./src/addTextElement.js";
 import createOverlayGradient from "./src/createOverlayGradient.js";
 import { darkenColor, adjustColor, updateStops } from "./src/colorManagement.js";
@@ -14,9 +13,6 @@ export {
     hexToHsl,
     hslToHex,
     draw,
-    downloadSVG,
-    downloadPNG,
-    downloadICO,
     addTextElement,
     createOverlayGradient,
     darkenColor,

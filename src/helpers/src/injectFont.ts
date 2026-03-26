@@ -10,6 +10,7 @@ function injectFont(svgString: string) {
 
             text {
                 font-family: 'jetbrains-nerdfont';
+                font-weight: 100;
             }
         </style>
     `;
