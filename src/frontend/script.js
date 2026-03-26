@@ -200,7 +200,14 @@ async function updatePreview() {
         const brightness = parseFloat(e.brightness.value || "100") / 100;
         const contrast = parseFloat(e.contrast.value || "100") / 100;
 
-        const svgDoc = await fetchSVG(style, varient);
+        let svgDoc;
+        try {
+            svgDoc = await fetchSVG(style, varient);
+            if (!svgDoc) throw new Error("SVG not found");
+        } catch {
+            e.preview.innerHTML = "Coming soon!";
+            return;
+        }
 
         const svgString = await recolor(
             svgDoc,
@@ -219,9 +226,9 @@ async function updatePreview() {
             isCustomIconColor
         );
 
-        e.preview.innerHTML = svgString || "No folder available for this option.";
+        e.preview.innerHTML = svgString;
     } catch (err) {
-        e.preview.textContent = "No folder available for this option.";
+        e.preview.textContent = "There was an error generating your folder";
         console.error(err);
     }
 }
