@@ -268,3 +268,8 @@ e.downloadZIP.addEventListener("click", async () => {
         downloadBlob("folder.zip", zipBlob);
     };
 });
+
+// Disable rightclick
+document.addEventListener('contextmenu', function (e) {
+    e.preventDefault();
+});
