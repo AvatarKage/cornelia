@@ -9,8 +9,7 @@ function injectFont(svgString) {
             }
 
             text {
-                font-family: 'jetbrains-nerdfont';
-                font-weight: 400;
+                font-family: 'jetbrains-nerdfont', sans-serif;
             }
         </style>
     `;
