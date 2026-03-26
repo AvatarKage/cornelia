@@ -1,11 +1,9 @@
 import { DateTime } from "luxon";
 import chalk from "chalk";
 
-import config from "../../../../config/index.js";
 import { pad } from "../../formatting/index.js";
 import colors from "./colors.js";
 import icons from "./icons.js";
-import { sendDiscordMessage } from "../../../../src/helpers/index.js";
 
 function print(scope: string, level: string, message: any, treeLevel = 0, endTree = false) {
     const now = DateTime.now();
@@ -24,12 +22,6 @@ function print(scope: string, level: string, message: any, treeLevel = 0, endTre
         console.log(`${time} ${tree}${color(`  ${message} `)}`)
         :
         console.log(`${time} ${tree}${color(`${icon} ${message}`)}`);
-
-    // Discord
-    // level == "terminate" ?
-    //     sendDiscordMessage(config.services.discord.channel.log, `\`\`\`ansi\n${color(`[TERMINATED] ${message}`)}\n\`\`\``)
-    //     :
-    //     sendDiscordMessage(config.services.discord.channel.log, `\`\`\`ansi\n${color(`${tag} ${message}`)}\n\`\`\``)
 }
 
 function createLogMethod(scope: string, level: string) {
