@@ -1,3 +1,5 @@
+![Cornelia illustration by Luji9](https://cdn.avatarka.ge/r/chrome_SrXAB8ZWyNC4WCjsHrWmymqt.png)
+
 `npm i` to install all required dependencies<br>
 `npm run dev` to start the API without building<br>
 `npm run build` to build TS to JS<br>
