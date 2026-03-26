@@ -13,7 +13,7 @@
         <div class="card">
             <div>
                 <label>Preset</label>
-                <div class="select">
+                <div class="select" id="preset">
                     <input type="hidden" class="select-value" value="Default">
                     <div class="select-display">
                         <span class="selected"> Default</span>
@@ -30,7 +30,7 @@
             <div class="color-picker">
                 <label>Base Color</label>
                 <div class="color-wrapper">
-                    <input type="color" value="#FFCA38" id="baseColor">
+                    <input id="baseColor" type="color" value="#FFCA38">
                     <div class="color-display"></div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             <div class="color-picker">
                 <label>Back Color</label>
                 <div class="color-wrapper">
-                    <input type="color" value="" data-empty="true" id="backColor">
+                    <input id="backColor" type="color" value="" data-empty="true">
                     <div class="color-display"></div>
                 </div>
             </div>
@@ -46,46 +46,46 @@
             <div class="color-picker">
                 <label>Icon Color</label>
                 <div class="color-wrapper">
-                    <input type="color" value="" data-empty="true" id="backColor">
+                    <input id="iconColor" type="color" value="" data-empty="true">
                     <div class="color-display"></div>
                 </div>
             </div>
 
             <div>
                 <label>Center Icon</label>
-                <input type="text" placeholder="">
+                <input id="mediumIcon" type="text" placeholder="">
             </div>
 
             <div>
                 <label>Corner Icon</label>
-                <input type="text" placeholder="">
+                <input id="smallIcon" type="text" placeholder="">
             </div>
 
             <div>
                 <label>Text</label>
-                <input type="text" placeholder="1">
+                <input id="text" type="text" placeholder="1">
             </div>
 
             <div>
                 <label>Saturation</label>
-                <input type="range" min="0" max="200" value="100">
+                <input id="saturation" type="range" min="0" max="200" value="100">
             </div>
 
             <div>
                 <label>Brightness</label>
-                <input type="range" min="0" max="200" value="100">
+                <input id="brightness" type="range" min="0" max="200" value="100">
             </div>
 
             <div>
                 <label>Contrast</label>
-                <input type="range" min="0" max="200" value="100">
+                <input id="contrast" type="range" min="0" max="200" value="100">
             </div>
         </div>
 
         <div class="preview">
             <div>
                 <label>Style</label>
-                <div class="select" id="styleSelect">
+                <div class="select" id="style">
                     <input type="hidden" class="select-value" value="Default">
                     <div class="select-display">
                         <span class="selected">Shaded</span>
@@ -101,7 +101,7 @@
                 
             <div>
                 <label>Varient</label>
-                <div class="select" id="varientSelect">
+                <div class="select" id="varient">
                     <input type="hidden" class="select-value" value="Default">
                     <div class="select-display">
                         <span class="selected">Left 1</span>
@@ -128,10 +128,10 @@
     </div>
 
     <div class="buttons">
-        <button id="d_svg"><span class="icon">󰆓</span><span class="text">.SVG</span></button>
-        <button id="d_png"><span class="icon">󰆓</span><span class="text">.PNG</span></button>
-        <button id="d_ico"><span class="icon">󰆓</span><span class="text">.ICO</span></button>
-        <button id="d_zip"><span class="icon">󰆓</span><span class="text">DOWNLOAD ALL (.ZIP)</span></button>
+        <button id="downloadSVG"><span class="icon">󰆓</span><span class="text">.SVG</span></button>
+        <button id="downloadPNG"><span class="icon">󰆓</span><span class="text">.PNG</span></button>
+        <button id="downloadICO"><span class="icon">󰆓</span><span class="text">.ICO</span></button>
+        <button id="downloadZIP"><span class="icon">󰆓</span><span class="text">DOWNLOAD ALL (.ZIP)</span></button>
     </div>
 
     <div class="license">© 2026 <a href="https://avatarkage.com">AvatarKage</a>. All Rights Reserved.</div>

@@ -18,9 +18,10 @@ import config from "./config/index.js";
 import log from "./packages/avatarkage-utilities/logging/index.js";
 import { toMs } from "./packages/avatarkage-utilities/formatting/index.js";
 import Snowflake from "./packages/avatarkage-utilities/snowflake/index.js";
-import { random } from "./src/helpers/index.js";
+import { injectFont } from "./src/helpers/index.js";
 import path from "path";
 import fs from "fs";
+import { recolor } from "./src/backend/index.js";
 
 // Start stopwatch
 const sw = new Stopwatch(true);
@@ -33,6 +34,11 @@ const server = express();
 
 // Setup snowflake
 export const snowflake = new Snowflake(new Date(config.snowflake.eposh).getTime());
+
+// Load folder font
+export const svgFont = fs.readFileSync(
+    path.join(config.folders.resources, "fonts", "jetbrains", "nerdfont.ttf")
+).toString("base64");
 
 /* 
 ————————————————————————————————————————————————————————————————
@@ -68,13 +74,27 @@ server.use(express.static(config.folders.frontend));
 server.use("/resources", express.static(config.folders.resources));
 
 server.post("/api/render", (req, res) => {
-    const { style, variant } = req.body;
+    const {
+        style,
+        varient,
+        baseColor,
+        backColor,
+        iconColor,
+        mediumIcon,
+        smallIcon,
+        text,
+        saturation,
+        brightness,
+        contrast,
+        isCustomBackColor,
+        isCustomIconColor
+    } = req.body;
 
-    if (!style || !variant) {
-        return res.status(400).send("Style and variant are required");
+    if (!style || !varient || !baseColor) {
+        return res.status(400).send("Style, varient, and base color are required");
     }
 
-    const svgPath = path.join(config.folders.resources, "svg", style, `${variant}.svg`);
+    const svgPath = path.join(config.folders.resources, "svg", style, `${varient}.svg`);
 
     fs.readFile(svgPath, "utf8", (err, data) => {
         if (err) {
@@ -82,8 +102,29 @@ server.post("/api/render", (req, res) => {
             return res.status(404).send("Folder not found");
         }
 
+        let svg = recolor(
+            data,
+            style,
+            varient,
+            baseColor,
+            backColor,
+            iconColor,
+            mediumIcon,
+            smallIcon,
+            text,
+            Number(saturation),
+            Number(brightness),
+            Number(contrast),
+            Boolean(isCustomBackColor),
+            Boolean(isCustomIconColor)
+        );
+
+        if (mediumIcon || smallIcon || text) {
+            svg = injectFont(svg);
+        }
+
         res.setHeader("Content-Type", "image/svg+xml");
-        res.send(data); // Raw SVG
+        res.send(svg);
     });
 });
 

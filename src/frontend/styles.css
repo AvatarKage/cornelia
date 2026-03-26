@@ -265,6 +265,7 @@ button .text {
     width: 100%;
     height: auto;
     max-height: 34vh;
+    font-family: jetbrains-nerdfont, playwrite-nerdfont, sans-serif;
 }
 
 a {

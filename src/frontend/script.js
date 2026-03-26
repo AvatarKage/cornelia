@@ -47,43 +47,79 @@ colorPickers.forEach(picker => {
     });
 });
 
-// Update folder (api)
-const styleSelect = document.getElementById("styleSelect");
-const varientSelect = document.getElementById("varientSelect");
-const previewDiv = document.getElementById("preview");
+// Update folder
+let isCustomBackColor = false;
+let isCustomIconColor = false;
+
+const e = {
+    preset: document.getElementById("preset"),
+    style: document.getElementById("style"),
+    varient: document.getElementById("varient"),
+    
+    baseColor: document.getElementById("baseColor"),
+    backColor: document.getElementById("backColor"),
+    iconColor: document.getElementById("iconColor"),
+
+    mediumIcon: document.getElementById("mediumIcon"),
+    smallIcon: document.getElementById("smallIcon"),
+    text: document.getElementById("text"),
+
+    saturation: document.getElementById("saturation"),
+    brightness: document.getElementById("brightness"),
+    contrast: document.getElementById("contrast"),
+
+    preview: document.getElementById("preview"),
+
+    downloadSVG: document.getElementById("downloadSVG"),
+    downloadPNG: document.getElementById("downloadPNG"),
+    downloadICO: document.getElementById("downloadICO"),
+    downloadZIP: document.getElementById("downloadZIP")
+};
 
 async function updatePreview() {
-    const style = styleSelect.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, '');
-    const variant = varientSelect.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, '');
-
     try {
         const response = await fetch("/api/render", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ 
-                style, 
-                variant
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                preset: e.preset.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, ''),
+                style: e.style.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, ''),
+                varient: e.varient.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, ''),
+                baseColor: e.baseColor.value,
+                backColor: e.backColor.value,
+                iconColor: e.iconColor.value,
+                mediumIcon: e.mediumIcon.value,
+                smallIcon: e.smallIcon.value,
+                text: e.text.value,
+                saturation: parseFloat(e.saturation.value || "100") / 100,
+                brightness: parseFloat(e.brightness.value || "100") / 100,
+                contrast: parseFloat(e.contrast.value || "100") / 100,
+                isCustomBackColor,
+                isCustomIconColor
             })
         });
 
         if (!response.ok) throw new Error("SVG not found");
 
         const svg = await response.text();
-
-        if (svg) {
-            previewDiv.innerHTML = svg;
-        } else {
-            previewDiv.textContent = "No folder available for this option.";
-        }
+        e.preview.innerHTML = svg || "No folder available for this option.";
     } catch (err) {
-        previewDiv.textContent = "No folder available for this option.";
+        e.preview.textContent = "No folder available for this option.";
         console.error(err);
     }
 }
 
-[styleSelect, varientSelect].forEach(select => {
+e.baseColor.oninput = updatePreview;
+e.backColor.oninput = () => { isCustomBackColor = true; updatePreview(); };
+e.iconColor.oninput = () => { isCustomIconColor = true; updatePreview(); };
+e.mediumIcon.oninput = updatePreview;
+e.smallIcon.oninput = updatePreview;
+e.text.oninput = updatePreview;
+e.saturation.oninput = updatePreview;
+e.brightness.oninput = updatePreview;
+e.contrast.oninput = updatePreview;
+
+[e.preset, e.style, e.varient].forEach(select => {
     const options = select.querySelectorAll(".option");
     options.forEach(option => {
         option.addEventListener("click", () => updatePreview());
