@@ -104,3 +104,5 @@ process.on("SIGTERM", shutdown); // Host shutdown
 DEVELOPER SANDBOX
 ———————————————————————————————————————————————————————————————— 
 */
+
+// await generateFolder({ text: "yoyo", baseColor: getColor(config.colors.random.green) })

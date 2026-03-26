@@ -9,6 +9,7 @@ import config from "../../config/index.js";
 import recolor from "./recolor.js";
 import injectFont from "./injectFont.js";
 import { snowflake } from "../../server.js";
+import { scaleSVG } from "../helpers/index.js";
 
 async function generateFolder(options = {}) {
     const {
@@ -77,7 +78,7 @@ async function generateFolder(options = {}) {
 
     let folderId = "";
     if (saveSVG || savePNG || saveICO) {
-        folderId = snowflake.generate()
+        folderId = snowflake.generate();
     }
 
     if (saveSVG) {
@@ -85,30 +86,46 @@ async function generateFolder(options = {}) {
         fs.writeFileSync(svgFile, svg, "utf8");
     }
 
-    let pngBuffer = null;
+    const { window } = new JSDOM(`<!DOCTYPE html>`);
+    const DOMParser = window.DOMParser;
 
-    if (savePNG || saveICO) {
+    let pngBuffer = null;
+    if (savePNG) {
         const canvas = createCanvas(width, height);
         const ctx = canvas.getContext("2d");
 
-        const { window } = new JSDOM(`<!DOCTYPE html>`);
-        const domParser = window.DOMParser;
-
-        const v = Canvg.fromString(ctx, svg, { DOMParser: domParser });
+        const scaledSVG = scaleSVG(svg, width, height);
+        const v = Canvg.fromString(ctx, scaledSVG, { DOMParser });
         await v.render();
 
         pngBuffer = canvas.toBuffer("image/png");
-
-        if (savePNG) {
-            const pngFile = path.join(genFolder, `${folderId}.png`);
-            fs.writeFileSync(pngFile, pngBuffer);
-        }
+        const pngFile = path.join(genFolder, `${folderId}.png`);
+        fs.writeFileSync(pngFile, pngBuffer);
     }
 
-    if (saveICO && pngBuffer) {
-        const icoBuffer = await pngToIco(pngBuffer);
-        const icoFile = path.join(genFolder, `${folderId}.ico`);
-        fs.writeFileSync(icoFile, icoBuffer);
+    if (saveICO) {
+        const sizes = [16, 32, 48, 64, 128, 256];
+        const pngBuffers = [];
+
+        for (const size of sizes) {
+            const canvas = createCanvas(size, size);
+            const ctx = canvas.getContext("2d");
+            ctx.imageSmoothingQuality = "high";
+
+            const scaledSVG = scaleSVG(svg, size, size);
+            const v = Canvg.fromString(ctx, scaledSVG, { DOMParser, ignoreDimensions: true });
+            await v.render();
+
+            pngBuffers.push(canvas.toBuffer("image/png"));
+        }
+
+        try {
+            const icoBuffer = await pngToIco(pngBuffers);
+            const icoFile = path.join(genFolder, `${folderId}.ico`);
+            fs.writeFileSync(icoFile, icoBuffer);
+        } catch (err) {
+            console.error("Failed to generate ICO:", err);
+        }
     }
 
     return folderId;

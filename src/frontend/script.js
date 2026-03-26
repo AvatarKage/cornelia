@@ -282,40 +282,75 @@ function svgToPNGBlob(svgString, width = 256, height = 256) {
     });
 }
 
-async function canvasToICO(canvas) {
-    const pngBlob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
-    
-    const buffer = await pngBlob.arrayBuffer();
-    const bytes = new Uint8Array(buffer);
+async function svgToICO(svgString) {
+    const sizes = [16, 32, 48, 64, 128, 256];
+    const pngBuffers = [];
+
+    for (let size of sizes) {
+        const canvas = document.createElement("canvas");
+        canvas.width = size;
+        canvas.height = size;
+
+        const ctx = canvas.getContext("2d");
+        ctx.imageSmoothingQuality = "high";
+
+        const img = new Image();
+        const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+        const url = URL.createObjectURL(svgBlob);
+
+        await new Promise(resolve => {
+            img.onload = () => {
+                ctx.drawImage(img, 0, 0, size, size);
+                URL.revokeObjectURL(url);
+                resolve();
+            };
+            img.src = url;
+        });
+
+        const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+        const buffer = new Uint8Array(await blob.arrayBuffer());
+
+        pngBuffers.push({ size, buffer });
+    }
+
+    const count = pngBuffers.length;
 
     const header = new Uint8Array(6);
-    header[0] = 0;
-    header[1] = 0;
     header[2] = 1;
-    header[3] = 0;
-    header[4] = 1;
-    header[5] = 0;
+    header[4] = count;
 
-    const dirEntry = new Uint8Array(16);
-    dirEntry[0] = canvas.width >= 256 ? 0 : canvas.width;
-    dirEntry[1] = canvas.height >= 256 ? 0 : canvas.height;
-    dirEntry[2] = 0;
-    dirEntry[3] = 0;
-    dirEntry[4] = 1;
-    dirEntry[5] = 0;
-    dirEntry[6] = 32;
-    dirEntry[7] = 0;
-    const pngSize = bytes.length;
-    dirEntry[8] = pngSize & 0xff;
-    dirEntry[9] = (pngSize >> 8) & 0xff;
-    dirEntry[10] = (pngSize >> 16) & 0xff;
-    dirEntry[11] = (pngSize >> 24) & 0xff;
-    dirEntry[12] = 22;
-    dirEntry[13] = 0;
-    dirEntry[14] = 0;
-    dirEntry[15] = 0;
+    const dir = new Uint8Array(16 * count);
+    let offset = 6 + (16 * count);
 
-    return new Blob([header, dirEntry, bytes], { type: "image/x-icon" });
+    pngBuffers.forEach((img, i) => {
+        const idx = i * 16;
+        const size = img.size;
+        const bytes = img.buffer;
+
+        dir[idx + 0] = size >= 256 ? 0 : size;
+        dir[idx + 1] = size >= 256 ? 0 : size;
+        dir[idx + 4] = 1;
+        dir[idx + 6] = 32;
+
+        const len = bytes.length;
+        dir[idx + 8] = len & 0xff;
+        dir[idx + 9] = (len >> 8) & 0xff;
+        dir[idx + 10] = (len >> 16) & 0xff;
+        dir[idx + 11] = (len >> 24) & 0xff;
+
+        dir[idx + 12] = offset & 0xff;
+        dir[idx + 13] = (offset >> 8) & 0xff;
+        dir[idx + 14] = (offset >> 16) & 0xff;
+        dir[idx + 15] = (offset >> 24) & 0xff;
+
+        offset += len;
+    });
+
+    const imageData = pngBuffers.map(img => img.buffer);
+
+    return new Blob([header, dir, ...imageData], {
+        type: "image/x-icon"
+    });
 }
 
 e.downloadSVG.addEventListener("click", () => {
@@ -335,21 +370,8 @@ e.downloadICO.addEventListener("click", async () => {
     const svg = getPreviewSVG();
     if (!svg) return;
 
-    const img = new Image();
-    const svgBlob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
-    const url = URL.createObjectURL(svgBlob);
-    img.src = url;
-
-    img.onload = async () => {
-        const canvas = document.createElement("canvas");
-        canvas.width = 256;
-        canvas.height = 256;
-        canvas.getContext("2d").drawImage(img, 0, 0, 256, 256);
-        URL.revokeObjectURL(url);
-
-        const icoBlob = await canvasToICO(canvas);
-        downloadBlob("folder.ico", icoBlob);
-    };
+    const icoBlob = await svgToICO(svg);
+    downloadBlob("folder.ico", icoBlob);
 });
 
 e.downloadZIP.addEventListener("click", async () => {
@@ -376,7 +398,7 @@ e.downloadZIP.addEventListener("click", async () => {
         canvas.getContext("2d").drawImage(img, 0, 0, 256, 256);
         URL.revokeObjectURL(url);
 
-        const icoBlob = await canvasToICO(canvas);
+        const icoBlob = await svgToICO(svg);
         zipInstance.file("folder.ico", icoBlob);
 
         const zipBlob = await zipInstance.generateAsync({ type: "blob" });
