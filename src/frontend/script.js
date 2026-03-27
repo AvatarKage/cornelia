@@ -95,7 +95,7 @@ const baseStops = [
 ];
 
 const baseHSL = baseStops.map(hexToHsl);
-const ref = baseHSL[2];
+const ref = baseHSL[baseHSL.length - 1];
 const offsets = baseHSL.map(([h,s,l]) => ({ dh: h - ref[0], ds: s - ref[1], dl: l - ref[2] }));
 
 async function loadFont(url) {
