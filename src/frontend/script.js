@@ -179,7 +179,7 @@ async function recolor(
     } else {
         const adjustedBase = adjustColor(baseColor, saturation, brightness, contrast);
         const adjustedBack = isCustomBackColor ? adjustColor(backColor, saturation, brightness, contrast) 
-            : adjustColor(darkenColor(adjustedBase, 0.55), saturation, brightness, contrast);
+            : adjustColor(darkenColor(adjustedBase, 0.62), saturation, brightness, contrast);
         updateColor(svgDoc, adjustedBase, adjustedBack);
 
         overlayFill = isCustomIconColor 
