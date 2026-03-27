@@ -105,4 +105,4 @@ DEVELOPER SANDBOX
 ———————————————————————————————————————————————————————————————— 
 */
 
-// await generateFolder({ text: "yoyo", baseColor: getColor(config.colors.random.green) })
+// await generateFolder({ mediumIcon: "", baseColor: getColor(config.colors.random.purple) })

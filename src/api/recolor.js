@@ -2,7 +2,7 @@ import { JSDOM } from "jsdom";
 import XMLSerializer from "xmlserializer";
 
 import { hexToHsl, hslToHex } from "./convert.js";
-import { adjustColor, updateStops } from "./colorManagement.js";
+import { adjustColor, updateStops, updateColor, darkenColor } from "./colorManagement.js";
 import createOverlayGradient from "./createOverlayGradient.js";
 import addTextElement from "./addTextElement.js";
 
@@ -34,30 +34,45 @@ function recolor(
     isCustomIconColor = false
 ) {
     let [h, s, l] = hexToHsl(baseColor);
-
     s = Math.min(1, Math.max(0, s * saturation));
     l = Math.min(1, Math.max(0, l * brightness));
     l = 0.5 + (l - 0.5) * contrast;
 
-    const newColors = offsets.map(o =>
-        hslToHex(
-            (h + o.dh + 1) % 1,
-            Math.min(1, Math.max(0, s + o.ds)),
-            Math.min(1, Math.max(0, l + o.dl))
-        )
-    );
-
     const dom = new JSDOM(data, { contentType: "image/svg+xml" });
     const svgDoc = dom.window.document;
 
-    updateStops(svgDoc, newColors, isCustomBackColor, backColor);
+    let overlayFill;
 
-    const overlayId = "overlayGradient";
-    const baseOverlayColor = isCustomIconColor ? iconColor : baseColor;
-    const adjustedOverlayColor = adjustColor(baseOverlayColor, saturation, brightness, contrast);
-    const overlayFill = isCustomIconColor
-        ? baseOverlayColor
-        : createOverlayGradient(svgDoc, overlayId, adjustedOverlayColor);
+    if (style === "shaded") {
+        const newColors = offsets.map(o =>
+            hslToHex(
+                (h + o.dh + 1) % 1,
+                Math.min(1, Math.max(0, s + o.ds)),
+                Math.min(1, Math.max(0, l + o.dl))
+            )
+        );
+
+        const adjustedBackColor = isCustomBackColor 
+            ? adjustColor(backColor, saturation, brightness, contrast) 
+            : adjustColor(backColor, saturation, brightness, contrast);
+
+        updateStops(svgDoc, newColors, isCustomBackColor, adjustedBackColor);
+
+        const overlayId = "overlayGradient";
+        const baseOverlayColor = isCustomIconColor ? iconColor : baseColor;
+        const adjustedOverlayColor = adjustColor(baseOverlayColor, saturation, brightness, contrast);
+        overlayFill = isCustomIconColor ? adjustedOverlayColor : createOverlayGradient(svgDoc, overlayId, adjustedOverlayColor);
+
+    } else {
+        const adjustedBase = adjustColor(baseColor, saturation, brightness, contrast);
+        const adjustedBack = isCustomBackColor ? adjustColor(backColor, saturation, brightness, contrast) 
+            : adjustColor(darkenColor(adjustedBase, 0.62), saturation, brightness, contrast);
+        updateColor(svgDoc, adjustedBase, adjustedBack);
+
+        overlayFill = isCustomIconColor 
+            ? adjustColor(iconColor, saturation, brightness, contrast) 
+            : adjustedBack;
+    }
 
     let mediumIconY = "69%";
     if (varient === "center1") mediumIconY = "72%"
