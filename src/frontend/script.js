@@ -136,7 +136,7 @@ async function injectFont(svgDoc) {
 async function recolor(
     svgDoc, 
     style = "shaded",
-    variant = "left1",
+    varient = "left1",
     baseColor = "#FFD65C",
     backColor = "#000000",
     iconColor = "#000000",
@@ -188,7 +188,7 @@ async function recolor(
     }
 
     let mediumIconY = "69%";
-    if (style === "shaded" && variant === "center1") mediumIconY = "72%";
+    if (varient === "center1") mediumIconY = "72%"
 
     addTextElement(svgDoc, "50%", mediumIconY, "112", mediumIcon, overlayFill);
     addTextElement(svgDoc, "87%", "73%", "96", smallIcon, overlayFill, "end");
@@ -199,8 +199,8 @@ async function recolor(
     return new XMLSerializer().serializeToString(svgDoc);
 }
 
-async function fetchSVG(style, variant) {
-    const res = await fetch(`../resources/svg/${style}/${variant}.svg`);
+async function fetchSVG(style, varient) {
+    const res = await fetch(`../resources/svg/${style}/${varient}.svg`);
     if (!res.ok) throw new Error("SVG not found");
     const text = await res.text();
     return new DOMParser().parseFromString(text, "image/svg+xml");

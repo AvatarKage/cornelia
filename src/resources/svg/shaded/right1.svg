@@ -9,9 +9,9 @@
       <stop offset="0" stop-color="#F2C146" />
       <stop offset="1" stop-color="#FAC63E" />
     </linearGradient>
-    <linearGradient id="gradient_3" gradientUnits="userSpaceOnUse" x1="0" y1="26" x2="224" y2="26">
-      <stop offset="0" stop-color="#FFE79E" />
-      <stop offset="1" stop-color="#FFF7DE" />
+    <linearGradient id="gradient_3" gradientUnits="userSpaceOnUse" x1="224" y1="26" x2="-0" y2="26">
+      <stop offset="0" stop-color="#FFF7DE" />
+      <stop offset="1" stop-color="#FFE79E" />
     </linearGradient>
     <linearGradient id="gradient_4" gradientUnits="userSpaceOnUse" x1="0" y1="-32" x2="90" y2="120">
       <stop offset="0" stop-color="#FFF0C2" />

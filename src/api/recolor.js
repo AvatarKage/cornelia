@@ -60,10 +60,7 @@ function recolor(
         : createOverlayGradient(svgDoc, overlayId, adjustedOverlayColor);
 
     let mediumIconY = "69%";
-
-    if (style === "shaded" && varient === "center1") {
-        mediumIconY = "72%"
-    }
+    if (varient === "center1") mediumIconY = "72%"
 
     addTextElement(svgDoc, "50%", mediumIconY, "112", mediumIcon, overlayFill);
     addTextElement(svgDoc, "87%", "73%", "96", smallIcon, overlayFill, "end");
