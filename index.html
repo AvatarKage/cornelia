@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cornelia Studio</title>
+    <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+    <div class="title" align="center">
+        <img src="./src/assets/images/cornelia_02.png" class="cornelia">
+        <h1>Cornelia Studio</h1>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <div>
+                <label>Preset <span title="Coming soon!"></span></label>
+                <div class="select" id="preset">
+                    <input type="hidden" class="select-value" value="Default">
+                    <div class="select-display">
+                        <span class="selected"> Default</span>
+                        <span class="arrow"></span>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-value="default"> Default</div>
+                        <div class="option" data-value="water">󱢺 Water</div>
+                        <div class="option" data-value="beach"> Beach</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="color-picker">
+                <label>Base Color</label>
+                <div class="color-wrapper">
+                    <input id="baseColor" type="color" value="#FFD65C">
+                    <div class="color-display"></div>
+                </div>
+            </div>
+
+            <div class="color-picker">
+                <label>Back Color</label>
+                <div class="color-wrapper">
+                    <input id="backColor" type="color" value="" data-empty="true">
+                    <div class="color-display"></div>
+                </div>
+            </div>
+
+            <div class="color-picker">
+                <label>Icon Color</label>
+                <div class="color-wrapper">
+                    <input id="iconColor" type="color" value="" data-empty="true">
+                    <div class="color-display"></div>
+                </div>
+            </div>
+
+            <div>
+                <label>Center Icon <span title="NerdFont icons are meant to be used here. Check out 'https://nerdfonts.com/cheat-sheet' and click on copy icon"></span></label>
+                <input id="mediumIcon" type="text" placeholder="NerdFont icon here">
+            </div>
+
+            <div>
+                <label>Corner Icon <span title="NerdFont icons are meant to be used here. Check out 'https://nerdfonts.com/cheat-sheet' and click on copy icon"></span></label>
+                <input id="smallIcon" type="text" placeholder="NerdFont icon here">
+            </div>
+
+            <div>
+                <label>Text <span title="Recommended to use no more than 4 characters"></span></label>
+                <input id="text" type="text" placeholder="Your text here">
+            </div>
+
+            <div>
+                <label>Saturation</label>
+                <input id="saturation" type="range" min="0" max="200" value="100">
+            </div>
+
+            <div>
+                <label>Brightness</label>
+                <input id="brightness" type="range" min="0" max="200" value="100">
+            </div>
+
+            <div>
+                <label>Contrast</label>
+                <input id="contrast" type="range" min="0" max="200" value="100">
+            </div>
+        </div>
+
+        <div class="preview">
+            <div>
+                <label>Style</label>
+                <div class="select" id="style">
+                    <input type="hidden" class="select-value" value="Default">
+                    <div class="select-display">
+                        <span class="selected">Shaded</span>
+                        <span class="arrow"></span>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-value="shaded">Shaded</div>
+                        <div class="option" data-value="outline">Outline</div>
+                        <div class="option" data-value="flat">Flat</div>
+                    </div>
+                </div>
+            </div>
+                
+            <div>
+                <label>variant</label>
+                <div class="select" id="variant">
+                    <input type="hidden" class="select-value" value="Default">
+                    <div class="select-display">
+                        <span class="selected">Left 1</span>
+                        <span class="arrow"></span>
+                    </div>
+                    <div class="options">
+                        <div class="option" data-value="left1">Left 1</div>
+                        <div class="option" data-value="left2">Left 2</div>
+                        <div class="option" data-value="left3">Left 3</div>
+                        <div class="option" data-value="center1">Center 1</div>
+                        <div class="option" data-value="center2">Center 2</div>
+                        <div class="option" data-value="center3">Center 3</div>
+                        <div class="option" data-value="right1">Right 1</div>
+                        <div class="option" data-value="right2">Right 2</div>
+                        <div class="option" data-value="right3">Right 3</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="preview">
+                <!-- SVG result goes here -->
+            </div>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button id="downloadSVG"><span class="icon">󰆓</span><span class="text">.SVG</span></button>
+        <button id="downloadPNG"><span class="icon">󰆓</span><span class="text">.PNG</span></button>
+        <button id="downloadICO"><span class="icon">󰆓</span><span class="text">.ICO</span></button>
+        <button id="downloadZIP"><span class="icon">󰆓</span><span class="text">DOWNLOAD ALL (.ZIP)</span></button>
+    </div>
+
+    <div class="license">© 2026 <a href="https://avatarkage.com">AvatarKage</a>. All Rights Reserved.</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+    <script type="module" src="./src/main.js?v=1.2.0-beta"></script>
+</body>
+</html>

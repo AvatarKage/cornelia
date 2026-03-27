@@ -1,11 +1,18 @@
 {
-  "scripts": {
-    "dev": "tsx watch server.ts",
-    "build": "tsc && cpx \"config/.env.example\" dist/config/ && cpx \"src/sql/**/*\" dist/src/sql/ && cpx \"attachments/**/*\" dist/attachments/ && cpx \"nodemon.json\" dist/",
-    "start": "node dist/server.js"
-  },
+  "name": "cornelia",
+  "version": "2.0.0",
+  "license": "(c) 2026 AvatarKage. All Rights Reserved.",
   "type": "module",
+  "scripts": {
+    "frontend": "vite",
+    "backend": "node src-tauri/backend/server.ts",
+    "build": "tsc && vite build && cpx \"src/assets/**/*\" dist/src/assets/ && cpx \"index.html\" dist/ && cpx \"src/styles.css\" dist/src/ && cpx \"src/main.js\" dist/src/",
+    "package:exe": "tauri build"
+  },
   "dependencies": {
+    "@tauri-apps/api": "^2",
+    "@tauri-apps/plugin-opener": "^2",
+    "@types/xmlserializer": "^0.6.6",
     "canvas": "^3.2.2",
     "canvg": "^4.0.3",
     "chalk": "^5.6.2",
@@ -22,16 +29,18 @@
     "xmlserializer": "^0.6.1"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^2",
     "@types/express": "^5.0.6",
     "@types/jsdom": "^28.0.1",
     "@types/luxon": "^3.7.1",
     "@types/node": "^25.5.0",
     "@types/xmldom": "^0.1.34",
-    "@types/xmlserializer": "^0.6.6",
     "cpx": "^1.5.0",
     "nodemon": "^3.1.14",
+    "rimraf": "^6.1.3",
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
-    "typescript": "^5.9.3"
+    "typescript": "~5.6.2",
+    "vite": "^6.0.3"
   }
 }

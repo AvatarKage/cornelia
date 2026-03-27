@@ -1,19 +1,39 @@
 # Folders
-.vscode
+.vscode/*
+!.vscode/extensions.json
 node_modules
 dist
+dist-ssr
 logs
 databases
 ssl
 .select
+.old
 generated
+release
+gen
+target
 
 # Files
+.idea
+.DS_Store
 notes.md
 package-lock.json
+Cargo.lock
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # Extensions
-*.env
+# *.env
 *.log
 *.ini
 *.lnk
+*.local
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
