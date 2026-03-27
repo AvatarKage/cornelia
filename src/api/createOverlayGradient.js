@@ -1,8 +1,8 @@
 import { darkenColor } from "./colorManagement.js";
 
 function createOverlayGradient(svgDoc, id, baseHex) {
-    const top = darkenColor(baseHex, 0.2);
-    const bottom = darkenColor(baseHex, 0.3);
+    const top = darkenColor(baseHex, 0.3);
+    const bottom = darkenColor(baseHex, 0.4);
 
     const gradient = svgDoc.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
     gradient.setAttribute("id", id);
