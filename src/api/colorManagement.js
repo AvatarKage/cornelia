@@ -30,8 +30,8 @@ function updateColor(svgDoc, baseColor, backColor) {
     svgDoc.querySelectorAll('[fill]').forEach(el => {
         const fill = el.getAttribute('fill');
         if (!fill) return;
-        if (fill.toLowerCase() === "#ffca38") el.setAttribute('fill', baseColor);
-        if (fill.toLowerCase() === "#1f1600") el.setAttribute('fill', backColor);
+        if (fill === "#FFD65C") el.setAttribute('fill', baseColor);
+        if (fill === "#1F1700") el.setAttribute('fill', backColor);
     });
     return svgDoc;
 }

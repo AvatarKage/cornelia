@@ -88,10 +88,10 @@ const e = {
 };
 
 const baseStops = [
-    "#FABA1B","#F0B122", // shadow
-    "#FABA1B","#F0B122", // back
-    "#FFEDBA","#FFDC78", // shine
-    "#FFE69C","#FFCA38", // front
+    "#FAC63E","#F2C146", // shadow
+    "#FAC63E","#F2C146", // back
+    "#FFF7DE","#FFE79E", // shine
+    "#FFF0C2","#FFD65C", // front
 ];
 
 const baseHSL = baseStops.map(hexToHsl);
@@ -137,7 +137,7 @@ async function recolor(
     svgDoc, 
     style = "shaded",
     variant = "left1",
-    baseColor = "#ffca38",
+    baseColor = "#FFD65C",
     backColor = "#000000",
     iconColor = "#000000",
     mediumIcon = "",

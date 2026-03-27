@@ -15,7 +15,7 @@ async function generateFolder(options = {}) {
     const {
         style = "shaded",
         varient = "left1",
-        baseColor = "#ffca38",
+        baseColor = "#FFD65C",
         backColor = "#000000",
         iconColor = "#000000",
         mediumIcon = "",
