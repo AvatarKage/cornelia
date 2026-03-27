@@ -4,7 +4,7 @@ import { dirname, resolve } from "path";
 
 import log from "../packages/avatarkage-utilities/logging/index.js";
 import colors from "./data/colors.js";
-import ignored from "./rules/ignore.js";
+import ignore from "./rules/ignore.js";
 import exact from "./rules/exact.js";
 
 const file = fileURLToPath(import.meta.url);
@@ -65,7 +65,8 @@ const config = {
 
     debug: {
         config: toBoolean(process.env.DEBUG_CONFIG, "DEBUG_CONFIG"),
-        snowflake: toBoolean(process.env.DEBUG_SNOWFLAKE, "DEBUG_SNOWFLAKE")
+        snowflake: toBoolean(process.env.DEBUG_SNOWFLAKE, "DEBUG_SNOWFLAKE"),
+        folders: toBoolean(process.env.DEBUG_FOLDERS, "DEBUG_FOLDERS")
     },
 
     port: toNumber(process.env.PORT, "PORT"),
@@ -119,7 +120,7 @@ const config = {
     colors: colors,
 
     rules: {
-        ignored,
+        ignore,
         exact
     },
 

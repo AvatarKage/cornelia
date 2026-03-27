@@ -65,7 +65,7 @@ let isCustomIconColor = false;
 const e = {
     preset: document.getElementById("preset"),
     style: document.getElementById("style"),
-    varient: document.getElementById("varient"),
+    variant: document.getElementById("variant"),
     
     baseColor: document.getElementById("baseColor"),
     backColor: document.getElementById("backColor"),
@@ -136,7 +136,7 @@ async function injectFont(svgDoc) {
 async function recolor(
     svgDoc, 
     style = "shaded",
-    varient = "left1",
+    variant = "left1",
     baseColor = "#FFD65C",
     backColor = "#000000",
     iconColor = "#000000",
@@ -188,7 +188,7 @@ async function recolor(
     }
 
     let mediumIconY = "69%";
-    if (varient === "center1") mediumIconY = "72%"
+    if (variant === "center1") mediumIconY = "72%"
 
     addTextElement(svgDoc, "50%", mediumIconY, "112", mediumIcon, overlayFill);
     addTextElement(svgDoc, "87%", "73%", "96", smallIcon, overlayFill, "end");
@@ -199,8 +199,8 @@ async function recolor(
     return new XMLSerializer().serializeToString(svgDoc);
 }
 
-async function fetchSVG(style, varient) {
-    const res = await fetch(`../resources/svg/${style}/${varient}.svg`);
+async function fetchSVG(style, variant) {
+    const res = await fetch(`../resources/svg/${style}/${variant}.svg`);
     if (!res.ok) throw new Error("SVG not found");
     const text = await res.text();
     return new DOMParser().parseFromString(text, "image/svg+xml");
@@ -210,7 +210,7 @@ async function updatePreview() {
     try {
         const preset = e.preset.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, '');
         const style = e.style.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, '');
-        const varient = e.varient.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, '');
+        const variant = e.variant.querySelector(".selected").textContent.toLowerCase().replace(/\s+/g, '');
         const baseColor = e.baseColor.value;
         const backColor = e.backColor.value;
         const iconColor = e.iconColor.value;
@@ -223,7 +223,7 @@ async function updatePreview() {
 
         let svgDoc;
         try {
-            svgDoc = await fetchSVG(style, varient);
+            svgDoc = await fetchSVG(style, variant);
             if (!svgDoc) throw new Error("SVG not found");
         } catch {
             e.preview.innerHTML = "Coming soon!";
@@ -233,7 +233,7 @@ async function updatePreview() {
         const svgString = await recolor(
             svgDoc,
             style,
-            varient,
+            variant,
             baseColor,
             backColor,
             iconColor,
@@ -264,7 +264,7 @@ e.saturation.oninput = updatePreview;
 e.brightness.oninput = updatePreview;
 e.contrast.oninput = updatePreview;
 
-[e.preset, e.style, e.varient].forEach(select => {
+[e.preset, e.style, e.variant].forEach(select => {
     const options = select.querySelectorAll(".option");
     options.forEach(option => option.addEventListener("click", () => updatePreview()));
 });

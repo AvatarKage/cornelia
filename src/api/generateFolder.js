@@ -9,12 +9,12 @@ import config from "../../config/index.js";
 import recolor from "./recolor.js";
 import injectFont from "./injectFont.js";
 import { snowflake } from "../../server.js";
-import { scaleSVG } from "../helpers/index.js";
+import { getColor, scaleSVG } from "../helpers/index.js";
 
 async function generateFolder(options = {}) {
-    const {
+    let {
         style = "shaded",
-        varient = "left1",
+        variant = "left1",
         baseColor = "#FFD65C",
         backColor = "#000000",
         iconColor = "#000000",
@@ -34,6 +34,10 @@ async function generateFolder(options = {}) {
         height = 256,
     } = options;
 
+    baseColor = getColor(baseColor);
+    backColor = getColor(backColor);
+    iconColor = getColor(iconColor);
+
     const fontDir = path.join(config.folders.resources, "fonts", "jetbrains");
     const svgDir = path.join(config.folders.resources, "svg", style);
 
@@ -48,14 +52,14 @@ async function generateFolder(options = {}) {
         console.warn(`Font file not found: ${fontPath}. Text rendering may fail.`);
     }
 
-    const svgPath = path.join(svgDir, `${varient}.svg`);
+    const svgPath = path.join(svgDir, `${variant}.svg`);
     if (!fs.existsSync(svgPath)) throw new Error(`SVG template not found: ${svgPath}`);
     let svg = fs.readFileSync(svgPath, "utf8");
 
     svg = recolor(
         svg,
         style,
-        varient,
+        variant,
         baseColor,
         backColor,
         iconColor,
@@ -73,16 +77,16 @@ async function generateFolder(options = {}) {
         svg = injectFont(svg);
     }
 
-    const genFolder = path.join(config.folders.generated, style, varient, folder);
+    const genFolder = path.join(config.folders.generated, style, variant, folder);
     fs.mkdirSync(genFolder, { recursive: true });
 
-    let folderId = "";
+    let id = "";
     if (saveSVG || savePNG || saveICO) {
-        folderId = snowflake.generate();
+        id = snowflake.generate();
     }
 
     if (saveSVG) {
-        const svgFile = path.join(genFolder, `${folderId}.svg`);
+        const svgFile = path.join(genFolder, `${id}.svg`);
         fs.writeFileSync(svgFile, svg, "utf8");
     }
 
@@ -99,7 +103,7 @@ async function generateFolder(options = {}) {
         await v.render();
 
         pngBuffer = canvas.toBuffer("image/png");
-        const pngFile = path.join(genFolder, `${folderId}.png`);
+        const pngFile = path.join(genFolder, `${id}.png`);
         fs.writeFileSync(pngFile, pngBuffer);
     }
 
@@ -121,14 +125,35 @@ async function generateFolder(options = {}) {
 
         try {
             const icoBuffer = await pngToIco(pngBuffers);
-            const icoFile = path.join(genFolder, `${folderId}.ico`);
+            const icoFile = path.join(genFolder, `${id}.ico`);
             fs.writeFileSync(icoFile, icoBuffer);
         } catch (err) {
             console.error("Failed to generate ICO:", err);
         }
     }
 
-    return folderId;
+    return { id, options: {
+            style,
+            variant,
+            baseColor,
+            backColor,
+            iconColor,
+            mediumIcon,
+            smallIcon,
+            text,
+            saturation,
+            brightness,
+            contrast,
+            isCustomBackColor,
+            isCustomIconColor,
+            folder,
+            saveSVG,
+            savePNG,
+            saveICO,
+            width,
+            height,
+        }
+    }
 }
 
 export default generateFolder;

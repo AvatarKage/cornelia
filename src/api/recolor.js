@@ -20,7 +20,7 @@ const offsets = baseHSL.map(([h,s,l]) => ({ dh: h - ref[0], ds: s - ref[1], dl: 
 function recolor(
     data,
     style = "shaded",
-    varient = "left1",
+    variant = "left1",
     baseColor = "#FFD65C",
     backColor = "#000000",
     iconColor = "#000000",
@@ -75,7 +75,7 @@ function recolor(
     }
 
     let mediumIconY = "69%";
-    if (varient === "center1") mediumIconY = "72%"
+    if (variant === "center1") mediumIconY = "72%"
 
     addTextElement(svgDoc, "50%", mediumIconY, "112", mediumIcon, overlayFill);
     addTextElement(svgDoc, "87%", "73%", "96", smallIcon, overlayFill, "end");

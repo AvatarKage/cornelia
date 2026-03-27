@@ -5,7 +5,7 @@ assigned to them, but not subfolders. Capitalization is ignored.
 ————————————————————————————————————————————————————————————————
 */
 
-const ignore:object = [
+const ignore: string[] = [
     "node_modules",
     "venv",
     ".git",
@@ -22,7 +22,8 @@ const ignore:object = [
     "$windows.~bt",
     "$sysreset",
     "modrinthapp",
-    "dist"
+    "dist",
+    "appdata"
 ]
 
 export default ignore;
