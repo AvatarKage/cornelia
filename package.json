@@ -4,10 +4,22 @@
   "license": "(c) 2026 AvatarKage. All Rights Reserved.",
   "type": "module",
   "scripts": {
-    "frontend": "vite",
-    "backend": "node src-tauri/backend/server.ts",
-    "build": "tsc && vite build && cpx \"src/assets/**/*\" dist/src/assets/ && cpx \"index.html\" dist/ && cpx \"src/styles.css\" dist/src/ && cpx \"src/main.js\" dist/src/",
-    "package:exe": "tauri build"
+    "start:frontend": "npx serve dist -l 32302",
+    "start:backend": "node dist/src/backend/server.js",
+    "dev:frontend": "vite",
+    "dev:backend": "tsx watch src/backend/server.ts",
+    "build": "npm run clean && npm run copy:src && npm run copy:config && npm run copy:index && tsc",
+    "copy:src": "cpx \"src/**/!(*.ts|*.js|*.free)\" dist/src",
+    "copy:config": "cpx \"config/**/*\" dist/config",
+    "copy:index": "cpx \"./index.html\" dist",
+    "copy:windows": "cpx \"src-tauri/target/x86_64-pc-windows-msvc/release/bundle/**/*\" ./release/windows && cpx \"src-tauri/target/x86_64-pc-windows-msvc/release/Cornelia_Studio.exe\" ./release/windows/zip",
+    "clean": "rimraf dist",
+    "package:frontend:windows": "tauri build --target x86_64-pc-windows-msvc && npm run copy:windows",
+    "package:frontend:macos": "tauri build --target x86_64-apple-darwin",
+    "package:frontend:linux": "tauri build --target x86_64-unknown-linux-gnu",
+    "package:frontend": "npm run package:frontend:windows && npm run package:frontend:macos && npm run package:frontend:linux",
+    "package:backend": "pkg server.js --targets node20-win-x64,node20-macos-x64,node20-linux-x64 --output ../src-tauri/bin/backend/dist",
+    "package": "npm run package:frontend && npm run package:backend"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",
@@ -41,6 +53,7 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.21.0",
     "typescript": "~5.6.2",
-    "vite": "^6.0.3"
+    "vite": "^6.0.3",
+    "vite-plugin-static-copy": "^4.0.0"
   }
 }
