@@ -1,14 +1,15 @@
 ![Cornelia illustration by Luji9](https://cdn.avatarka.ge/r/chrome_SrXAB8ZWyNC4WCjsHrWmymqt.png)
 
 `npm i` to install all required dependencies<br>
-`npm run frontend` to run the frontend<br>
-`npm run backend` to run the backend<br>
-`npm run build` to compile TS to JS<br>
-`npm run package:exe` to package for Windows<br>
+`npm run start:frontend` to run the `/dist` frontend at `localhost:32302`<br>
+`npm run start:backend` to run the `/dist` backend at `localhost:32303`<br>
+`npm run dev:frontend` to develop the `/src` frontend live at `localhost:32312`<br>
+`npm run dev:backend` to develop the `/src` backend live at `localhost:32313`<br>
+`npm run build` to compile and copy files to `/dist`<br>
+`npm run clean` to delete `/dist` files<br>
+`npm run package:windows` to package `/dist` for Windows to `/release`<br>
 
-`http://127.0.0.1:32303` to access the UI<br>
-
-To open `/src/assets/folders.free`, [Lunacy](https://lunacyapp.com) is required<br>
+To open `/src/common/assets/folders.free`, [Lunacy](https://lunacyapp.com) is required<br>
 
 Cornelia illustration by [Luji9](https://vgen.co/luji9)<br>
 
