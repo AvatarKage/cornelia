@@ -8,7 +8,7 @@
 `npm run build` to compile and copy files to `/dist`<br>
 `npm run clean` to delete `/dist` files<br>
 `npm run package:frontend:windows` to package frontend `/dist` for Windows<br>
-Run `script.iss` via Inno Compiler to create the installer that combines the packaged frontend and backend to `/release`
+Run `script.iss` via Inno to combine the packaged frontend and backend to `/release`
 
 To open `/src/common/assets/folders.free`, [Lunacy](https://lunacyapp.com) is required<br>
 
