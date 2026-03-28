@@ -7,7 +7,7 @@
 `npm run dev:backend` to develop the `/src` backend live at `localhost:32313`<br>
 `npm run build` to compile and copy files to `/dist`<br>
 `npm run clean` to delete `/dist` files<br>
-`npm run package:windows` to package `/dist` for Windows to `/release`<br>
+`npm run package:frontend:windows` to package frontend `/dist` for Windows to `/release`<br>
 
 To open `/src/common/assets/folders.free`, [Lunacy](https://lunacyapp.com) is required<br>
 
