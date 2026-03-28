@@ -12,7 +12,7 @@ Run `script.iss` via Inno to combine the packaged frontend and backend to `/rele
 
 To open `/src/common/assets/folders.free`, [Lunacy](https://lunacyapp.com) is required<br>
 
-If you like my work, consider donating on my [Ko-Fi](https://ko-fi.com/avatarkage)
+If you like my work, consider donating on my [Ko-Fi](https://ko-fi.com/avatarkage)<br>
 Cornelia illustration by [Luji9](https://vgen.co/luji9)<br>
 
 Copyright (c) 2026 AvatarKage. All Rights Reserved.<br><br>
