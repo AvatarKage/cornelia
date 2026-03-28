@@ -27,7 +27,8 @@ pnpm-debug.log*
 lerna-debug.log*
 
 # Extensions
-# *.env
+*.env
+!public.env
 *.log
 *.ini
 *.lnk
