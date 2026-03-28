@@ -13,9 +13,11 @@ This license will be revised to be more permissive when the update is completed.
 | Font Logos  | Unlicensed |
 | IEC Power Symbols | MIT |
 | JetBrains Mono | SIL OFL 1.1 |
+| JSZip | MIT |
 | Material Design Icons | Apache 2.0 |
 | Original Source (Seti-UI but modified) | MIT |
 | Octicons | MIT |
+| Pako | MIT |
 | Playwrite Deutschland Grundschrift | SIL OFL 1.1 |
 | Playwrite Perú | SIL OFL 1.1 |
 | Pomicons | SIL OFL 1.1 |
