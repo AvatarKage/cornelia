@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "Cornelia",
-  "version": "2.0.0",
-  "identifier": "com.avatarkage.cornelia",
+  "productName": "Cornelia Studio",
+  "version": "1.0.0",
+  "identifier": "com.avatarkage.cornelia.studio",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://127.0.0.1:32303",
@@ -13,9 +13,9 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "Cornelia",
-        "width": 1200,
-        "height": 800
+        "title": "Cornelia Studio",
+        "width": 1000,
+        "height": 600
       }
     ],
     "security": {

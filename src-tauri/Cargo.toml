@@ -1,6 +1,6 @@
 [package]
-name = "Cornelia"
-version = "2.0.0"
+name = "Cornelia_Studio"
+version = "1.0.0"
 description = "A Tauri App"
 authors = ["AvatarKage"]
 edition = "2021"
