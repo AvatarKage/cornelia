@@ -1,0 +1,20 @@
+[
+    "node_modules",
+    "venv",
+    ".git",
+    ".gradle",
+    ".idea",
+    "windows",
+    "program data",
+    "program files",
+    "program files (x86)",
+    "windows",
+    "xboxgames",
+    "system.sav",
+    "$windows.~ws",
+    "$windows.~bt",
+    "$sysreset",
+    "modrinthapp",
+    "dist",
+    "appdata"
+]

@@ -1,0 +1,38 @@
+{
+    "black": {
+        "baseColor": ["#000000", "#1A1A1A"]
+    },
+    "gray": {
+        "baseColor": ["#808080", "#444444"]
+    },
+    "white": {
+        "baseColor": ["#DDDDDD", "#C0C0C0"]
+    },
+    "brown": {
+        "baseColor": ["#5A2E0C", "#A0522D"]
+    },
+    "red": {
+        "baseColor": ["#FF0000", "#FF6666"]
+    },
+    "orange": {
+        "baseColor": ["#FFA500", "#FFCC80"]
+    },
+    "yellow": {
+        "baseColor": ["#FFFF00", "#FFFF99"]
+    },
+    "green": {
+        "baseColor": ["#008000", "#66FF66"]
+    },
+    "cyan": {
+        "baseColor": ["#00FFFF", "#66FFFF"]
+    },
+    "blue": {
+        "baseColor": ["#0000FF", "#3399FF"]
+    },
+    "purple": {
+        "baseColor": ["#800080", "#DA70D6"]
+    },
+    "pink": {
+        "baseColor": ["#FFC0CB", "#FF69B4"]
+    }
+}
