@@ -21,23 +21,34 @@ SetupIconFile=src\common\assets\images\icon.ico
 PrivilegesRequired=admin
 CloseApplications=yes
 RestartApplications=no
-VersionInfoCompany=AppPublisher
-VersionInfoCopyright=AppCopyright
-VersionInfoProductName=AppName
+VersionInfoProductName=Cornelia
+VersionInfoVersion=1.0.0
+VersionInfoCompany=AvatarKage
+VersionInfoDescription=A folder icon automation software.
+VersionInfoCopyright=AvatarKage
+UsePreviousAppDir=no
+UsePreviousGroup=no
+UsePreviousTasks=no
+UsePreviousUserInfo=no
 
 [Components]
-Name: "backend"; Description: "Cornelia (doesn't exist yet)"; Types: full compact;
+Name: "backend"; Description: "Cornelia (doesn't exist)"; Types: full compact;
 Name: "frontend"; Description: "Cornelia Studio"; Types: full;
+
+[Files]
+Source: "src-tauri\target\x86_64-pc-windows-msvc\release\Cornelia_Studio.exe"; DestDir: "{app}"; Components: frontend; Flags: ignoreversion
+Source: "config\*"; DestDir: "{app}\config"; Flags: recursesubdirs createallsubdirs; Components: frontend backend
+Source: "src\common\assets\images\icon.ico"; DestDir: "{app}"; Components: frontend backend
 
 [Icons]
 Name: "{group}\Cornelia Studio"; Filename: "{app}\Cornelia_Studio.exe"; Components: frontend
 
-[Files]
-Source: "src-tauri\target\x86_64-pc-windows-msvc\release\Cornelia_Studio.exe"; DestDir: "{app}"; Flags: ignoreversion; Components: frontend
-Source: "config\*"; DestDir: "{app}\config"; Flags: recursesubdirs createallsubdirs; Components: frontend
-Source: "src\common\assets\images\icon.ico"; DestDir: "{app}"; Components: frontend
+[Run]
+Filename: "{app}\Cornelia.exe"; Components: backend; Flags: nowait skipifsilent runhidden
+Filename: "{app}\Cornelia_Studio.exe"; Components: frontend; Description: "Launch Cornelia Studio"; Flags: nowait postinstall skipifsilent
 
 [UninstallRun]
+Filename: "taskkill"; Parameters: "/F /IM Cornelia.exe"; Flags: runhidden
 Filename: "taskkill"; Parameters: "/F /IM Cornelia_Studio.exe"; Flags: runhidden
 
 [Code]
@@ -48,13 +59,13 @@ var
 begin
   Exec('taskkill', '/F /IM Cornelia.exe', '', SW_HIDE,
     ewWaitUntilTerminated, ResultCode);
+
   Exec('taskkill', '/F /IM Cornelia_Studio.exe', '', SW_HIDE,
     ewWaitUntilTerminated, ResultCode);
 end;
 
 procedure InitializeWizard();
 begin
-  // Close app BEFORE installation starts
   CloseRunningApps();
 end;
 
@@ -63,6 +74,32 @@ begin
   if CurStep = ssInstall then
   begin
     CloseRunningApps();
+  end;
+end;
+
+procedure CurPageChanged(CurPageID: Integer);
+var
+  Message: string;
+begin
+  if CurPageID = wpFinished then
+  begin
+    Message := 'Thank you for installing Cornelia';
+
+    if IsComponentSelected('backend') and IsComponentSelected('frontend') then
+    begin
+      WizardForm.FinishedLabel.Caption :=
+        Message + ' and Cornelia Studio! Cornelia will run in the background and start automatically when your computer starts.';
+    end
+    else if IsComponentSelected('frontend') and (not IsComponentSelected('backend')) then
+    begin
+      WizardForm.FinishedLabel.Caption :=
+        Message + ' Studio!';
+    end
+    else if IsComponentSelected('backend') and (not IsComponentSelected('frontend')) then
+    begin
+      WizardForm.FinishedLabel.Caption :=
+        Message + '! It will run in the background and start automatically when your computer starts.';
+    end;
   end;
 end;
 
