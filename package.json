@@ -18,7 +18,7 @@
     "package:frontend:macos": "tauri build --target x86_64-apple-darwin",
     "package:frontend:linux": "tauri build --target x86_64-unknown-linux-gnu",
     "package:frontend": "npm run package:frontend:windows && npm run package:frontend:macos && npm run package:frontend:linux",
-    "package:backend": "pkg server.js --targets node20-win-x64,node20-macos-x64,node20-linux-x64 --output ../src-tauri/bin/backend/dist",
+    "package:backend": "pkg dist/backend/server.js --targets node20-win-x64,node20-macos-x64,node20-linux-x64 --output ../src-tauri/bin/backend/dist",
     "package": "npm run package:frontend && npm run package:backend"
   },
   "dependencies": {
