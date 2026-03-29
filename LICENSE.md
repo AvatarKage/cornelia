@@ -23,4 +23,5 @@ This license will be revised to be more permissive when the update is completed.
 | Pomicons | SIL OFL 1.1 |
 | Powerline Extra Symbols | MIT |
 | Powerline Symbols | Free License |
+| ReSVG | MIT |
 | Weather Icons | SIL OFL 1.1 |
