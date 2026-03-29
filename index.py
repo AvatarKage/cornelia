@@ -209,22 +209,23 @@ Entry
 """
 
 if __name__ == "__main__":
+    run_main = True
 
     if "--install" in sys.argv:
         try:
             add_to_registry(f'"{sys.executable}"')
         except Exception:
             pass
-        sys.exit(0)
 
     if "--uninstall" in sys.argv:
         try:
             remove_from_registry()
         except Exception:
             pass
-        sys.exit(0)
+        run_main = False
 
-    try:
-        asyncio.run(main())
-    except Exception:
-        pass
+    if run_main:
+        try:
+            asyncio.run(main())
+        except Exception:
+            pass
