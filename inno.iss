@@ -121,7 +121,7 @@ begin
     if IsComponentSelected('backend') and IsComponentSelected('frontend') then
     begin
       WizardForm.FinishedLabel.Caption :=
-        Message + ' and Cornelia Studio! Cornelia will run in the background and start automatically when your computer starts.';
+        Message + ' and Cornelia Studio! Cornelia will run in the background and start automatically when your computer starts. You may need to restart your device for it to take effect.';
     end
     else if IsComponentSelected('frontend') and (not IsComponentSelected('backend')) then
     begin
@@ -131,7 +131,7 @@ begin
     else if IsComponentSelected('backend') and (not IsComponentSelected('frontend')) then
     begin
       WizardForm.FinishedLabel.Caption :=
-        Message + '! It will run in the background and start automatically when your computer starts.';
+        Message + '! It will run in the background and start automatically when your computer starts. You may need to restart your device for it to take effect.';
     end;
   end
   else
