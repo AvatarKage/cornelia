@@ -42,8 +42,7 @@ Source: "build\Cornelia.exe"; DestDir: "{app}"; Components: backend; Flags: igno
 Source: "src-tauri\target\x86_64-pc-windows-msvc\release\Cornelia_Studio.exe"; DestDir: "{app}"; Components: frontend; Flags: ignoreversion
 Source: "config\*"; DestDir: "{app}\config"; Flags: recursesubdirs createallsubdirs; Components: backend
 Source: "src\common\assets\images\icon.ico"; DestDir: "{app}"; Components: frontend backend
-Source: "src\common\assets\images\icon.ico"; DestDir: "{app}\src\common\assets\images"; Components: frontend backend
-Source: "src\common\assets\*"; DestDir: "{app}\src\common\assets"; Components: backend
+Source: "src\common\assets\*"; DestDir: "{app}\src\common\assets"; Components: backend; Excludes: "*.free"
 
 [Icons]
 Name: "{group}\Cornelia Studio"; Filename: "{app}\Cornelia_Studio.exe"; Components: frontend
