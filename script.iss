@@ -1,7 +1,7 @@
 [Setup]
 AppId={{584b3a53-fc29-49d4-b5cd-ddf6adffb145}}
 AppName=Cornelia
-AppVersion=1.0.0
+AppVersion=2.0.0
 AppPublisher=AvatarKage
 AppPublisherURL=https://avatarkage.com
 AppCopyright=AvatarKage
@@ -22,7 +22,9 @@ PrivilegesRequired=admin
 CloseApplications=yes
 RestartApplications=no
 VersionInfoProductName=Cornelia
-VersionInfoVersion=1.0.0
+VersionInfoVersion=2.0.0
+VersionInfoTextVersion=2.0.0-beta
+VersionInfoProductVersion=2.0.0
 VersionInfoCompany=AvatarKage
 VersionInfoDescription=A folder icon automation software.
 VersionInfoCopyright=AvatarKage
@@ -32,26 +34,38 @@ UsePreviousTasks=no
 UsePreviousUserInfo=no
 
 [Components]
-Name: "backend"; Description: "Cornelia (doesn't exist)"; Types: full compact;
+Name: "backend"; Description: "Cornelia"; Types: full compact;
 Name: "frontend"; Description: "Cornelia Studio"; Types: full;
 
 [Files]
+Source: "build\Cornelia.exe"; DestDir: "{app}"; Components: backend; Flags: ignoreversion
 Source: "src-tauri\target\x86_64-pc-windows-msvc\release\Cornelia_Studio.exe"; DestDir: "{app}"; Components: frontend; Flags: ignoreversion
-Source: "config\*"; DestDir: "{app}\config"; Flags: recursesubdirs createallsubdirs; Components: frontend backend
+Source: "config\*"; DestDir: "{app}\config"; Flags: recursesubdirs createallsubdirs; Components: backend
 Source: "src\common\assets\images\icon.ico"; DestDir: "{app}"; Components: frontend backend
+Source: "src\common\assets\images\icon.ico"; DestDir: "{app}\src\common\assets\images"; Components: frontend backend
+Source: "src\common\assets\fonts\jetbrains\nerdfont.ttf"; DestDir: "{app}\src\common\assets\fonts\jetbrains"; Components: backend
+Source: "src\backend\external\resvg.exe"; DestDir: "{app}\src\backend\external"; Components: backend
 
 [Icons]
 Name: "{group}\Cornelia Studio"; Filename: "{app}\Cornelia_Studio.exe"; Components: frontend
 
 [Run]
+Filename: "{app}\Cornelia.exe"; Parameters: "--install"; Flags: runhidden waituntilterminated; Components: backend
 Filename: "{app}\Cornelia.exe"; Components: backend; Flags: nowait skipifsilent runhidden
 Filename: "{app}\Cornelia_Studio.exe"; Components: frontend; Description: "Launch Cornelia Studio"; Flags: nowait postinstall skipifsilent
 
 [UninstallRun]
 Filename: "taskkill"; Parameters: "/F /IM Cornelia.exe"; Flags: runhidden
 Filename: "taskkill"; Parameters: "/F /IM Cornelia_Studio.exe"; Flags: runhidden
+Filename: "{app}\Cornelia.exe"; Parameters: "--uninstall"; Flags: runhidden waituntilterminated
 
 [Code]
+
+const
+  KOFI_URL = 'https://ko-fi.com/avatarkage';
+
+var
+  KoFiButton: TNewButton;
 
 procedure CloseRunningApps();
 var
@@ -64,17 +78,25 @@ begin
     ewWaitUntilTerminated, ResultCode);
 end;
 
+procedure OpenKoFi(Sender: TObject);
+var
+  ResultCode: Integer;
+begin
+  ShellExec('', KOFI_URL, '', '', SW_SHOWNORMAL, ewNoWait, ResultCode);
+end;
+
 procedure InitializeWizard();
 begin
   CloseRunningApps();
-end;
 
-procedure CurStepChanged(CurStep: TSetupStep);
-begin
-  if CurStep = ssInstall then
-  begin
-    CloseRunningApps();
-  end;
+  KoFiButton := TNewButton.Create(WizardForm);
+  KoFiButton.Parent := WizardForm;
+
+  KoFiButton.Caption := '☕ Support me on Ko-fi';
+  KoFiButton.Height := WizardForm.NextButton.Height;
+  KoFiButton.Width := ScaleX(160);
+
+  KoFiButton.OnClick := @OpenKoFi;
 end;
 
 procedure CurPageChanged(CurPageID: Integer);
@@ -83,6 +105,15 @@ var
 begin
   if CurPageID = wpFinished then
   begin
+    // show button
+    KoFiButton.Visible := True;
+
+    // place LEFT of Next/Finish button
+    KoFiButton.Top := WizardForm.NextButton.Top;
+    KoFiButton.Left := WizardForm.NextButton.Left
+                      - KoFiButton.Width
+                      - ScaleX(8);
+
     Message := 'Thank you for installing Cornelia';
 
     if IsComponentSelected('backend') and IsComponentSelected('frontend') then
@@ -100,6 +131,18 @@ begin
       WizardForm.FinishedLabel.Caption :=
         Message + '! It will run in the background and start automatically when your computer starts.';
     end;
+  end
+  else
+  begin
+    KoFiButton.Visible := False;
+  end;
+end;
+
+procedure CurStepChanged(CurStep: TSetupStep);
+begin
+  if CurStep = ssInstall then
+  begin
+    CloseRunningApps();
   end;
 end;
 
