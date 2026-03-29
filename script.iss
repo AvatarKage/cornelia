@@ -5,7 +5,7 @@ AppVersion=2.0.0
 AppPublisher=AvatarKage
 AppPublisherURL=https://avatarkage.com
 AppCopyright=AvatarKage
-DefaultDirName={pf}\Cornelia
+DefaultDirName={localappdata}\Cornelia
 DefaultGroupName=Cornelia
 DisableWelcomePage=no
 DisableDirPage=no
@@ -42,7 +42,7 @@ Source: "build\Cornelia.exe"; DestDir: "{app}"; Components: backend; Flags: igno
 Source: "src-tauri\target\x86_64-pc-windows-msvc\release\Cornelia_Studio.exe"; DestDir: "{app}"; Components: frontend; Flags: ignoreversion
 Source: "config\*"; DestDir: "{app}\config"; Flags: recursesubdirs createallsubdirs; Components: backend
 Source: "src\common\assets\images\icon.ico"; DestDir: "{app}"; Components: frontend backend
-Source: "src\common\assets\*"; DestDir: "{app}\src\common\assets"; Components: backend; Flags: recursesubdirs createallsubdirs; Excludes: "*.free"
+Source: "src\common\assets\*"; DestDir: "{app}\src\common\assets"; Components: backend; Flags: recursesubdirs createallsubdirs;
 
 [Icons]
 Name: "{group}\Cornelia Studio"; Filename: "{app}\Cornelia_Studio.exe"; Components: frontend
