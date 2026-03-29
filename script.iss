@@ -42,20 +42,24 @@ Source: "build\Cornelia.exe"; DestDir: "{app}"; Components: backend; Flags: igno
 Source: "src-tauri\target\x86_64-pc-windows-msvc\release\Cornelia_Studio.exe"; DestDir: "{app}"; Components: frontend; Flags: ignoreversion
 Source: "config\*"; DestDir: "{app}\config"; Flags: recursesubdirs createallsubdirs; Components: backend
 Source: "src\common\assets\images\icon.ico"; DestDir: "{app}"; Components: frontend backend
-Source: "src\common\assets\*"; DestDir: "{app}\src\common\assets"; Components: backend; Flags: recursesubdirs createallsubdirs;
+Source: "src\common\assets\images\icon.ico"; DestDir: "{app}\src\common\assets\images"; Components: frontend backend
+Source: "src\common\assets\fonts\jetbrains\nerdfont.ttf"; DestDir: "{app}\src\common\assets\fonts\jetbrains"; Components: frontend backend
+Source: "src\common\assets\svg\*"; DestDir: "{app}\src\common\assets\svg"; Components: backend; Flags: recursesubdirs createallsubdirs;
 
 [Icons]
 Name: "{group}\Cornelia Studio"; Filename: "{app}\Cornelia_Studio.exe"; Components: frontend
 
 [Run]
-Filename: "{app}\Cornelia.exe"; Parameters: "--install"; Flags: runhidden waituntilterminated; Components: backend
-Filename: "{app}\Cornelia.exe"; Components: backend; Flags: nowait skipifsilent runhidden
+Filename: "{app}\Cornelia.exe"; Parameters: "--install"; Flags: nowait skipifsilent runhidden; Components: backend
 Filename: "{app}\Cornelia_Studio.exe"; Components: frontend; Description: "Launch Cornelia Studio"; Flags: nowait postinstall skipifsilent
 
 [UninstallRun]
 Filename: "taskkill"; Parameters: "/F /IM Cornelia.exe"; Flags: runhidden
 Filename: "taskkill"; Parameters: "/F /IM Cornelia_Studio.exe"; Flags: runhidden
 Filename: "{app}\Cornelia.exe"; Parameters: "--uninstall"; Flags: runhidden waituntilterminated
+
+[UninstallDelete]
+Type: filesandordirs; Name: "{app}"
 
 [Code]
 
