@@ -43,8 +43,7 @@ Source: "src-tauri\target\x86_64-pc-windows-msvc\release\Cornelia_Studio.exe"; D
 Source: "config\*"; DestDir: "{app}\config"; Flags: recursesubdirs createallsubdirs; Components: backend
 Source: "src\common\assets\images\icon.ico"; DestDir: "{app}"; Components: frontend backend
 Source: "src\common\assets\images\icon.ico"; DestDir: "{app}\src\common\assets\images"; Components: frontend backend
-Source: "src\common\assets\fonts\jetbrains\nerdfont.ttf"; DestDir: "{app}\src\common\assets\fonts\jetbrains"; Components: backend
-Source: "src\backend\external\resvg.exe"; DestDir: "{app}\src\backend\external"; Components: backend
+Source: "src\common\assets\*"; DestDir: "{app}\src\common\assets"; Components: backend
 
 [Icons]
 Name: "{group}\Cornelia Studio"; Filename: "{app}\Cornelia_Studio.exe"; Components: frontend
