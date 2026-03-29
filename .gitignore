@@ -13,6 +13,8 @@ generated
 release
 gen
 target
+__pycache__
+build
 
 # Files
 .idea
@@ -25,6 +27,7 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+__init__.py
 
 # Extensions
 *.env
@@ -38,3 +41,4 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+*.spec
