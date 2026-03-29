@@ -8,9 +8,11 @@
 `npm run build` to compile and copy files to `/dist`<br>
 `npm run clean` to delete `/dist` files<br>
 `npm run package:frontend:windows` to package frontend `/dist` for Windows<br>
+`npm run package:backend:windows` to package backend `/src` for Windows<br>
+`npm run package:windows` to package both frontend and backend for Windows<br>
 Run `script.iss` via Inno to combine the packaged frontend and backend to `/release`
 
-To open `/src/common/assets/folders.free`, [Lunacy](https://lunacyapp.com) is required<br>
+To open `/src/common/assets/*.free`, [Lunacy](https://lunacyapp.com) is required<br>
 
 If you like my work, consider donating on my [Ko-Fi](https://ko-fi.com/avatarkage)<br>
 Cornelia illustration by [Luji9](https://vgen.co/luji9)<br>
