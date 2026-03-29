@@ -16,7 +16,7 @@
     "package:frontend:windows": "tauri build --target x86_64-pc-windows-msvc",
     "package:frontend:macos": "tauri build --target x86_64-apple-darwin",
     "package:frontend:linux": "tauri build --target x86_64-unknown-linux-gnu",
-    "package:backend:windows": "pyinstaller --onefile --windowed --clean --noconfirm --icon=src/common/assets/images/icon.ico --paths=. --collect-all pystray --collect-all PIL --add-data \"src/common/assets/images/icon.ico;.\" --distpath build --name Cornelia ./index.py",
+    "package:backend:windows": "pyinstaller --onefile --windowed --console --clean --noconfirm --icon=src/common/assets/images/icon.ico --paths=. --collect-all pystray --collect-all PIL --add-data \"src/common/assets/images/icon.ico;.\" --distpath build --name Cornelia ./index.py",
     "package:windows": "npm run package:frontend:windows && npm run package:backend:windows",
     "package:frontend": "npm run package:frontend:windows && npm run package:frontend:macos && npm run package:frontend:linux",
     "package:backend": "pkg dist/backend/server.js --targets node20-win-x64,node20-macos-x64,node20-linux-x64 --output ../src-tauri/bin/backend/dist",
