@@ -16,5 +16,8 @@
     "$sysreset",
     "modrinthapp",
     "dist",
-    "appdata"
+    "appdata",
+    ".gradle",
+    ".nexe",
+    ".cargo"
 ]
