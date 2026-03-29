@@ -9,7 +9,8 @@ async def scan_dir(directory: str, force: bool = False, progress_cb=None, cancel
     try:
         entries = list(os.scandir(directory))
     except Exception as e:
-        print(f"[red]󰉋 Failed to read directory: {directory}, {e}[/red]")
+        if config["debug"]["folders"]:
+            print(f"[red]󰉋 Failed to read directory: {directory}, {e}[/red]")
         return 0
 
     total_processed = 0
