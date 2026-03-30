@@ -20,7 +20,14 @@ def svg_to_png(svg_content: str, width: int, height: int) -> bytes:
             "--height", str(height),
         ]
 
-        result = subprocess.run(cmd, capture_output=True, text=True)
+        creationflags = subprocess.CREATE_NO_WINDOW
+
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            creationflags=creationflags
+        )
 
         if result.returncode != 0:
             raise RuntimeError(
