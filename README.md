@@ -10,7 +10,7 @@
 `npm run package:frontend:windows` to package frontend `/dist` for Windows<br>
 `npm run package:backend:windows` to package backend `/src` for Windows<br>
 `npm run package:windows` to package both frontend and backend for Windows<br>
-Run `script.iss` via Inno to combine the packaged frontend and backend to `/release`
+Run `inno.iss` via Inno to combine the packaged frontend and backend to `/release`
 
 To open `/src/common/assets/*.free`, [Lunacy](https://lunacyapp.com) is required<br>
 
