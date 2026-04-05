@@ -15,23 +15,5 @@ export default defineConfig({
     watch: {
       ignored: ["**/src-tauri/**", "**/dist/**", "**/build/**"],
     },
-  },
-  optimizeDeps: {
-    include: [
-      "@tauri-apps/api",
-      "@tauri-apps/api/path",
-      "@tauri-apps/plugin-fs",
-    ],
-  },
-  ssr: {
-    noExternal: [
-      "@tauri-apps/api",
-      "@tauri-apps/plugin-fs",
-    ],
-  },
-  build: {
-    commonjsOptions: {
-      include: [/node_modules/],
-    },
-  },
+  }
 });
