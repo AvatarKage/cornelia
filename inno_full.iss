@@ -38,7 +38,7 @@ Name: "backend"; Description: "Cornelia"; Types: full compact;
 Name: "frontend"; Description: "Cornelia Studio"; Types: full;
 
 [Files]
-Source: "build\cornelia\Cornelia.exe"; DestDir: "{app}"; Components: backend; Flags: ignoreversion
+Source: "build\cornelia\cornelia.exe"; DestDir: "{app}"; Components: backend; Flags: ignoreversion
 Source: "src-tauri\target\x86_64-pc-windows-msvc\release\studio.exe"; DestDir: "{app}"; Components: frontend; Flags: ignoreversion
 Source: "src\config.toml"; DestDir: "{app}"; Components: backend frontend
 Source: "src\icon.ico"; DestDir: "{app}"; Components: frontend backend
@@ -49,16 +49,16 @@ Name: "{group}\Cornelia Studio"; Filename: "{app}\studio.exe"; Components: front
 Name: "{commondesktop}\Cornelia Studio"; Filename: "{app}\studio.exe"; Tasks: desktopicon; Components: frontend
 
 [Tasks]
-Name: "desktopicon"; Description: "Create a &desktop shortcut"; GroupDescription: "Additional icons:"; Flags: unchecked
+Name: "desktopicon"; Description: "Create a &desktop shortcut for Cornelia Studio"; GroupDescription: "Additional icons:"; Flags: unchecked
 
 [Run]
-Filename: "{app}\Cornelia.exe"; Parameters: "--install"; Flags: nowait skipifsilent runhidden; Components: backend
+Filename: "{app}\cornelia.exe"; Parameters: "--install"; Flags: nowait skipifsilent runhidden; Components: backend
 Filename: "{app}\studio.exe"; Components: frontend; Description: "Launch Cornelia Studio"; Flags: nowait postinstall skipifsilent
 
 [UninstallRun]
-Filename: "taskkill"; Parameters: "/F /IM Cornelia.exe"; Flags: runhidden
+Filename: "taskkill"; Parameters: "/F /IM cornelia.exe"; Flags: runhidden
 Filename: "taskkill"; Parameters: "/F /IM studio.exe"; Flags: runhidden
-Filename: "{app}\Cornelia.exe"; Parameters: "--uninstall"; Flags: runhidden waituntilterminated
+Filename: "{app}\cornelia.exe"; Parameters: "--uninstall"; Flags: runhidden waituntilterminated
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}"
@@ -75,7 +75,7 @@ procedure CloseRunningApps();
 var
   ResultCode: Integer;
 begin
-  Exec('taskkill', '/F /IM Cornelia.exe', '', SW_HIDE,
+  Exec('taskkill', '/F /IM cornelia.exe', '', SW_HIDE,
     ewWaitUntilTerminated, ResultCode);
 
   Exec('taskkill', '/F /IM studio.exe', '', SW_HIDE,
