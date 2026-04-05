@@ -1,0 +1,48 @@
+# ————————————————————————————————————————————————————————————————
+# Sends debug/trace logs
+# ———————————————————————————————————————————————————————————————— 
+
+[debug] 
+config = false
+generation = false
+packs = false
+folders = true
+
+# ————————————————————————————————————————————————————————————————
+# Snowflake generation values
+# ———————————————————————————————————————————————————————————————— 
+
+[snowflake]
+machine = 0 # (valid: 0-1024; default: 0)
+epoch = "2026-03-23T00:00:00Z" # (default: 2026-03-23T00:00:00Z)
+
+# ————————————————————————————————————————————————————————————————
+# Application metadata
+# ———————————————————————————————————————————————————————————————— 
+
+[metadata]
+developer="avatarkage"
+description="A folder icon automation software."
+
+[metadata.cornelia]
+id = "com.avatarkage.cornelia"
+version = "2.0.0-beta"
+date = "3/29/2026"
+name = "Cornelia"
+
+[metadata.studio]
+id = "com.avatarkage.cornelia.studio"
+version = "1.0.0-beta"
+date = "3/30/2026"
+name = "Cornelia Studio"
+keywords="folder icons, folders, automation software"
+accent="#ffca38"
+owner="avatarkage"
+legal="copyright (c) 2026 avatarkage. all rights reserved."
+
+# ————————————————————————————————————————————————————————————————
+# Message templates
+# ———————————————————————————————————————————————————————————————— 
+
+[messages]
+validation = "Please fill in all the required fields"
