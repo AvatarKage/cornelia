@@ -680,7 +680,10 @@ h2, h3, h4, h5, h6 {
     color: #000000;
 }
 
-.card .buttons > :first-child#donateKoFi {
+.card #donateKoFi {
+    grid-column: 1 / -1;
+    height: 72px;
+    font-size: 20px;
     background: #ef5350;
     color: #000000;
 }
