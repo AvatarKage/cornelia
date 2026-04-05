@@ -14,6 +14,7 @@ This license will be revised to be more permissive when the update is completed.
 | IEC Power Symbols | MIT |
 | JetBrains Mono | SIL OFL 1.1 |
 | JSZip | MIT |
+| J-TOML | LGPL-3.0 |
 | Material Design Icons | Apache 2.0 |
 | Original Source (Seti-UI but modified) | MIT |
 | Octicons | MIT |
