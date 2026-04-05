@@ -1,4 +1,4 @@
-![Cornelia illustration by Luji9](https://cdn.avatarka.ge/r/chrome_SrXAB8ZWyNC4WCjsHrWmymqt.png)
+![Cornelia illustration by Luji9](https://cdn.avatarka.ge/r/studio_8ItVj0A0GzXKBorJ8VX21kXH.png)
 
 `npm i` to install all required dependencies<br>
 `npm run start:studio` to run the `/build` Cornelia Studio at `localhost:32302`<br>
