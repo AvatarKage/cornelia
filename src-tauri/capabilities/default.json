@@ -1,20 +1,21 @@
 {
   "identifier": "default",
   "description": "Default capability for main window",
-  "windows": ["main"],
-
+  "windows": [
+    "main"
+  ],
   "permissions": [
     "core:default",
-
     "core:path:default",
     "core:path:allow-resolve-directory",
-
     "core:webview:default",
     "core:webview:allow-internal-toggle-devtools",
-
     "fs:default",
     "fs:allow-resource-read",
-    "fs:allow-resource-read-recursive"
+    "fs:allow-resource-read-recursive",
+    "opener:default",
+    "opener:allow-open-path",
+    "opener:allow-open-url"
   ],
   "allow": [
     {
