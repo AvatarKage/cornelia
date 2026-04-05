@@ -31,7 +31,6 @@ import readPacks from "./scripts/packs/readPacks.js";
 import sortExportButtons from "./scripts/sortExportButtons.js";
 // import { parsePacks } from "./scripts/directory/renderDirectory.js";
 import renderUpload from "./scripts/renderUpload.js";
-import openLink from "./scripts/helpers/openLink.js";
 import e from "./scripts/e.js";
 import callUpdatePreview from "./scripts/folders/updatePreview.js";
 import countFiles from "./scripts/directory/countFiles.js";
@@ -659,7 +658,6 @@ Elements
 
 // Attach functions
 window.renderUpload = renderUpload;
-window.openLink = openLink;
 
 // Disable right click
 document.addEventListener('contextmenu', function (e) {
