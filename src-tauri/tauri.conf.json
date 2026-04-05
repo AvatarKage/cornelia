@@ -14,8 +14,9 @@
     "windows": [
       {
         "title": "Cornelia Studio",
-        "width": 1000,
-        "height": 600
+        "width": 1200,
+        "height": 1000,
+        "maximized": true
       }
     ],
     "security": {
