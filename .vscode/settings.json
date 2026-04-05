@@ -1,0 +1,38 @@
+{
+  "material-icon-theme.folders.associations": {
+    "packs": "plugin",
+    "official": "resolver",
+    "presets": "theme",
+    "folders": "svg",
+    "external": "connection",
+    "directory": "content"
+  },
+  "material-icon-theme.files.associations": {
+    "*.iss": "pascal",
+    "notes.md": "toc"
+  },
+  "material-icon-theme.folders.customClones": [
+    {
+      "name": "userdata",
+      "base": "admin",
+      "color": "blue-600",
+      "folderNames": ["userdata"]
+    },
+    {
+      "name": "cornelia",
+      "base": "core",
+      "color": "yellow-800",
+      "folderNames": ["cornelia"]
+    },
+    {
+      "name": "studio",
+      "base": "ui",
+      "color": "yellow-800",
+      "folderNames": ["studio"]
+    }
+  ],
+  "python.analysis.extraPaths": [
+    "./src",
+    "./src"
+  ]
+}
