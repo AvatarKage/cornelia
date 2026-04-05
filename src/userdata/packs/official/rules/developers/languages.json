@@ -1,0 +1,50 @@
+{
+  "priority": 1,
+  "values": [
+    {
+      "id": "javascript",
+      "match": {
+        "en-US": ["javascript", "js"]
+      },
+      "preset": {
+        "icon": "js",
+        "baseColor": "#f7e018",
+        "_color": "#000000"
+      }
+    },
+    {
+      "id": "typescript",
+      "match": {
+        "en-US": ["typescript", "ts"]
+      },
+      "preset": {
+        "icon": "ts",
+        "baseColor": "#2d79c7",
+        "_color": "#ffffff"
+      }
+    },
+    {
+      "id": "discordjs",
+      "priority": 2,
+      "match": {
+        "en-US": ["discordjs", "discord js", "discord javascript", "djs"]
+      },
+      "preset": {
+        "icon": "d.js",
+        "baseColor": "#5865f2",
+        "_color": "#ffffff"
+      }
+    },
+    {
+      "id": "python",
+      "match": {
+        "en-US": ["python", "py"]
+      },
+      "preset": {
+        "icon": "py",
+        "baseColor": "#0277bc",
+        "_color": "#fec008"
+      }
+    }
+  ]
+}

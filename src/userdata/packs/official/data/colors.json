@@ -1,0 +1,30 @@
+{
+    "default": "#ffd65c",
+    "white": "#dddddd",
+    "gray": "#333333",
+    "black": "#111111",
+    "brown": "#7d4110",
+    "red": "#e81313",
+    "orange": "#f06c00",
+    "yellow": "#ffc814",
+    "green": "#39b52b",
+    "cyan": "#2adbd5",
+    "blue": "#115cf2",
+    "purple": "#891dc4",
+    "pink": "#f52cc9",
+    "random": {
+        "spectrum": ["#000000", "#dddddd"],
+        "white": ["#dddddd", "#c0c0c0"],
+        "gray": ["#808080", "#444444"],
+        "black": ["#000000", "#1a1a1a"],
+        "brown": ["#5a2e0c", "#a0522d"],
+        "red": ["#ff0000", "#ff6666"],
+        "orange": ["#ffa500", "#ffcc80"],
+        "yellow": ["#ffff00", "#ffff99"],
+        "green": ["#008000", "#66ff66"],
+        "cyan": ["#00ffff", "#66ffff"],
+        "blue": ["#0000ff", "#3399ff"],
+        "purple": ["#800080", "#da70d6"],
+        "pink": ["#ffc0cb", "#ff69b4"]
+    }
+}

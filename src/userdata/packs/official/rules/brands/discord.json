@@ -1,0 +1,8 @@
+{
+  "priority": 0,
+  "match": {
+    "contains": {
+      "en-US": ["discord"]
+    }
+  }
+}
