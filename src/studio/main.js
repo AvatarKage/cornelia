@@ -960,4 +960,4 @@ setTimeout(() => {
     }, 200);
 
     loader.style.opacity = 0;
-}, 1000);
+}, 500);
