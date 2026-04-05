@@ -4,10 +4,10 @@
   "version": "1.0.0",
   "identifier": "com.avatarkage.cornelia.studio",
   "build": {
-    "beforeDevCommand": "npm run dev",
-    "devUrl": "http://127.0.0.1:32303",
+    "beforeDevCommand": "vite",
+    "devUrl": "http://localhost:32312",
     "beforeBuildCommand": "npm run build",
-    "frontendDist": "../dist"
+    "frontendDist": "../build"
   },
   "app": {
     "withGlobalTauri": true,
@@ -26,7 +26,10 @@
     "active": true,
     "targets": "all",
     "icon": [
-      "../src/common/assets/images/icon.ico"
+      "../src/icon.ico"
+    ],
+    "resources": [
+      "../src/userdata/**/*"
     ]
   }
 }
