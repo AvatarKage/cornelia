@@ -1,6 +1,8 @@
 # Folders
 .vscode/*
 !.vscode/extensions.json
+!.vscode/extensions
+!.vscode/settings.json
 node_modules
 dist
 dist-ssr
@@ -15,6 +17,8 @@ gen
 target
 __pycache__
 build
+downloads
+cache
 
 # Files
 .idea
@@ -31,7 +35,7 @@ __init__.py
 
 # Extensions
 *.env
-!public.env
+!config.env
 *.log
 *.ini
 *.lnk
