@@ -10,14 +10,14 @@ DefaultGroupName=Cornelia
 DisableWelcomePage=no
 DisableDirPage=no
 DisableProgramGroupPage=no
-OutputDir=release
+OutputDir=dist
 OutputBaseFilename=Cornelia_Installer
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
-WizardImageFile=src\common\assets\images\cornelia_03.png
-WizardSmallImageFile=src\common\assets\images\cornelia_02.png
-SetupIconFile=src\common\assets\images\icon.ico
+WizardImageFile=src\studio\assets\images\cornelia_03.png
+WizardSmallImageFile=src\studio\assets\images\cornelia_02.png
+SetupIconFile=src\icon.ico
 PrivilegesRequired=admin
 CloseApplications=yes
 RestartApplications=no
@@ -38,24 +38,26 @@ Name: "backend"; Description: "Cornelia"; Types: full compact;
 Name: "frontend"; Description: "Cornelia Studio"; Types: full;
 
 [Files]
-Source: "build\Cornelia.exe"; DestDir: "{app}"; Components: backend; Flags: ignoreversion
-Source: "src-tauri\target\x86_64-pc-windows-msvc\release\Cornelia_Studio.exe"; DestDir: "{app}"; Components: frontend; Flags: ignoreversion
-Source: "config\*"; DestDir: "{app}\config"; Flags: recursesubdirs createallsubdirs; Components: backend
-Source: "src\common\assets\images\icon.ico"; DestDir: "{app}"; Components: frontend backend
-Source: "src\common\assets\images\icon.ico"; DestDir: "{app}\src\common\assets\images"; Components: frontend backend
-Source: "src\common\assets\fonts\jetbrains\nerdfont.ttf"; DestDir: "{app}\src\common\assets\fonts\jetbrains"; Components: frontend backend
-Source: "src\common\assets\svg\*"; DestDir: "{app}\src\common\assets\svg"; Components: backend; Flags: recursesubdirs createallsubdirs;
+Source: "build\cornelia\Cornelia.exe"; DestDir: "{app}"; Components: backend; Flags: ignoreversion
+Source: "src-tauri\target\x86_64-pc-windows-msvc\release\studio.exe"; DestDir: "{app}"; Components: frontend; Flags: ignoreversion
+Source: "src\config.toml"; DestDir: "{app}"; Components: backend frontend
+Source: "src\icon.ico"; DestDir: "{app}"; Components: frontend backend
+Source: "src\userdata\*"; DestDir: "{app}\userdata"; Components: frontend backend; Flags: recursesubdirs createallsubdirs;
 
 [Icons]
-Name: "{group}\Cornelia Studio"; Filename: "{app}\Cornelia_Studio.exe"; Components: frontend
+Name: "{group}\Cornelia Studio"; Filename: "{app}\studio.exe"; Components: frontend
+Name: "{commondesktop}\Cornelia Studio"; Filename: "{app}\studio.exe"; Tasks: desktopicon; Components: frontend
+
+[Tasks]
+Name: "desktopicon"; Description: "Create a &desktop shortcut"; GroupDescription: "Additional icons:"; Flags: unchecked
 
 [Run]
 Filename: "{app}\Cornelia.exe"; Parameters: "--install"; Flags: nowait skipifsilent runhidden; Components: backend
-Filename: "{app}\Cornelia_Studio.exe"; Components: frontend; Description: "Launch Cornelia Studio"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\studio.exe"; Components: frontend; Description: "Launch Cornelia Studio"; Flags: nowait postinstall skipifsilent
 
 [UninstallRun]
 Filename: "taskkill"; Parameters: "/F /IM Cornelia.exe"; Flags: runhidden
-Filename: "taskkill"; Parameters: "/F /IM Cornelia_Studio.exe"; Flags: runhidden
+Filename: "taskkill"; Parameters: "/F /IM studio.exe"; Flags: runhidden
 Filename: "{app}\Cornelia.exe"; Parameters: "--uninstall"; Flags: runhidden waituntilterminated
 
 [UninstallDelete]
@@ -76,7 +78,7 @@ begin
   Exec('taskkill', '/F /IM Cornelia.exe', '', SW_HIDE,
     ewWaitUntilTerminated, ResultCode);
 
-  Exec('taskkill', '/F /IM Cornelia_Studio.exe', '', SW_HIDE,
+  Exec('taskkill', '/F /IM studio.exe', '', SW_HIDE,
     ewWaitUntilTerminated, ResultCode);
 end;
 
