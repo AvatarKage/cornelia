@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cornelia Studio</title>
+    <link rel="icon" href="./icon.ico" type="image/png">
+    <link rel="stylesheet" href="./studio/assets/styles.css">
+</head>
+
+<body>
+    <div class="tooltip" id="tooltips"></div>
+
+    <div class="loader" id="loader">
+        <img id="cornelia" src="./studio/assets/images/cornelia_01.png">
+        <h2 id="loading_message"><span style="opacity: 0;">...</span></h2>
+    </div>
+
+    <div class="left">
+        <h3>Presets Directory</h3>
+
+        <div class="buttons">
+            <button id="back"></button>
+            <button id="forward"></button>
+        </div>
+
+        <div class="path" id="path">
+            <!-- Pack generation result goes here -->
+        </div>
+
+        <input id="search" placeholder="Search..." autocorrect="off" autocomplete="off" />
+
+        <div class="items" id="contents">
+            <!-- Pack generation result goes here -->
+        </div>
+    </div>
+
+    <div class="right">
+        <div class="hero" align="center">
+            <img src="./studio/assets/images/cornelia_02.png" class="cornelia">
+            <h1>Cornelia Studio</h1>
+            <div class="license">© 2026 <a href="https://avatarkage.com" target="_blank" rel="noopener noreferrer">AvatarKage</a>. All Rights Reserved.</div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="icons">Icons</div>
+            <div class="tab" data-tab="images">Images</div>
+            <div class="tab" data-tab="colors">Colors</div>
+            <div class="tab" data-tab="style">Style</div>
+            <div class="tab" data-tab="export">Export</div>
+        </div>
+
+        <div class="panels">
+            <div class="panel active" id="icons">
+                <div class="cards">
+                    <div class="card">
+                        <div class="grid">
+                            <div>
+                                <label>Position</label>
+                                <div class="select" id="iconPos">
+                                    <input type="hidden" class="select-value">
+                                    <div class="select-display">
+                                        <span class="selected">Center</span>
+                                        <span class="arrow"></span>
+                                    </div>
+                                    <div class="options">
+                                        <div class="option" data-value="iconPosRightExternal">Right External</div>
+                                        <div class="option" data-value="iconPosLeftExternal">Left External</div>
+                                        <div class="option" data-value="iconPosCenter">Center</div>
+                                        <div class="option" data-value="iconPosRightCorner">Right Corner</div>
+                                        <div class="option" data-value="iconPosLeftCorner">Left Corner</div>
+                                        <div class="option" data-value="iconPosRightCompact">Right Compact</div>
+                                        <div class="option" data-value="iconPosLeftCompact">Left Compact</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label>Method</label>
+                                <div class="select" id="iconMethod">
+                                    <input type="hidden" class="select-value">
+                                    <div class="select-display">
+                                        <span class="selected">Print</span>
+                                        <span class="arrow"></span>
+                                    </div>
+                                    <div class="options">
+                                        <div class="option" data-value="print">Print</div>
+                                        <div class="option" data-value="engrave">Engrave</div>
+                                        <div class="option" data-value="emboss">Emboss</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label>Icon</label>
+                            <input id="icon" placeholder="Insert Nerd Font icon or paste SVG..." autocorrect="off" autocomplete="off" />
+                        </div>
+
+                        <div>
+                            <label>Upload Icon (.svg)</label>
+                            <label class="upload">
+                                <div id="uploadText">Uploads never leave your device<br><br>REFRESH (CTRL+R) THE PAGE TO CLEAR</div>
+                                <div id="uploadIconPreview"></div>
+                                <input 
+                                    type="file" 
+                                    id="uploadIcon" 
+                                    accept=".svg" 
+                                    onchange="renderUpload(event, 'uploadIconPreview')"
+                                >
+                            </label>
+                        </div>
+
+                        <div class="grid">
+                            <div>
+                                <label>X Position</label>
+                                <input id="iconX" type="range" min="1" max="200" value="100">
+                            </div>
+
+                            <div>
+                                <label>Y Position</label>
+                                <input id="iconY" type="range" min="1" max="200" value="100">
+                            </div>
+                        </div>
+
+                        <div tooltip="Coming soon!">
+                            <label>Rotation</label>
+                            <input class="disabled" id="iconRotation" type="range" min="1" max="200" value="100">
+                        </div>
+
+                        <div>
+                            <label>Scale</label>
+                            <input id="iconScale" type="range" min="1" max="200" value="100">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel" id="images">
+                <div class="cards">
+                    <div class="card">
+                        <div>
+                            <label>Image (.png, .jpg, .jpeg, .webp, .bmp, .avif)</label>
+                            <input id="image" placeholder="Insert image URL..." autocorrect="off" autocomplete="off" />
+                        </div>
+
+                        <div>
+                            <label>Upload Image (.png, .jpg, .jpeg, .webp, .bmp, .avif)</label>
+                            <label class="upload">
+                                <div id="uploadText">Uploads never leave your device<br><br>REFRESH (CTRL+R) THE PAGE TO CLEAR</div>
+                                <div id="uploadImagePreview"></div>
+                                <input 
+                                    type="file" 
+                                    id="uploadImage" 
+                                    accept=".png, .jpg, .jpeg, .webp, .bmp, .avif" 
+                                    onchange="renderUpload(event, 'uploadImagePreview')"
+                                >
+                            </label>
+                        </div>
+
+                        <div class="grid" tooltip="Coming soon!">
+                            <div>
+                                <label>X Position</label>
+                                <input class="disabled" id="imageX" type="range" min="1" max="200" value="100">
+                            </div>
+
+                            <div>
+                                <label>Y Position</label>
+                                <input class="disabled" id="imageY" type="range" min="1" max="200" value="100">
+                            </div>
+                        </div>
+
+                        <div tooltip="Coming soon!">
+                            <label>Rotation</label>
+                            <input class="disabled" id="imageRotation" type="range" min="1" max="200" value="100">
+                        </div>
+
+                        <div tooltip="Coming soon!">
+                            <label>Scale</label>
+                            <input class="disabled" id="imageScale" type="range" min="1" max="200" value="100">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel" id="colors">
+                <div class="card">
+                    <div class="color-picker">
+                        <label>Base Color</label>
+                        <div class="color-wrapper">
+                            <input id="baseColor" type="color" value="#FFD65C">
+                            <div class="color-display"></div>
+                        </div>
+                    </div>
+
+                    <div class="color-picker">
+                        <label>Back Color</label>
+                        <div class="color-wrapper">
+                            <input id="backColor" type="color" value="" data-empty="true">
+                            <div class="color-display"></div>
+                        </div>
+                    </div>
+
+                    <div class="color-picker">
+                        <label>Icon Color</label>
+                        <div class="color-wrapper">
+                            <input id="iconColor" type="color" value="" data-empty="true">
+                            <div class="color-display"></div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Saturation</label>
+                        <input id="colorSaturation" type="range" min="1" max="200" value="100">
+                    </div>
+
+                    <div>
+                        <label>Brightness</label>
+                        <input id="colorBrightness" type="range" min="1" max="200" value="100">
+                    </div>
+
+                    <div>
+                        <label>Contrast</label>
+                        <input id="colorContrast" type="range" min="1" max="200" value="100">
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel" id="style">
+                <div class="cards">
+                    <div class="card">
+                        <div>
+                            <label>Style</label>
+                            <div class="select" id="style">
+                                <input type="hidden" class="select-value">
+                                <div class="select-display">
+                                    <span class="selected"><!-- Pack generation result goes here --></span>
+                                    <span class="arrow"></span>
+                                </div>
+                                <div class="options" id="styleOptions">
+                                    <!-- Pack generation result goes here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label>Variant</label>
+                            <div class="select" id="variant">
+                                <input type="hidden" class="select-value">
+                                <div class="select-display">
+                                    <span class="selected"><!-- Pack generation result goes here --></span>
+                                    <span class="arrow"></span>
+                                </div>
+                                <div class="options" id="variantOptions">
+                                    <!-- Pack generation result goes here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label>Font</label>
+                            <div class="select" id="font">
+                                <input type="hidden" class="select-value">
+                                <div class="select-display">
+                                    <span class="selected"><!-- Pack generation result goes here --></span>
+                                    <span class="arrow"></span>
+                                </div>
+                                <div class="options" id="fontOptions">
+                                    <!-- Pack generation result goes here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel" id="export">
+                <div class="card">
+                    <div>
+                        <label>File name</label>
+                        <input id="fileName" placeholder="A file name will automatically generate!" autocorrect="off" autocomplete="off"/>
+                    </div>
+                    
+                    <div>
+                        <label>Click to export</label>
+                        <div class="buttons" id="saveButtons">
+                            <button id="exportWindows"> Windows<div class="subtext">.ico</div></button>
+                            <button class="disabled" id="exportMacOS" tooltip="Coming Soon"> MacOS<div class="subtext">.icns</div></button>
+                            <button id="exportLinux"> Linux<div class="subtext">.png</div></button>
+                            <button class="disabled" id="exportAndroid" tooltip="Coming Soon"> Android<div class="subtext">.webp</div></button>
+                            <button id="exportVector">󰜡 Vector<div class="subtext">.svg</div></button>
+                            <button class="disabled" id="copyLink" tooltip="Coming Soon"> Copy Link</button>
+                            <button class="disabled" id="exportPreset" tooltip="Coming Soon"> Preset</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label>Support the developer of Cornelia build more softwares and services</label>
+                        <div class="buttons">
+                            <button id="donateKoFi" onclick="openLink('https://avatarka.ge/donate')"> Donate on Ko-Fi<div class="subtext">Months has been spent building this software from concepts to production</div></button>
+                            <button onclick="openLink('https://avatarka.ge/op5')"> OpenProfile</button>
+                            <button onclick="openLink('https://oct.ink')"> Octopys</button>
+                            <button onclick="openLink('https://avatarka.ge/automod')"> AutoMod</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview">
+                <div id="loadSVG">
+                    <div id="svg">
+                        <!-- Folder generation result goes here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="./studio/scripts/external/tooltips.js?v1.0.0"></script>
+    <script type="module" src="./studio/scripts/external/jszip.js?v=3.10.0"></script>
+    <script type="module" src="./studio/main.js?v=1.0.0.100"></script>
+</body>
+</html>
