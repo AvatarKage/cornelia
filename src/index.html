@@ -11,7 +11,7 @@
 <body>
     <div class="tooltip" id="tooltips"></div>
 
-    <div class="loader" id="loader">
+    <div class="loader" style="display: none;" id="loader">
         <img id="cornelia" src="./studio/assets/images/cornelia_01.png">
         <h2 id="loading_message"><span style="opacity: 0;">...</span></h2>
     </div>
@@ -39,7 +39,7 @@
         <div class="hero" align="center">
             <img src="./studio/assets/images/cornelia_02.png" class="cornelia">
             <h1>Cornelia Studio</h1>
-            <div class="license">© 2026 <a href="https://avatarkage.com" target="_blank" rel="noopener noreferrer">AvatarKage</a>. All Rights Reserved.</div>
+            <div class="license">© 2026 <a id="license" href="https://avatarkage.com?utm_source=cornelia&utm_medium=app&utm_campaign=hero" target="_blank" rel="noopener noreferrer">AvatarKage</a>. All Rights Reserved.</div>
         </div>
 
         <div class="tabs">
@@ -51,7 +51,7 @@
         </div>
 
         <div class="panels">
-            <div class="panel active" id="icons">
+            <div class="panel " id="icons">
                 <div class="cards">
                     <div class="card">
                         <div class="grid">
@@ -275,7 +275,7 @@
                 </div>
             </div>
 
-            <div class="panel" id="export">
+            <div class="panel active" id="export">
                 <div class="card">
                     <div>
                         <label>File name</label>
@@ -283,13 +283,13 @@
                     </div>
                     
                     <div>
-                        <label>Click to export to your downloads folder</label>
+                        <label>Export to your downloads folder</label>
                         <div class="buttons" id="saveButtons">
                             <button id="exportWindows"> Windows<div class="subtext">.ico</div></button>
                             <button class="disabled" id="exportMacOS" tooltip="Coming Soon"> MacOS<div class="subtext">.icns</div></button>
                             <button id="exportLinux"> Linux<div class="subtext">.png</div></button>
                             <button class="disabled" id="exportAndroid" tooltip="Coming Soon"> Android<div class="subtext">.webp</div></button>
-                            <button id="exportVector">󰜡 Vector<div class="subtext">.svg</div></button>
+                            <button class="disabled" id="exportVector" tooltip="Broken Export">󰜡 Vector<div class="subtext">.svg</div></button>
                             <button class="disabled" id="copyLink" tooltip="Coming Soon"> Copy Link</button>
                             <button class="disabled" id="exportPreset" tooltip="Coming Soon"> Preset</button>
                         </div>
@@ -298,10 +298,10 @@
                     <div>
                         <label>Support the developer of Cornelia build more softwares and services</label>
                         <div class="buttons">
-                            <button id="donateKoFi" onclick="openLink('https://avatarka.ge/donate')"> Donate on Ko-Fi<div class="subtext">Months has been spent building this software from concepts to production</div></button>
-                            <button onclick="openLink('https://avatarka.ge/op5')"> OpenProfile</button>
-                            <button onclick="openLink('https://oct.ink')"> Octopys</button>
-                            <button onclick="openLink('https://avatarka.ge/automod')"> AutoMod</button>
+                            <a href="https://avatarka.ge/donate?utm_source=cornelia&utm_medium=app&utm_campaign=hero" target="_blank" rel="noopener noreferrer"><button id="donateKoFi" onclick="openLink('https://avatarka.ge/donate')"> Donate on Ko-Fi<div class="subtext">Months has been spent building this software from concepts to production</div></button></a>
+                            <a href="https://avatarka.ge/op5?utm_source=cornelia&utm_medium=app&utm_campaign=hero" target="_blank" rel="noopener noreferrer"><button > OpenProfile</button></a>
+                            <a href="https://oct.ink?utm_source=cornelia&utm_medium=app&utm_campaign=hero" target="_blank" rel="noopener noreferrer"><button > Octopys</button></a>
+                            <a href="https://avatarka.ge/automod?utm_source=cornelia&utm_medium=app&utm_campaign=hero" target="_blank" rel="noopener noreferrer"><button > AutoMod</button></a>
                         </div>
                     </div>
                 </div>
