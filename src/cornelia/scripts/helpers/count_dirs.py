@@ -1,6 +1,6 @@
 import os
 
-from src.backend.scripts.helpers.should_watch import should_watch
+from src.cornelia.scripts.helpers.should_watch import should_watch
 
 def count_dirs(path):
     total = 0

@@ -1,9 +1,9 @@
 import os
 from rich import print
 
-from src.backend.scripts.config import config
-from src.backend.scripts.core.process_folder import process_folder
-from src.backend.scripts.helpers.should_watch import should_watch
+from src.cornelia.scripts.config import config
+from src.cornelia.scripts.core.process_folder import process_folder
+from src.cornelia.scripts.helpers.should_watch import should_watch
 
 async def scan_dir(directory: str, force: bool = False, progress_cb=None, cancel_cb=None):
     try:

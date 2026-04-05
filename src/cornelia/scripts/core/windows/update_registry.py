@@ -1,6 +1,6 @@
 import winreg
 
-from src.backend.scripts.config import config
+from src.cornelia.scripts.config import config
 
 def add_to_registry(cmd: str):
     try:

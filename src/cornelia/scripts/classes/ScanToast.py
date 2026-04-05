@@ -1,7 +1,7 @@
 from toasted import Toast, Text, Progress, Button
 from rich import print
 
-from src.backend.scripts.config import config
+from src.cornelia.scripts.config import config
 
 class ScanToast:
     def __init__(self, total: int):

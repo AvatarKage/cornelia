@@ -1,9 +1,9 @@
 import os
 from rich import print
 
-from src.backend.scripts.config import config
-from src.backend.scripts.icons.generate_folder import generate_folder
-from src.backend.scripts.core.update_folder_icon import update_folder_icon
+from src.cornelia.scripts.config import config
+from src.cornelia.scripts.folders.generate_folder import generate_folder
+from src.cornelia.scripts.core.update_folder_icon import update_folder_icon
 
 async def call_cornelia(folder_path: str):
     folder_name = os.path.basename(folder_path).lower()

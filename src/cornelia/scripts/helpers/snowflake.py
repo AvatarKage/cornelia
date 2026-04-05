@@ -1,9 +1,9 @@
 import time
 from datetime import datetime, timezone
 
-from src.backend.scripts.config import config
+from src.cornelia.scripts.config import config
 
-eposh = config["snowflake"]["eposh"]
+eposh = config["snowflake"]["epoch"]
 
 if isinstance(eposh, (int, float)) or str(eposh).isdigit():
     _epoch = int(eposh)

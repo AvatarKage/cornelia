@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-from src.backend.scripts.icons.color_management import darken_color
+from src.cornelia.scripts.folders.color_management import darken_color
 
 SVG_NS = "http://www.w3.org/2000/svg"
 

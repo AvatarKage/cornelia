@@ -1,6 +1,6 @@
 from toasted import Toast, Text
 
-from src.backend.scripts.config import config
+from src.cornelia.scripts.config import config
 
 async def show_toast(title: str, message: str):
     t = Toast(

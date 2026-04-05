@@ -22,14 +22,14 @@ from watchdog.events import FileSystemEventHandler
 from rich import print
 
 # Internal modules
-from src.backend.scripts.classes.ScanToast import ScanToast
-from src.backend.scripts.classes.Counter import Counter
-from src.backend.scripts.helpers.count_dirs import count_dirs
-from src.backend.scripts.helpers.show_toast import show_toast
-from src.backend.scripts.core.process_folder import process_folder
-from src.backend.scripts.core.windows.update_registry import add_to_registry, remove_from_registry
-from src.backend.scripts.config import config
-from src.backend.scripts.helpers.scan_dir import scan_dir
+from src.cornelia.scripts.classes.ScanToast import ScanToast
+from src.cornelia.scripts.classes.Counter import Counter
+from src.cornelia.scripts.helpers.count_dirs import count_dirs
+from src.cornelia.scripts.helpers.show_toast import show_toast
+from src.cornelia.scripts.core.process_folder import process_folder
+from src.cornelia.scripts.core.windows.update_registry import add_to_registry, remove_from_registry
+from src.cornelia.scripts.config import config
+from src.cornelia.scripts.helpers.scan_dir import scan_dir
 
 # Variables
 LOOP = None
@@ -153,7 +153,9 @@ def refresh_cache():
         LOOP
     )
 def setup_tray():
-    icon_path = Path(config["folders"]["assets"]) / "images" / "icon.ico"
+    global tray_icon
+
+    icon_path = Path(config["folders"]["root"]) / "src" / "icon.ico"
 
     icon_img = (
         Image.open(icon_path)
@@ -167,14 +169,14 @@ def setup_tray():
         item("Quit", lambda icon, item: shutdown())
     )
 
-    icon = pystray.Icon(
-        config["metadata"]["name"],
+    tray_icon = pystray.Icon(
+        config["metadata"]["cornelia"]["name"],
         icon_img,
-        config["metadata"]["name"],
+        config["metadata"]["cornelia"]["name"],
         menu
     )
 
-    icon.run()
+    tray_icon.run()
 
 """
 ————————————————————————————————————————————————————————————————
@@ -187,7 +189,8 @@ async def main():
     LOOP = asyncio.get_running_loop()
 
     # Start tray UI thread
-    threading.Thread(target=setup_tray, daemon=True).start()
+    tray_thread = threading.Thread(target=setup_tray)
+    tray_thread.start()
 
     # Automate icons based on folder names
     observer.schedule(
@@ -225,7 +228,4 @@ if __name__ == "__main__":
         run_main = False
 
     if run_main:
-        try:
-            asyncio.run(main())
-        except Exception:
-            pass
+        asyncio.run(main())

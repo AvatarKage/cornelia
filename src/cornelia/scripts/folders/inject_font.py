@@ -1,6 +1,6 @@
 import re
 
-from src.backend.scripts.config import config
+from src.cornelia.scripts.config import config
 
 def inject_font(svg_string: str) -> str:
     svg_font = config["svg_font"]

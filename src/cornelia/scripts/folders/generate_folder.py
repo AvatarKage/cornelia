@@ -3,13 +3,13 @@ from pathlib import Path
 from PIL import Image
 from rich import print
 
-from src.backend.scripts.config import config
-from src.backend.scripts.icons.recolor import recolor
-from src.backend.scripts.icons.inject_font import inject_font
-from src.backend.scripts.icons.svg_to_png import svg_to_png
-from src.backend.scripts.helpers.snowflake import generate_snowflake
-from src.backend.scripts.icons.color_management import get_color
-from src.backend.scripts.icons.scale_svg import scale_svg
+from src.cornelia.scripts.config import config
+from src.cornelia.scripts.folders.recolor import recolor
+from src.cornelia.scripts.folders.inject_font import inject_font
+from src.cornelia.scripts.folders.svg_to_png import svg_to_png
+from src.cornelia.scripts.helpers.snowflake import generate_snowflake
+from src.cornelia.scripts.folders.color_management import get_color
+from src.cornelia.scripts.folders.scale_svg import scale_svg
 
 async def generate_folder(options: dict = None):
     if options is None:

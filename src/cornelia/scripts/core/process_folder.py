@@ -1,9 +1,9 @@
 import os
 
-from src.backend.scripts.classes.Counter import counter
-from src.backend.scripts.helpers.should_watch import should_watch
-from src.backend.scripts.icons.call_cornelia import call_cornelia
-from src.backend.scripts.core.windows.has_desktop_ini import has_desktop_ini
+from src.cornelia.scripts.classes.Counter import counter
+from src.cornelia.scripts.helpers.should_watch import should_watch
+from src.cornelia.scripts.folders.call_cornelia import call_cornelia
+from src.cornelia.scripts.core.windows.has_desktop_ini import has_desktop_ini
 
 async def process_folder(folder_path: str, force: bool = False):
     if not folder_path:

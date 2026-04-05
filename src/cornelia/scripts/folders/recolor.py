@@ -1,6 +1,6 @@
 import xml.etree.ElementTree as ET
 
-from src.backend.scripts.icons.color_management import (
+from src.cornelia.scripts.folders.color_management import (
     adjust_color,
     update_stops,
     update_color,
@@ -8,8 +8,8 @@ from src.backend.scripts.icons.color_management import (
     hex_to_hsl,
     hsl_to_hex
 )
-from src.backend.scripts.icons.create_overlay_gradient import create_overlay_gradient
-from src.backend.scripts.icons.add_text_element import add_text_element
+from src.cornelia.scripts.folders.create_overlay_gradient import create_overlay_gradient
+from src.cornelia.scripts.folders.add_text_element import add_text_element
 
 SVG_NS = "http://www.w3.org/2000/svg"
 ET.register_namespace("", SVG_NS)
