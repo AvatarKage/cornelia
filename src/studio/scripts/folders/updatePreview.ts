@@ -1,4 +1,5 @@
 import e from "../e.js";
+import { imageMap } from "../renderUpload.js";
 import recolor from "./recolor.js";
 
 let previewTimer: ReturnType<typeof setTimeout> | null = null;
@@ -20,13 +21,13 @@ async function updatePreview(data?: any): Promise<void> {
         const iconPos = (e.iconPos.querySelector(".selected") as HTMLElement).textContent?.toLowerCase().replace(/\s+/g, "") ?? "";
         const iconMethod = (e.iconMethod.querySelector(".selected") as HTMLElement).textContent?.toLowerCase().replace(/\s+/g, "") ?? "";
         const icon = (e.icon as HTMLInputElement).value;
-        const uploadIcon = (e.uploadIconPreview.querySelector("img") as HTMLImageElement | null)?.src ?? "";
+        const uploadIcon = imageMap.get("uploadIconPreview") ?? "";
         const iconX = parseFloat((e.iconX as HTMLInputElement).value || "100") / 100;
         const iconY = parseFloat((e.iconY as HTMLInputElement).value || "100") / 100;
         const iconScale = parseFloat((e.iconScale as HTMLInputElement).value || "100") / 100;
 
         const image = (e.image as HTMLInputElement).value;
-        const uploadImage = (e.uploadImagePreview.querySelector("img") as HTMLImageElement | null)?.src ?? "";
+        const uploadImage = imageMap.get("uploadImagePreview") ?? "";
         // const imageX = parseFloat((e.imageX as HTMLInputElement).value || "100") / 100;
         // const imageY = parseFloat((e.imageY as HTMLInputElement).value || "100") / 100;
         // const imageScale = parseFloat((e.imageScale as HTMLInputElement).value || "100") / 100;

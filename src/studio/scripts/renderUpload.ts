@@ -1,4 +1,9 @@
-const renderUpload = (event: Event, previewId: string): void => {
+import { getData } from "../main.js";
+import callUpdatePreview from "./folders/updatePreview.js";
+
+const imageMap = new Map<string, string>();
+
+async function renderUpload(event: Event, previewId: string) {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     if (!file) return;
@@ -18,11 +23,14 @@ const renderUpload = (event: Event, previewId: string): void => {
 
     previewDiv.innerHTML = '';
 
+    const blobUrl = URL.createObjectURL(file);
+
     const img = document.createElement("img");
-    img.src = URL.createObjectURL(file);
+    img.src = blobUrl;
     img.style.maxWidth = "200px";
     img.style.marginTop = "10px";
     img.style.borderRadius = "12px";
+
     previewDiv.appendChild(img);
 
     const reader = new FileReader();
@@ -30,14 +38,14 @@ const renderUpload = (event: Event, previewId: string): void => {
     reader.onload = (e: ProgressEvent<FileReader>) => {
         const base64 = e.target?.result as string;
 
-        const svgImage = document.querySelector('#image_fill image') as SVGImageElement | null;
-
-        if (svgImage) {
-            svgImage.setAttribute("href", base64);
-        }
+        imageMap.set(previewId, base64);
     };
 
     reader.readAsDataURL(file);
+    await callUpdatePreview(getData());
 };
 
-export default renderUpload;
+export {
+    imageMap,
+    renderUpload
+};

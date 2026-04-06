@@ -32,7 +32,7 @@ import readPacks from "./scripts/packs/readPacks.js";
 import sortExportButtons from "./scripts/sortExportButtons.js";
 import { parsePacks } from "./scripts/directory/renderDirectory.js";
 import { updateIconPosition } from "./scripts/directory/applyPreset.js";
-import renderUpload from "./scripts/renderUpload.js";
+import { renderUpload } from "./scripts/renderUpload.js";
 import e from "./scripts/e.js";
 import callUpdatePreview from "./scripts/folders/updatePreview.js";
 import countFiles from "./scripts/directory/countFiles.js";
