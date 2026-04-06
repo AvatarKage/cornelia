@@ -19,6 +19,7 @@ __pycache__
 build
 downloads
 cache
+.cache
 
 # Files
 .idea
