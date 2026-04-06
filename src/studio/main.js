@@ -230,6 +230,7 @@ e.iconScale.oninput = () => callUpdatePreview(getData());
 e.image.oninput = () => callUpdatePreview(getData());
 e.imageX.oninput = () => callUpdatePreview(getData());
 e.imageY.oninput = () => callUpdatePreview(getData());
+e.imageR.oninput = () => callUpdatePreview(getData());
 e.imageScale.oninput = () => callUpdatePreview(getData());
 
 e.baseColor.oninput = () => callUpdatePreview(getData());

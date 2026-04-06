@@ -29,9 +29,10 @@ async function updatePreview(data?: any): Promise<void> {
 
         const image = (e.image as HTMLInputElement).value;
         const uploadImage = imageMap.get("uploadImagePreview") ?? "";
-        // const imageX = parseFloat((e.imageX as HTMLInputElement).value || "100") / 100;
-        // const imageY = parseFloat((e.imageY as HTMLInputElement).value || "100") / 100;
-        // const imageScale = parseFloat((e.imageScale as HTMLInputElement).value || "100") / 100;
+        const imageX = parseFloat((e.imageX as HTMLInputElement).value || "100") / 100;
+        const imageY = parseFloat((e.imageY as HTMLInputElement).value || "100") / 100;
+        const imageR = parseFloat((e.imageR as HTMLInputElement).value || "0");
+        const imageScale = parseFloat((e.imageScale as HTMLInputElement).value || "100") / 100;
 
         const baseColor = (e.baseColor as HTMLInputElement).value;
         const backColor = (e.backColor as HTMLInputElement).value;
@@ -56,9 +57,10 @@ async function updatePreview(data?: any): Promise<void> {
 
             image || "",
             uploadImage || "",
-            // imageX || 100,
-            // imageY || 100,
-            // imageScale || 100,
+            imageX || 100,
+            imageY || 100,
+            imageR || 0,
+            imageScale || 100,
 
             baseColor || "#FFD65C",
             backColor || "#000000",

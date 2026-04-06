@@ -73,7 +73,7 @@ async function applyPreset(data: any): Promise<void> {
 
     const uploadIcon = e.uploadIconPreview.querySelector("img") as HTMLImageElement | null;
     if (uploadIcon) uploadIcon.src = data?.icon?.src ?? "";
-
+    e.uploadIcon.value = "";
     const uploadIconText = document.getElementById("uploadIconText");
     if (uploadIconText) { 
         uploadIconText.textContent = "REFRESH (CTRL+R) THE PAGE TO CLEAR";
@@ -93,6 +93,7 @@ async function applyPreset(data: any): Promise<void> {
 
     const uploadImage = e.uploadImagePreview.querySelector("img") as HTMLImageElement | null;
     if (uploadImage) uploadImage.src = data?.image?.url ?? "";
+    e.uploadImage.value = "";
     const uploadImageText = document.getElementById("uploadImageText");
     if (uploadImageText) {
         uploadImageText.textContent = "REFRESH (CTRL+R) THE PAGE TO CLEAR";
@@ -101,9 +102,12 @@ async function applyPreset(data: any): Promise<void> {
 
     removeInjectedImage();
 
-    e.imageX.value = data?.image?.pos?.x ?? 100;
-    e.imageY.value = data?.image?.pos?.y ?? 100;
-    e.imageScale.value = data?.image?.pos?.s ?? 100;
+    if (!data?.image?.pos?.p) {
+        e.imageX.value = data?.image?.pos?.x ?? 100;
+        e.imageY.value = data?.image?.pos?.y ?? 100;
+        e.imageR.value = data?.image?.pos?.y ?? 0;
+        e.imageScale.value = data?.image?.pos?.s ?? 100;
+    }
 
     e.baseColor.value = data?.color?.base ?? "#FFD65C";
 

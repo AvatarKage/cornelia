@@ -8,7 +8,14 @@ function getLastPath(svgDoc: Document): SVGPathElement | null {
     return paths.length ? (paths[paths.length - 1] as SVGPathElement) : null;
 }
 
-function injectImage(svgDoc: Document, imageUrl: string): void {
+function injectImage(
+    svgDoc: Document,
+    imageUrl: string,
+    x: string,
+    y: string,
+    r: string,
+    scale: string
+): void {
     if (imageUrl.endsWith(".gif") || imageUrl.endsWith(".apng")) return;
 
     const svgNS = "http://www.w3.org/2000/svg";
@@ -30,11 +37,20 @@ function injectImage(svgDoc: Document, imageUrl: string): void {
 
     const image = svgDoc.createElementNS(svgNS, "image");
     image.setAttribute("href", imageUrl);
-    image.setAttribute("x", "0");
-    image.setAttribute("y", "0");
+
     image.setAttribute("width", "224");
     image.setAttribute("height", "144");
+
     image.setAttribute("preserveAspectRatio", "xMidYMid slice");
+
+    image.setAttribute(
+        "transform",
+        `
+        translate(${x}, ${y})
+        rotate(${r}, ${112}, ${72})
+        scale(${scale})
+        `
+    );
 
     pattern.appendChild(image);
     defs.appendChild(pattern);
@@ -43,7 +59,6 @@ function injectImage(svgDoc: Document, imageUrl: string): void {
     if (!lastPath) return;
 
     const clone = lastPath.cloneNode(true) as SVGPathElement;
-
     clone.setAttribute("fill", "url(#image_fill)");
 
     lastPath.parentNode?.appendChild(clone);

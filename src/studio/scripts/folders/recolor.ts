@@ -27,9 +27,10 @@ async function recolor(
 
     image: string,
     uploadImage: string,
-    // imageX: number,
-    // imageY: number,
-    // imageScale: number,
+    imageX: number,
+    imageY: number,
+    imageR: number,
+    imageScale: number,
 
     baseColor: string,
     backColor: string,
@@ -139,7 +140,14 @@ async function recolor(
         await injectFont(svgDoc, font);
     }
 
-    injectImage(svgDoc, uploadImage || image);
+    injectImage(
+        svgDoc, 
+        uploadImage || image, 
+        (imageX * 200 - 200).toString(), 
+        (imageY * 200 - 200).toString(),
+        (imageR).toString(),
+        (imageScale).toString(),
+    );
 
     return new XMLSerializer().serializeToString(svgDoc);
 }

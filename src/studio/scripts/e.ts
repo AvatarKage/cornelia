@@ -8,6 +8,7 @@ const e = {
     iconPos: $("iconPos") as HTMLElement,
     iconMethod: $("iconMethod") as HTMLElement,
     icon: $("icon") as HTMLInputElement,
+    uploadIcon: $("uploadIcon") as HTMLInputElement,
     uploadIconPreview: $("uploadIconPreview") as HTMLInputElement,
     iconX: $("iconX") as HTMLInputElement,
     iconY: $("iconY") as HTMLInputElement,
@@ -15,9 +16,11 @@ const e = {
     iconScale: $("iconScale") as HTMLInputElement,
 
     image: $("image") as HTMLInputElement,
+    uploadImage: $("uploadImage") as HTMLInputElement,
     uploadImagePreview: $("uploadImagePreview") as HTMLInputElement,
     imageX: $("imageX") as HTMLInputElement,
     imageY: $("imageY") as HTMLInputElement,
+    imageR: $("imageR") as HTMLInputElement,
     imageScale: $("imageScale") as HTMLInputElement,
 
     baseColor: $("baseColor") as HTMLInputElement,
