@@ -68,7 +68,7 @@ async function recolor(
 
         const adjustedBackColor = isCustomBackColor
             ? adjustColor(backColor, colorSaturation, colorBrightness, colorContrast)
-            : adjustColor(backColor, colorSaturation, colorBrightness, colorContrast);
+            : adjustColor(baseColor, colorSaturation, colorBrightness, colorContrast);
 
         updateStops(svgDoc, newColors, isCustomBackColor, adjustedBackColor);
 
@@ -101,9 +101,6 @@ async function recolor(
 
     }
 
-    let mediumIconY = (iconY * 100 + 45.5).toString();
-    if (variant === "center1") mediumIconY = "72%";
-
     let align: string = "middle";
 
     if (iconPos.includes("right")) {
@@ -122,9 +119,24 @@ async function recolor(
         uploadIconText = await res.text();
     }
 
-    addTextElement(svgDoc, (iconX * 100 + 28), mediumIconY, (iconScale * 112), uploadIconText || icon, overlayFill, align, iconMethod, baseColor, isCustomIconColor, iconColor);
+    addTextElement(
+        svgDoc, 
+        (iconX * 100 + 28), 
+        (iconY * 100 + 45.5), 
+        (iconScale * 112), 
+        uploadIconText || icon, 
+        overlayFill, 
+        align, 
+        iconMethod, 
+        baseColor, 
+        isCustomIconColor, 
+        iconColor
+    );
 
-    await injectFont(svgDoc, font);
+    if (icon || uploadIcon) {
+        await injectFont(svgDoc, font);
+    }
+
     injectImage(svgDoc, uploadImage || image);
 
     return new XMLSerializer().serializeToString(svgDoc);
