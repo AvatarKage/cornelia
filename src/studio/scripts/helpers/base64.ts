@@ -12,7 +12,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
     return btoa(binary);
 }
 
-export async function loadFontAsBase64(path: string) {
+async function loadFontAsBase64(path: string) {
     try {
         const bytes = await readFile(path);
 
@@ -32,7 +32,7 @@ export async function loadFontAsBase64(path: string) {
     }
 }
 
-export async function loadFontAsBlobUrl(path: string) {
+async function loadFontAsBlobUrl(path: string) {
     try {
 
         const bytes = await readFile(path);
@@ -48,4 +48,21 @@ export async function loadFontAsBlobUrl(path: string) {
         console.log("Font blob load failed", { path, error: err });
         return null;
     }
+}
+
+async function imageToBase64(url: string): Promise<string> {
+    const res = await fetch(url);
+    const blob = await res.blob();
+
+    return await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result as string);
+        reader.readAsDataURL(blob);
+    });
+}
+
+export {
+    loadFontAsBase64,
+    loadFontAsBlobUrl,
+    imageToBase64
 }
