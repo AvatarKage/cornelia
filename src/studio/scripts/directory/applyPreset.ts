@@ -4,6 +4,7 @@ import { removeInjectedImage } from "../folders/injectImage.js";
 import callUpdatePreview from "../folders/updatePreview.js";
 import setSelectValue from "../helpers/setSelectValue.js";
 import { renderFonts, renderStyles, renderVariants } from "../packs/renderOptions.js";
+import { imageMap } from "../renderUpload.js";
 
 type IconPosition =
     | "iconPosRightExternal"
@@ -63,6 +64,8 @@ function updateIconPosition(value: IconPosition): void {
 }
 
 async function applyPreset(data: any): Promise<void> {
+    imageMap.clear();
+
     setSelectValue("iconPos", data?.icon?.pos?.p ?? "iconPosCenter"); // REPLACE THIS WITH POS.P : TEXT ALIGN OR ADD
     setSelectValue("iconMethod", data?.icon?.method ?? "print");
 
