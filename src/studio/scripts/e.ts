@@ -11,6 +11,7 @@ const e = {
     uploadIconPreview: $("uploadIconPreview") as HTMLInputElement,
     iconX: $("iconX") as HTMLInputElement,
     iconY: $("iconY") as HTMLInputElement,
+    iconR: $("iconR") as HTMLInputElement,
     iconScale: $("iconScale") as HTMLInputElement,
 
     image: $("image") as HTMLInputElement,

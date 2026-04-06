@@ -22,6 +22,7 @@ async function recolor(
     uploadIcon: string,
     iconX: number,
     iconY: number,
+    iconR: number,
     iconScale: number,
 
     image: string,
@@ -123,6 +124,7 @@ async function recolor(
         svgDoc, 
         (iconX * 100 + 28), 
         (iconY * 100 + 45.5), 
+        iconR,
         (iconScale * 112), 
         uploadIconText || icon, 
         overlayFill, 

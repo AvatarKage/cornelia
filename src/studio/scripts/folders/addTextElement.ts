@@ -6,6 +6,7 @@ function addTextElement(
     svgDoc: Document,
     x: string | number,
     y: string | number,
+    r: string | number,
     fontSize: string | number,
     content: IconContent,
     fill: string,
@@ -135,7 +136,7 @@ function addTextElement(
     }
 
     const g = svgDoc.createElementNS("http://www.w3.org/2000/svg", "g");
-    g.setAttribute("transform", `translate(${x}, ${y})`);
+    g.setAttribute("transform", `translate(${x}, ${y})rotate(${r})`);
 
     if (iconMethod === "engrave") {
         g.setAttribute("filter", "url(#innerShadow)");

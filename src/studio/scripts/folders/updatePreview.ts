@@ -24,6 +24,7 @@ async function updatePreview(data?: any): Promise<void> {
         const uploadIcon = imageMap.get("uploadIconPreview") ?? "";
         const iconX = parseFloat((e.iconX as HTMLInputElement).value || "100") / 100;
         const iconY = parseFloat((e.iconY as HTMLInputElement).value || "100") / 100;
+        const iconR = parseFloat((e.iconR as HTMLInputElement).value) || 0;
         const iconScale = parseFloat((e.iconScale as HTMLInputElement).value || "100") / 100;
 
         const image = (e.image as HTMLInputElement).value;
@@ -50,6 +51,7 @@ async function updatePreview(data?: any): Promise<void> {
             uploadIcon || "",
             iconX || 100,
             iconY || 100,
+            iconR || 0,
             iconScale || 100,
 
             image || "",

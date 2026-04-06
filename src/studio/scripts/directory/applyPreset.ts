@@ -83,6 +83,7 @@ async function applyPreset(data: any): Promise<void> {
     if (!data?.icon?.pos?.p) {
         e.iconX.value = data?.icon?.pos?.x ?? 100;
         e.iconY.value = data?.icon?.pos?.y ?? 100;
+        e.iconR.value = data?.icon?.pos?.r ?? 0;
         e.iconScale.value = data?.icon?.pos?.s ?? 100;
     } else {
         updateIconPosition(data?.icon?.pos?.p);
