@@ -152,7 +152,6 @@ function addTextElement(
         txt.setAttribute("text-anchor", anchor);
         txt.setAttribute("dominant-baseline", "middle");
         txt.setAttribute("font-size", String(fontSize));
-        txt.setAttribute("font-family", "nerdfont");
         txt.setAttribute("fill", fill);
         txt.setAttribute("font-weight", "bold");
         txt.textContent = content;
