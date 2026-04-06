@@ -12,7 +12,13 @@ async function renderUpload(event: Event, previewId: string) {
     if (!previewDiv) return;
 
     const uploadContainer = input.closest('.upload') as HTMLElement | null;
-    const uploadText = uploadContainer?.querySelector('#uploadText') as HTMLElement | null;
+
+    let uploadText;
+    if (previewId === "uploadImagePreview") {
+        uploadText = uploadContainer?.querySelector('#uploadImageText') as HTMLElement | null;
+    } else if (previewId === "uploadIconPreview") {
+        uploadText = uploadContainer?.querySelector('#uploadIconText') as HTMLElement | null;
+    }
 
     if (file.type.includes("gif")) {
         alert("Only static image formats are allowed");

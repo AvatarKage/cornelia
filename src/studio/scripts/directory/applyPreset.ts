@@ -74,6 +74,12 @@ async function applyPreset(data: any): Promise<void> {
     const uploadIcon = e.uploadIconPreview.querySelector("img") as HTMLImageElement | null;
     if (uploadIcon) uploadIcon.src = data?.icon?.src ?? "";
 
+    const uploadIconText = document.getElementById("uploadIconText");
+    if (uploadIconText) { 
+        uploadIconText.textContent = "REFRESH (CTRL+R) THE PAGE TO CLEAR";
+        uploadIconText.style.display = "block"
+    }
+
     if (!data?.icon?.pos?.p) {
         e.iconX.value = data?.icon?.pos?.x ?? 100;
         e.iconY.value = data?.icon?.pos?.y ?? 100;
@@ -86,6 +92,11 @@ async function applyPreset(data: any): Promise<void> {
 
     const uploadImage = e.uploadImagePreview.querySelector("img") as HTMLImageElement | null;
     if (uploadImage) uploadImage.src = data?.image?.url ?? "";
+    const uploadImageText = document.getElementById("uploadImageText");
+    if (uploadImageText) {
+        uploadImageText.textContent = "REFRESH (CTRL+R) THE PAGE TO CLEAR";
+        uploadImageText.style.display = "block"
+    }
 
     removeInjectedImage();
 
