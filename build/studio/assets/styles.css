@@ -727,6 +727,8 @@ label {
     body {
         overflow: visible;
         height: fit-content;
+        padding: 0px;
+        padding-top: 16px;
     }
 
     .left {
