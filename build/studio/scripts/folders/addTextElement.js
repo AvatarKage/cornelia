@@ -117,6 +117,7 @@ function addTextElement(svgDoc, x, y, r, fontSize, content, fill, anchor = "midd
             return;
         }
         const imported = svgDoc.importNode(svgEl, true);
+        imported.setAttribute("data-ignore-paths", "true");
         const size = Number(fontSize);
         const viewBox = svgEl.getAttribute("viewBox");
         if (viewBox) {

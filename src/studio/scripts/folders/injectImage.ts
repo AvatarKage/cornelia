@@ -3,9 +3,17 @@ function removeExistingPattern(svgDoc: Document) {
     if (existing) existing.remove();
 }
 
-function getLastPath(svgDoc: Document): SVGPathElement | null {
-    const paths = svgDoc.querySelectorAll("path");
-    return paths.length ? (paths[paths.length - 1] as SVGPathElement) : null;
+function getTargetPath(svgDoc: Document): SVGPathElement | null {
+    const mainGroup = svgDoc.documentElement.querySelector(":scope > g > g");
+    if (!mainGroup) return null;
+
+    const paths = Array.from(
+        mainGroup.querySelectorAll(":scope > path:not([data-image-clone])")
+    ) as SVGPathElement[];
+
+    const filtered = paths.filter(p => !p.closest("[data-ignore-paths]"));
+
+    return filtered[4] || filtered[filtered.length - 1] || null;
 }
 
 function injectImage(
@@ -55,10 +63,11 @@ function injectImage(
     pattern.appendChild(image);
     defs.appendChild(pattern);
 
-    const lastPath = getLastPath(svgDoc);
+    const lastPath = getTargetPath(svgDoc);
     if (!lastPath) return;
 
     const clone = lastPath.cloneNode(true) as SVGPathElement;
+    clone.setAttribute("data-image-clone", "true");
     clone.setAttribute("fill", "url(#image_fill)");
 
     lastPath.parentNode?.appendChild(clone);

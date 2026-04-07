@@ -186,6 +186,7 @@ function addTextElement(
         }
 
         const imported = svgDoc.importNode(svgEl, true);
+        imported.setAttribute("data-ignore-paths", "true");
 
         const size = Number(fontSize);
         const viewBox = svgEl.getAttribute("viewBox");
