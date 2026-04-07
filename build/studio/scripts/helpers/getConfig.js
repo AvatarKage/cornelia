@@ -1,7 +1,7 @@
 import { parse } from "../external/toml.js";
 let config;
 async function getConfig() {
-    const res = await fetch("/config.toml");
+    const res = await fetch("./config.toml");
     if (!res.ok) {
         throw new Error(`Failed to load config.toml: ${res.status}`);
     }
