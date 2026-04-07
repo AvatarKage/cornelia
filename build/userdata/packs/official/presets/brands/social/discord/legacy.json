@@ -1,0 +1,12 @@
+{
+  "icon": {
+    "text": "󰙯",
+    "pos": {
+      "p": "iconPosRightCorner"
+    }
+  },
+  "color": {
+    "base": "#7289da",
+    "icon": "#ffffff"
+  }
+}

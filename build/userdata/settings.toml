@@ -1,0 +1,26 @@
+lang = "en-US"
+ignoreDonation = true
+
+# List of ignored folders
+ignore = [
+  "node_modules",
+  "venv",
+  ".git",
+  ".gradle",
+  ".idea",
+  "windows",
+  "program data",
+  "program files",
+  "program files (x86)",
+  "xboxgames",
+  "system.sav",
+  "$windows.~ws",
+  "$windows.~bt",
+  "$sysreset",
+  "modrinthapp",
+  "dist",
+  "appdata",
+  ".nexe",
+  ".cargo",
+  "temp"
+]

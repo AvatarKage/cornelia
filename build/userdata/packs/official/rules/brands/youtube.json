@@ -1,0 +1,11 @@
+{
+  "priority": 0,
+  "match": {
+    "exact": {
+      "en-US": ["yt", "yts"]
+    },
+    "contains": {
+      "en-US": ["youtube"]
+    }
+  }
+}

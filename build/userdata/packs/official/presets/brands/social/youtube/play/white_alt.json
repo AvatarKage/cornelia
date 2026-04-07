@@ -1,0 +1,10 @@
+{
+  "icon": {
+    "text": "󰐊"
+  },
+  "color": {
+    "base": "#eeeeee",
+    "back": "#ff0000",
+    "icon": "#ff0000"
+  }
+}

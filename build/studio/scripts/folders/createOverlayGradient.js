@@ -1,0 +1,24 @@
+import { darkenColor } from "./colorManagement.js";
+function createOverlayGradient(svgDoc, id, baseHex) {
+    const top = darkenColor(baseHex, 0.2);
+    const bottom = darkenColor(baseHex, 0.35);
+    const ns = "http://www.w3.org/2000/svg";
+    const gradient = svgDoc.createElementNS(ns, "linearGradient");
+    gradient.setAttribute("id", id);
+    gradient.setAttribute("gradientUnits", "objectBoundingBox");
+    gradient.setAttribute("x1", "0");
+    gradient.setAttribute("y1", "0");
+    gradient.setAttribute("x2", "0");
+    gradient.setAttribute("y2", "1");
+    const stop1 = svgDoc.createElementNS(ns, "stop");
+    stop1.setAttribute("offset", "0%");
+    stop1.setAttribute("stop-color", top);
+    gradient.appendChild(stop1);
+    const stop2 = svgDoc.createElementNS(ns, "stop");
+    stop2.setAttribute("offset", "100%");
+    stop2.setAttribute("stop-color", bottom);
+    gradient.appendChild(stop2);
+    svgDoc.querySelector("defs")?.appendChild(gradient);
+    return `url(#${id})`;
+}
+export default createOverlayGradient;

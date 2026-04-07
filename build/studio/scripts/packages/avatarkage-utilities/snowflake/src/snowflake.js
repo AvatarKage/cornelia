@@ -1,0 +1,42 @@
+import config from "../../../../helpers/getConfig.js";
+import log from "../../logging/index.js";
+class Snowflake {
+    constructor(epoch = 1577836800000) {
+        if (config.snowflake.machine < 0 || config.snowflake.machine > 1024) {
+            throw new Error('Machine ID (.env file) must be between 0 and 1024');
+        }
+        this.machineId = config.snowflake.machine;
+        this.epoch = BigInt(epoch);
+        this.sequence = 0n;
+        this.lastTimestamp = 0n;
+    }
+    currentTime() {
+        return BigInt(Date.now());
+    }
+    decode(id) {
+        const bigintId = BigInt(id);
+        const timestamp = (bigintId >> 22n) + this.epoch;
+        return new Date(Number(timestamp));
+    }
+    generate() {
+        let timestamp = this.currentTime();
+        if (timestamp === this.lastTimestamp) {
+            this.sequence = (this.sequence + 1n) & 0xfffn;
+            if (this.sequence === 0n) {
+                while (timestamp <= this.lastTimestamp) {
+                    timestamp = this.currentTime();
+                }
+            }
+        }
+        else {
+            this.sequence = 0n;
+        }
+        this.lastTimestamp = timestamp;
+        const id = ((timestamp - this.epoch) << 22n) | (BigInt(this.machineId) << 12n) | this.sequence;
+        if (config.debug.snowflake) {
+            log.snowflake.trace(`Generated: ${id.toString()}`);
+        }
+        return id.toString();
+    }
+}
+export default Snowflake;

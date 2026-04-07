@@ -1,0 +1,15 @@
+priority = 0
+
+id = "official"
+version = "2.0.0"
+
+icon = ""
+name = "Official Folder Pack"
+description = "Adds popular icons and brands for everyday use."
+
+author = "AvatarKage"
+
+min_app_version = "2.0.0-beta"
+min_studio_version = "1.0.0-beta"
+
+dependencies = [""] # Other packs required maybe because of URL reference

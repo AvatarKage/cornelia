@@ -1,0 +1,39 @@
+{
+  "priority": 0,
+  "values": [
+    {
+      "id": "discord",
+      "match": {
+        "contains": {
+          "en-US": ["discord"]
+        }
+      },
+      "preset": {
+        "_": {
+          "icon": "",
+          "iconColor": "#ffffff",
+          "_color": "#5865f2"
+        },
+        "10/31": {
+          "iconColor": "#000000",
+          "_color": "#fa6310"
+        }
+      }
+    },
+    {
+      "id": "youtube",
+      "match": {
+        "contains": {
+          "en-US": ["youtube", "yt", "yts"]
+        }
+      },
+      "preset": {
+        "_": {
+          "icon": "",
+          "iconColor": "#ffffff",
+          "_color": "#ff0000"
+        }
+      }
+    }
+  ]
+}
