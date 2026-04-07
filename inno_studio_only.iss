@@ -1,7 +1,7 @@
 [Setup]
 AppId={{584b3a53-fc29-49d4-b5cd-ddf6adffb145}}
 AppName=Cornelia Studio
-AppVersion=1.1.0
+AppVersion=1.1.1
 AppPublisher=AvatarKage
 AppPublisherURL=https://avatarkage.com
 AppCopyright=AvatarKage
@@ -11,7 +11,7 @@ DisableWelcomePage=no
 DisableDirPage=no
 DisableProgramGroupPage=no
 OutputDir=dist
-OutputBaseFilename=Cornelia_Studio_1.1.0-beta_Installer
+OutputBaseFilename=Cornelia_Studio_1.1.1-beta_Installer
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -22,9 +22,9 @@ PrivilegesRequired=admin
 CloseApplications=yes
 RestartApplications=no
 VersionInfoProductName=Cornelia Studio
-VersionInfoVersion=1.1.0
-VersionInfoTextVersion=1.1.0-beta
-VersionInfoProductVersion=1.1.0
+VersionInfoVersion=1.1.1
+VersionInfoTextVersion=1.1.1-beta
+VersionInfoProductVersion=1.1.1
 VersionInfoCompany=AvatarKage
 VersionInfoDescription=A custom folder studio software.
 VersionInfoCopyright=AvatarKage
@@ -53,7 +53,9 @@ Filename: "{app}\studio.exe"; Description: "Launch Cornelia Studio"; Flags: nowa
 Filename: "taskkill"; Parameters: "/F /IM studio.exe"; Flags: runhidden
 
 [UninstallDelete]
-Type: filesandordirs; Name: "{app}"
+Type: files; Name: "{app}\studio.exe"
+Type: files; Name: "{app}\config.toml"
+Type: files; Name: "{app}\icon.ico"
 
 [Code]
 

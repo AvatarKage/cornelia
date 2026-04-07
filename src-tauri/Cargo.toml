@@ -1,6 +1,6 @@
 [package]
 name = "studio"
-version = "1.1.0"
+version = "1.1.1"
 description = "A custom folder studio software."
 authors = ["AvatarKage"]
 edition = "2021"
