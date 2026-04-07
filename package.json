@@ -8,6 +8,7 @@
     "start:studio": "npx serve build -l 32302",
     "start:cornelia": "python -m src.main",
     "dev:studio": "npm run copy:userdata:debug && tauri dev",
+    "dev:web": "vite",
     "dev:cornelia": "python -m src.main",
     "dev:server": "tsx src/server.ts",
     "build": "npm run clean && npm run copy:src && npm run copy:config && npm run copy:index && npm run copy:userdata:build && tsc",
