@@ -1,5 +1,11 @@
 // @ts-ignore
-const { readFile } = window.__TAURI__.fs;
+let readFile;
+
+// @ts-ignore
+if (typeof window !== "undefined" && "__TAURI__" in window) {
+    // @ts-ignore
+    readFile = window.__TAURI__.fs.readFile;
+}
 
 function arrayBufferToBase64(buffer: ArrayBuffer) {
     let binary = "";
@@ -14,6 +20,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer) {
 
 async function loadFontAsBase64(path: string) {
     try {
+        // @ts-ignore
         const bytes = await readFile(path);
 
         const buffer = bytes.buffer.slice(
@@ -35,6 +42,7 @@ async function loadFontAsBase64(path: string) {
 async function loadFontAsBlobUrl(path: string) {
     try {
 
+        // @ts-ignore
         const bytes = await readFile(path);
 
         const blob = new Blob([bytes], {

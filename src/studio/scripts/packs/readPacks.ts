@@ -1,7 +1,20 @@
 // @ts-ignore
-const { resolveResource } = window.__TAURI__.path;
-// @ts-ignore
-const { readDir, readTextFile } = window.__TAURI__.fs;
+const isTauri = typeof window !== "undefined" && !!window.__TAURI__;
+
+const resolveResource = isTauri
+    // @ts-ignore
+    ? window.__TAURI__.path.resolveResource
+    : undefined;
+
+const readDir = isTauri
+    // @ts-ignore
+    ? window.__TAURI__.fs.readDir
+    : undefined;
+
+const readTextFile = isTauri
+    // @ts-ignore
+    ? window.__TAURI__.fs.readTextFile
+    : undefined;
 
 import { parse } from "../external/toml.js";
 

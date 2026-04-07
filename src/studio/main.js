@@ -6,6 +6,8 @@ https://avatarkage.com
 ————————————————————————————————————————————————————————————————
 */
 
+export const isTauri = typeof window !== "undefined" && "__TAURI__" in window;
+
 export const state = window.__AVATAR_STATE ??= {
     isCustomBackColor: false,
     isCustomIconColor: false,
@@ -42,6 +44,7 @@ import setSelectValue from "./scripts/helpers/setSelectValue.js";
 import { renderFonts, renderStyles, renderVariants } from "./scripts/packs/renderOptions.js";
 import random from "./scripts/helpers/random.js";
 import { removeInjectedImage } from "./scripts/folders/injectImage.js";
+import staticCopy from "./scripts/packs/staticCopy.js";
 
 if (config.debug.config) log.config.debug(config);
 
@@ -53,27 +56,41 @@ Load Packs
 ————————————————————————————————————————————————————————————————
 */
 
-export let packs = await readPacks();
+export let packs = [];
 
-packs.sort((a, b) => {
-    const aId = a.toml?.id;
-    const bId = b.toml?.id;
+if (isTauri) {
+    packs = await readPacks();
 
-    if (aId === "official") return -1;
-    if (bId === "official") return 1;
+    packs.sort((a, b) => {
+        const aId = a.toml?.id;
+        const bId = b.toml?.id;
 
-    const aPriority = a.toml?.priority ?? Infinity;
-    const bPriority = b.toml?.priority ?? Infinity;
+        if (aId === "official") return -1;
+        if (bId === "official") return 1;
 
-    return aPriority - bPriority;
-});
+        const aPriority = a.toml?.priority ?? Infinity;
+        const bPriority = b.toml?.priority ?? Infinity;
+
+        return aPriority - bPriority;
+    });
+} else {
+    packs = staticCopy;
+
+    const directory = document.getElementById("directory");
+    directory.style.display = "none"; 
+
+    const uploadIconText = document.getElementById("uploadIconText");
+    uploadIconText.innerHTML = "Uploads never leave your device<br><br>REFRESH (CTRL+R) THE PAGE TO CLEAR"; 
+
+    const uploadImageText = document.getElementById("uploadImageText");
+    uploadImageText.innerHTML = "Uploads never leave your device<br><br>REFRESH (CTRL+R) THE PAGE TO CLEAR"; 
+}
 
 setTimeout(async () => {
     await parsePacks(packs);
     renderStyles(packs);
     renderVariants(packs);
     renderFonts(packs);
-
 }, 10);
 
 /*
