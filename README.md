@@ -3,6 +3,7 @@
 `npm i` to install all required dependencies<br>
 `npm run start:studio` to run the `/build` Cornelia Studio at `localhost:32302`<br>
 `npm run dev:studio` to develop the `/src` Cornelia Studio live at `localhost:32312`<br>
+`npm run dev:web` to develop the `/src` Cornelia Studio web version live at `localhost:32312`<br>
 `npm run dev:cornelia` to develop Cornelia<br>
 `npm run build` to compile and copy files to `/build`<br>
 `npm run clean` to delete `/build`, `/dist`, and other temp files<br>
