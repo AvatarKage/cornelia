@@ -16,7 +16,11 @@ release
 gen
 target
 __pycache__
-build
+build/*
+!build/studio
+!build/userdata
+!build/config.toml
+!build/index.html
 downloads
 cache
 .cache
