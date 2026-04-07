@@ -1,3 +1,4 @@
+import { isTauri } from "../../main.js";
 // @ts-ignore
 let readFile;
 // @ts-ignore
@@ -15,9 +16,16 @@ function arrayBufferToBase64(buffer) {
 }
 async function loadFontAsBase64(path) {
     try {
-        // @ts-ignore
-        const bytes = await readFile(path);
-        const buffer = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
+        let buffer;
+        if (isTauri) {
+            // @ts-ignore
+            const bytes = await readFile(path);
+            buffer = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
+        }
+        else {
+            const res = await fetch(path);
+            buffer = await res.arrayBuffer();
+        }
         const base64 = arrayBufferToBase64(buffer);
         const dataUrl = `${base64}`;
         return dataUrl;
@@ -29,11 +37,18 @@ async function loadFontAsBase64(path) {
 }
 async function loadFontAsBlobUrl(path) {
     try {
-        // @ts-ignore
-        const bytes = await readFile(path);
-        const blob = new Blob([bytes], {
-            type: "font/ttf"
-        });
+        let blob;
+        if (isTauri) {
+            // @ts-ignore
+            const bytes = await readFile(path);
+            blob = new Blob([bytes], {
+                type: "font/ttf"
+            });
+        }
+        else {
+            const res = await fetch(path);
+            blob = await res.blob();
+        }
         const url = URL.createObjectURL(blob);
         return url;
     }
