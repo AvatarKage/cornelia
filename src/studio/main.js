@@ -240,13 +240,11 @@ export const getData = () => ({
 });
 
 e.icon.oninput = () => callUpdatePreview(getData());
-// e.uploadIcon
 e.iconX.oninput = () => callUpdatePreview(getData());
 e.iconY.oninput = () => callUpdatePreview(getData());
 e.iconR.oninput = () => callUpdatePreview(getData());
 e.iconScale.oninput = () => callUpdatePreview(getData());
 
-// e.uploadImage
 e.image.oninput = () => callUpdatePreview(getData());
 e.imageX.oninput = () => callUpdatePreview(getData());
 e.imageY.oninput = () => callUpdatePreview(getData());
