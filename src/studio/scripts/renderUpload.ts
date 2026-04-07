@@ -48,7 +48,9 @@ async function renderUpload(event: Event, previewId: string) {
     };
 
     reader.readAsDataURL(file);
-    await callUpdatePreview(getData());
+    setTimeout(async () => {
+        await callUpdatePreview(getData());
+    }, 0);
 };
 
 export {
