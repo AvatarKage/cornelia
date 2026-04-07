@@ -47,7 +47,6 @@ function injectImage(
     image.setAttribute("href", imageUrl);
 
     image.setAttribute("width", "224");
-    image.setAttribute("height", "144");
 
     image.setAttribute("preserveAspectRatio", "xMidYMid slice");
 
