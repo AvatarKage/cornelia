@@ -74,7 +74,6 @@ else {
     uploadImageText.innerHTML = "Uploads never leave your device<br><br>REFRESH (CTRL+R) THE PAGE TO CLEAR";
     const downloadCornelia = document.getElementById("downloadCornelia");
     downloadCornelia.innerHTML = `Cornelia Studio is also available as a Windows application. <a href="https://github.com/AvatarKage/cornelia/releases">Download here!</a>`;
-    <label id=""></label>;
 }
 setTimeout(async () => {
     await parsePacks(packs);
