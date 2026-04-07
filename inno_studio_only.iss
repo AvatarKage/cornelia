@@ -60,7 +60,7 @@ Type: files; Name: "{app}\icon.ico"
 [Code]
 
 const
-  KOFI_URL = 'https://ko-fi.com/avatarkage';
+  KOFI_URL = 'https://avatarka.ge/donate?utm_source=cornelia&utm_medium=installer&utm_campaign=finish_page';
 
 var
   KoFiButton: TNewButton;
