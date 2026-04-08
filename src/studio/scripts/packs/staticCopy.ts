@@ -214,19 +214,19 @@ const staticCopy = [
                     },
                     "comicshanns-nerdfont": {
                         path: "userdata/packs/official/assets/fonts/comicshanns-nerdfont.ttf",
-                        name: "JetBrains Mono",
+                        name: "Comic Shanns",
                         content: "userdata/packs/official/assets/fonts/comicshanns-nerdfont.ttf"
                     },
 
                     "departure-nerdfont": {
                         path: "userdata/packs/official/assets/fonts/departure-nerdfont.ttf",
-                        name: "Playwrite Perú",
+                        name: "Departure",
                         content: "userdata/packs/official/assets/fonts/departure-nerdfont.ttf"
                     },
 
                     "heavydata-nerdfont": {
                         path: "userdata/packs/official/assets/fonts/heavydata-nerdfont.ttf",
-                        name: "Playwrite Deutschland Grundschrift",
+                        name: "Heavy Data",
                         content: "userdata/packs/official/assets/fonts/heavydata-nerdfont.ttf"
                     }
                 }
