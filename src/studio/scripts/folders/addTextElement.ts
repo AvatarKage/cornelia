@@ -14,7 +14,8 @@ function addTextElement(
     iconMethod: string,
     baseColor: string,
     isCustomIconColor: boolean,
-    iconColor: string
+    iconColor: string,
+    stripDefaultColor: boolean = true
 ): void {
     if (!content) return;
 
@@ -210,11 +211,48 @@ function addTextElement(
 
         imported.setAttribute("preserveAspectRatio", "xMidYMid meet");
 
-        imported.querySelectorAll("path").forEach(p => {
-            if (!p.getAttribute("fill")) {
-                p.setAttribute("fill", fill);
+        const blankBoxes = [
+            "M128 0L128 0L128 128L0 128L0 0L128 0Z",
+            "M256 0L256 0L256 256L0 256L0 0L256 0Z",
+            "M512 0L512 0L512 512L0 512L0 0L512 0Z",
+            "M1024 0L1024 0L1024 1024L0 1024L0 0L1024 0Z",
+            "M2048 0L2048 0L2048 2048L0 2048L0 0L2048 0Z",
+            "M4096 0L4096 0L4096 4096L0 4096L0 0L4096 0Z"
+        ];
+
+        const mainPaths = Array.from(
+            imported.querySelectorAll(":scope > g path, :scope > path")
+        );
+
+        for (const p of mainPaths) {
+            const isInDefs = p.closest("defs");
+            const isInClip = p.closest("clipPath");
+
+            // @ts-ignore
+            if (!isInDefs && !isInClip && blankBoxes.includes(p.getAttribute("d"))) {
+                p.remove();
             }
-        });
+
+            if (stripDefaultColor) {
+                p.removeAttribute("fill");
+                p.removeAttribute("stroke");
+                // @ts-ignore
+                p.style.fill = "";
+                // @ts-ignore
+                p.style.stroke = "";
+            }
+
+            if (isCustomIconColor) {
+                p.setAttribute("fill", fill);
+                // @ts-ignore
+                p.style.fill = fill;
+                p.removeAttribute("stroke");
+            } else {
+                if (!p.getAttribute("fill")) {
+                    p.setAttribute("fill", fill);
+                }
+            }
+        }
 
         const wrapper = svgDoc.createElementNS("http://www.w3.org/2000/svg", "g");
         wrapper.appendChild(imported);
