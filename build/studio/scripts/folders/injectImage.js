@@ -30,7 +30,6 @@ function injectImage(svgDoc, imageUrl, x, y, r, scale) {
     const image = svgDoc.createElementNS(svgNS, "image");
     image.setAttribute("href", imageUrl);
     image.setAttribute("width", "224");
-    image.setAttribute("height", "144");
     image.setAttribute("preserveAspectRatio", "xMidYMid slice");
     image.setAttribute("transform", `
         translate(${x}, ${y})

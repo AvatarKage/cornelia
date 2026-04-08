@@ -37,7 +37,9 @@ async function renderUpload(event, previewId) {
         imageMap.set(previewId, base64);
     };
     reader.readAsDataURL(file);
-    await callUpdatePreview(getData());
+    setTimeout(async () => {
+        await callUpdatePreview(getData());
+    }, 0);
 }
 ;
 export { imageMap, renderUpload };
