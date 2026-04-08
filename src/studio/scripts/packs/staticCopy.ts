@@ -200,30 +200,26 @@ const staticCopy = [
                         name: "JetBrains Mono",
                         content: "userdata/packs/official/assets/fonts/jetbrains-nerdfont.ttf"
                     },
-
-                    "playwrite-cursive": {
-                        path: "userdata/packs/official/assets/fonts/playwrite-cursive.ttf",
-                        name: "Playwrite Perú",
-                        content: "userdata/packs/official/assets/fonts/playwrite-cursive.ttf"
-                    },
-
                     "playwrite-nerdfont": {
                         path: "userdata/packs/official/assets/fonts/playwrite-nerdfont.ttf",
                         name: "Playwrite Deutschland Grundschrift",
                         content: "userdata/packs/official/assets/fonts/playwrite-nerdfont.ttf"
+                    },
+                    "playwrite-cursive": {
+                        path: "userdata/packs/official/assets/fonts/playwrite-cursive.ttf",
+                        name: "Playwrite Perú",
+                        content: "userdata/packs/official/assets/fonts/playwrite-cursive.ttf"
                     },
                     "comicshanns-nerdfont": {
                         path: "userdata/packs/official/assets/fonts/comicshanns-nerdfont.otf",
                         name: "Comic Shanns",
                         content: "userdata/packs/official/assets/fonts/comicshanns-nerdfont.otf"
                     },
-
                     "departure-nerdfont": {
                         path: "userdata/packs/official/assets/fonts/departure-nerdfont.otf",
                         name: "Departure",
                         content: "userdata/packs/official/assets/fonts/departure-nerdfont.otf"
                     },
-
                     "heavydata-nerdfont": {
                         path: "userdata/packs/official/assets/fonts/heavydata-nerdfont.ttf",
                         name: "Heavy Data",
