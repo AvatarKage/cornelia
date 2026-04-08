@@ -211,6 +211,23 @@ const staticCopy = [
                         path: "userdata/packs/official/assets/fonts/playwrite-nerdfont.ttf",
                         name: "Playwrite Deutschland Grundschrift",
                         content: "userdata/packs/official/assets/fonts/playwrite-nerdfont.ttf"
+                    },
+                    "comicshanns-nerdfont": {
+                        path: "userdata/packs/official/assets/fonts/comicshanns-nerdfont.ttf",
+                        name: "JetBrains Mono",
+                        content: "userdata/packs/official/assets/fonts/comicshanns-nerdfont.ttf"
+                    },
+
+                    "departure-nerdfont": {
+                        path: "userdata/packs/official/assets/fonts/departure-nerdfont.ttf",
+                        name: "Playwrite Perú",
+                        content: "userdata/packs/official/assets/fonts/departure-nerdfont.ttf"
+                    },
+
+                    "heavydata-nerdfont": {
+                        path: "userdata/packs/official/assets/fonts/heavydata-nerdfont.ttf",
+                        name: "Playwrite Deutschland Grundschrift",
+                        content: "userdata/packs/official/assets/fonts/heavydata-nerdfont.ttf"
                     }
                 }
             }

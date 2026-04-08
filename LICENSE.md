@@ -7,10 +7,13 @@ This license will be revised to be more permissive when the update is completed.
 | Project | License |
 | - | - |
 | Codicons | CC BY 4.0 |
+| Comic Shanns | MIT |
+| Departure | SIL OFL 1.1 |
 | Devicons | MIT |
 | Font Awesome | CC BY 4.0 |
 | Font Awesome Extension | MIT |
 | Font Logos  | Unlicensed |
+| Heavy Data | Freeware |
 | IEC Power Symbols | MIT |
 | JetBrains Mono | SIL OFL 1.1 |
 | JSZip | MIT |
