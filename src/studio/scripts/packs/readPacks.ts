@@ -106,7 +106,7 @@ async function readPacks(): Promise<Pack[]> {
     const allowed = {
         assets: {
             folders: [".svg"],
-            fonts: [".ttf"]
+            fonts: [".ttf", ".otf", ".woff", ".woff2"]
         },
         data: [".json"],
         presets: [".json"],
@@ -219,7 +219,12 @@ async function readPacks(): Promise<Pack[]> {
             };
         } else if (relativePath.endsWith(".svg")) {
             content = async () => readTextFile(file);
-        } else if (relativePath.endsWith(".ttf")) {
+        } else if (
+            relativePath.endsWith(".ttf") || 
+            relativePath.endsWith(".otf") || 
+            relativePath.endsWith(".woff") || 
+            relativePath.endsWith(".woff2")
+        ) {
             content = file;
         } else {
             content = async () => readTextFile(file);
