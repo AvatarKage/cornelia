@@ -158,14 +158,36 @@ function renderFonts(packs) {
             callUpdatePreview(getLocalData(packs));
         }
     };
+    const allFonts = [];
     for (const pack of packs) {
         const fonts = pack.content?.assets?.fonts ?? {};
         for (const [key, data] of Object.entries(fonts)) {
-            if (!topFont)
-                topFont = key;
-            const el = createOption(key, data.name ?? key, () => selectFont(key));
-            fontContainer.appendChild(el);
+            allFonts.push({ key, data });
         }
+    }
+    const normalize = (k) => k.trim().toLowerCase();
+    const isJetBrains = (k) => normalize(k).includes("jetbrains");
+    const isPlaywrite = (k) => normalize(k).includes("playwrite");
+    allFonts.sort((a, b) => {
+        const aJet = isJetBrains(a.key);
+        const bJet = isJetBrains(b.key);
+        if (aJet && !bJet)
+            return -1;
+        if (!aJet && bJet)
+            return 1;
+        const aPlay = isPlaywrite(a.key);
+        const bPlay = isPlaywrite(b.key);
+        if (aPlay && !bPlay)
+            return -1;
+        if (!aPlay && bPlay)
+            return 1;
+        return a.key.localeCompare(b.key);
+    });
+    for (const { key, data } of allFonts) {
+        if (!topFont)
+            topFont = key;
+        const el = createOption(key, data.name ?? key, () => selectFont(key));
+        fontContainer.appendChild(el);
     }
     if (topFont) {
         selectFont(topFont);
