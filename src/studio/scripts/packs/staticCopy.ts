@@ -3,7 +3,7 @@ const staticCopy = [
         toml: {
             priority: "0",
             id: "official",
-            version: "2.0.0",
+            version: "2.0.1",
             icon: "",
             name: "Official Folder Pack",
             description: "Adds popular icons and brands for everyday use.",
@@ -16,6 +16,14 @@ const staticCopy = [
         content: {
             assets: {
                 folders: {
+                    papirus: {
+                        left1: {
+                            path: "userdata/packs/official/assets/folders/papirus/left1.svg",
+                            name: "Left 1",
+                            content: async () => fetch("userdata/packs/official/assets/folders/papirus/left1.svg").then(r => r.text())
+                        }
+                    },
+
                     flat: {
                         center1: {
                             path: "userdata/packs/official/assets/folders/flat/center1.svg",

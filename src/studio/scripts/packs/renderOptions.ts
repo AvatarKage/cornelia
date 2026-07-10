@@ -58,7 +58,7 @@ async function renderStyles(packs: any[]): Promise<void> {
         });
     });
 
-    const style_priority = ["shaded", "outline", "flat"];
+    const style_priority = ["shaded", "outline", "flat", "papirus"];
     const sortedStyles = sortWithPriority([...styles], style_priority);
 
     const topStyle = sortedStyles[0] ?? null;

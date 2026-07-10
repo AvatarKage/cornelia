@@ -18,7 +18,7 @@ async function updatePreview(data) {
         const icon = e.icon.value;
         const uploadIcon = imageMap.get("uploadIconPreview") ?? "";
         const iconX = parseFloat(e.iconX.value || "100") / 100;
-        const iconY = parseFloat(e.iconY.value || "100") / 100;
+        let iconY = parseFloat(e.iconY.value || "100") / 100;
         const iconR = parseFloat(e.iconR.value) || 0;
         const iconScale = parseFloat(e.iconScale.value || "100") / 100;
         const image = e.image.value;
@@ -36,6 +36,9 @@ async function updatePreview(data) {
         const style = selectedStyle;
         const variant = selectedVariant;
         const font = selectedFont;
+        if (style === "papirus") {
+            iconY = iconY + 0.21;
+        }
         const svgString = await recolor(iconPos || "center", iconMethod || "print", icon || "", uploadIcon || "", iconX || 100, iconY || 100, iconR || 0, iconScale || 100, image || "", uploadImage || "", imageX || 100, imageY || 100, imageR || 0, imageScale || 100, baseColor || "#FFD65C", backColor || "#000000", iconColor || "#000000", colorSaturation || 100, colorBrightness || 100, colorContrast || 100, style || "shaded", variant || "left1", font || "jetbrains-nerdfont", isCustomBackColor || false, isCustomIconColor || false);
         e.svg.innerHTML = svgString;
         // e.loadSVG.classList.remove("spin");

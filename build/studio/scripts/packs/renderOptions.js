@@ -46,7 +46,7 @@ async function renderStyles(packs) {
             styles.add(style);
         });
     });
-    const style_priority = ["shaded", "outline", "flat"];
+    const style_priority = ["shaded", "outline", "flat", "papirus"];
     const sortedStyles = sortWithPriority([...styles], style_priority);
     const topStyle = sortedStyles[0] ?? null;
     const formatStyleName = (style) => style && style.length > 0
