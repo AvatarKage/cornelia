@@ -23,7 +23,7 @@ async function updatePreview(data?: any): Promise<void> {
         const icon = (e.icon as HTMLInputElement).value;
         const uploadIcon = imageMap.get("uploadIconPreview") ?? "";
         const iconX = parseFloat((e.iconX as HTMLInputElement).value || "100") / 100;
-        const iconY = parseFloat((e.iconY as HTMLInputElement).value || "100") / 100;
+        let iconY = parseFloat((e.iconY as HTMLInputElement).value || "100") / 100;
         const iconR = parseFloat((e.iconR as HTMLInputElement).value) || 0;
         const iconScale = parseFloat((e.iconScale as HTMLInputElement).value || "100") / 100;
 
@@ -44,6 +44,10 @@ async function updatePreview(data?: any): Promise<void> {
         const style = selectedStyle;
         const variant = selectedVariant;
         const font = selectedFont;
+
+        if (style === "papirus") {
+            iconY = iconY + 0.21
+        }
 
         const svgString = await recolor(
             iconPos || "center",
