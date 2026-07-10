@@ -48,15 +48,21 @@ def update_stops(svg_doc, new_colors, back_color_changed: bool, back_color_hex: 
             stop.set("stop-color", color)
 
 def update_color(svg_doc, base_color: str, back_color: str):
-    root = svg_doc.getroot()
+    root = (
+        svg_doc.getroot()
+        if hasattr(svg_doc, "getroot")
+        else svg_doc
+    )
 
     for el in root.iter():
         fill = el.get("fill")
+
         if not fill:
             continue
 
         if fill == "#FFD65C":
             el.set("fill", base_color)
+
         elif fill == "#1F1700":
             el.set("fill", back_color)
 
