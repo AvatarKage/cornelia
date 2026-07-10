@@ -27,7 +27,7 @@ from src.cornelia.scripts.classes.Counter import Counter
 from src.cornelia.scripts.helpers.count_dirs import count_dirs
 from src.cornelia.scripts.helpers.show_toast import show_toast
 from src.cornelia.scripts.core.process_folder import process_folder
-from src.cornelia.scripts.core.windows.update_registry import add_to_registry, remove_from_registry
+if os.name == "nt": from src.cornelia.scripts.core.windows.update_registry import add_to_registry, remove_from_registry
 from src.cornelia.scripts.config import config
 from src.cornelia.scripts.helpers.scan_dir import scan_dir
 
