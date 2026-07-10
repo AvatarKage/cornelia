@@ -16,7 +16,7 @@ const priority: Record<string, OS> = {
     exportMacOS: "mac",
     exportLinux: "linux",
     exportAndroid: "android",
-    exportVector: "unknown"
+    exportImage: "unknown"
 };
 
 function sortExportButtons(): void {

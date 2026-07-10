@@ -297,15 +297,15 @@
                         <label>File name</label>
                         <input id="fileName" placeholder="A file name will automatically generate!" autocorrect="off" autocomplete="off"/>
                     </div>
-                    
+
                     <div>
                         <label id="downloadCornelia">Export to your downloads folder</label>
                         <div class="buttons" id="saveButtons">
                             <button id="exportWindows"> Windows<div class="subtext">.ico</div></button>
                             <button class="disabled" id="exportMacOS" tooltip="Coming Soon"> MacOS<div class="subtext">.icns</div></button>
-                            <button id="exportLinux"> Linux<div class="subtext">.png</div></button>
+                            <button id="exportLinux"> Linux<div class="subtext">.svg</div></button>
                             <button class="disabled" id="exportAndroid" tooltip="Coming Soon"> Android<div class="subtext">.webp</div></button>
-                            <button id="exportVector">󰜡 Vector<div class="subtext">.svg</div></button>
+                            <button id="exportImage">󰋩 Image<div class="subtext">.png</div></button>
                             <button class="disabled" id="copyLink" tooltip="Coming Soon"> Copy Link</button>
                             <button class="disabled" id="exportPreset" tooltip="Coming Soon"> Preset</button>
                         </div>
@@ -333,8 +333,105 @@
         </div>
     </div>
 
+    <script>
+        // Reset all (FireFox fix)
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelectorAll("input, select, textarea").forEach((element) => {
+                if (element instanceof HTMLInputElement) {
+
+                    switch (element.type) {
+                        case "range":
+                            element.value = element.defaultValue;
+                            break;
+
+                        case "color":
+                            element.value = element.defaultValue || "";
+                            break;
+
+                        case "file":
+                            element.value = "";
+                            break;
+
+                        case "hidden":
+                            element.value = "";
+                            break;
+
+                        default:
+                            element.value = "";
+                            break;
+                    }
+
+                } else if (
+                    element instanceof HTMLSelectElement ||
+                    element instanceof HTMLTextAreaElement
+                ) {
+                    element.value = element.defaultValue;
+                }
+
+                element.dispatchEvent(new Event("input", {
+                    bubbles: true
+                }));
+
+                element.dispatchEvent(new Event("change", {
+                    bubbles: true
+                }));
+            });
+
+            document.querySelectorAll(".select").forEach((select) => {
+
+                const selected = select.querySelector(".selected");
+                const hidden = select.querySelector(".select-value");
+
+                if (selected) {
+                    selected.textContent = "";
+                }
+
+                if (hidden) {
+                    hidden.value = "";
+                }
+            });
+
+            const defaults = {
+                iconPos: "Center",
+                iconMethod: "Print"
+            };
+
+            Object.entries(defaults).forEach(([id, value]) => {
+                const selected = document.querySelector(`#${id} .selected`);
+
+                if (selected) {
+                    selected.textContent = value;
+                }
+            });
+
+            const previews = [
+                "uploadIconPreview",
+                "uploadImagePreview"
+            ];
+
+            previews.forEach((id) => {
+                const element = document.getElementById(id);
+
+                if (element) {
+                    element.innerHTML = "";
+                }
+            });
+
+            const filename = document.getElementById("fileName");
+
+            if (filename instanceof HTMLInputElement) {
+                filename.value = "";
+            }
+
+            window.dispatchEvent(new Event("input"));
+            window.dispatchEvent(new Event("change"));
+
+        });
+    </script>
+
+    <script type="module" src="./studio/scripts/external/opentype.js?v1.0.0"></script>
     <script type="module" src="./studio/scripts/external/tooltips.js?v1.0.0"></script>
     <script type="module" src="./studio/scripts/external/jszip.js?v=3.10.0"></script>
-    <script type="module" src="./studio/main.js?v=1.0.0.216"></script>
+    <script type="module" src="./studio/main.js?v=1.0.0.217"></script>
 </body>
 </html>

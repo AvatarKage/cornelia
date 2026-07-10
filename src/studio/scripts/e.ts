@@ -39,7 +39,7 @@ const e = {
     exportWindows: $("exportWindows") as HTMLButtonElement,
     exportLinux: $("exportLinux") as HTMLButtonElement,
     exportAndroid: $("exportAndroid") as HTMLButtonElement,
-    exportVector: $("exportVector") as HTMLButtonElement,
+    exportImage: $("exportImage") as HTMLButtonElement,
     copyLink: $("copyLink") as HTMLButtonElement,
     exportPreset: $("exportPreset") as HTMLButtonElement,
 

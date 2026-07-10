@@ -35,7 +35,7 @@ const e = {
     exportWindows: $("exportWindows"),
     exportLinux: $("exportLinux"),
     exportAndroid: $("exportAndroid"),
-    exportVector: $("exportVector"),
+    exportImage: $("exportImage"),
     copyLink: $("copyLink"),
     exportPreset: $("exportPreset"),
     loadSVG: $("loadSVG"),

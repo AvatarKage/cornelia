@@ -15,7 +15,7 @@ const priority = {
     exportMacOS: "mac",
     exportLinux: "linux",
     exportAndroid: "android",
-    exportVector: "unknown"
+    exportImage: "unknown"
 };
 function sortExportButtons() {
     const container = document.getElementById("saveButtons");

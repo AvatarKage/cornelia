@@ -38,7 +38,7 @@ import { renderUpload } from "./scripts/renderUpload.js";
 import e from "./scripts/e.js";
 import callUpdatePreview from "./scripts/folders/updatePreview.js";
 import countFiles from "./scripts/directory/countFiles.js";
-import { getPreviewSVG, svgToPNGBlob, svgToICO, downloadBlob } from "./scripts/folders/downloadFolders.js";
+import { getPreviewSVG, getPreviewSVGForImage, svgToPNGBlob, svgToICO, downloadBlob } from "./scripts/folders/downloadFolders.js";
 import Snowflake from "./scripts/packages/avatarkage-utilities/snowflake/index.js";
 import setSelectValue from "./scripts/helpers/setSelectValue.js";
 import { renderFonts, renderStyles, renderVariants } from "./scripts/packs/renderOptions.js";
@@ -266,20 +266,20 @@ Download Folder
 ————————————————————————————————————————————————————————————————
 */
 
-e.exportVector.addEventListener("click", async (event) => {
-    event.preventDefault();
-    event.stopImmediatePropagation();
-
-    const svg = getPreviewSVG();
-    if (!svg) return;
-    downloadBlob(`${e.fileName.value || `cornelia_${snowflake.generate()}`}.svg`, new Blob([svg], { type: "image/svg+xml" }));
-});
-
 e.exportLinux.addEventListener("click", async (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    const svg = getPreviewSVG();
+    const svg = await getPreviewSVG(window.__AVATAR_STATE.selectedFont);
+    if (!svg) return;
+    downloadBlob(`${e.fileName.value || `cornelia_${snowflake.generate()}`}.svg`, new Blob([svg], { type: "image/svg+xml" }));
+});
+
+e.exportImage.addEventListener("click", async (event) => {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    const svg = getPreviewSVGForImage();
     if (!svg) return;
     const pngBlob = await svgToPNGBlob(svg);
     downloadBlob(`${e.fileName.value || `cornelia_${snowflake.generate()}`}.png`, pngBlob);
@@ -289,7 +289,7 @@ e.exportWindows.addEventListener("click", async (event) => {
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    const svg = getPreviewSVG();
+    const svg = await getPreviewSVG(window.__AVATAR_STATE.selectedFont);
     if (!svg) return;
 
     const icoBlob = await svgToICO(svg);
