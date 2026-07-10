@@ -16,11 +16,13 @@ async def scan_dir(directory: str, force: bool = False, progress_cb=None, cancel
     total_processed = 0
 
     for entry in entries:
-
         if cancel_cb and cancel_cb():
             return total_processed
 
         full_path = os.path.join(directory, entry.name)
+
+        if entry.is_symlink():
+            continue
 
         if not entry.is_dir():
             continue
