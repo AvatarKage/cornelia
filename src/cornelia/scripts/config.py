@@ -50,6 +50,8 @@ Rules
 
 config["rules"] = {
     "exact": {
-        "discord": config["folders"]["generated"] / "discord.svg"
+        "discord": config["folders"]["generated"] / "discord.svg",
+        "youtube": config["folders"]["generated"] / "youtube.svg",
+        "bisecthosting": config["folders"]["generated"] / "bisecthosting.svg"
     }
 }
