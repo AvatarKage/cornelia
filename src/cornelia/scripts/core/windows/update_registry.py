@@ -1,8 +1,14 @@
-import winreg
+import os
 
 from src.cornelia.scripts.config import config
 
+if os.name == "nt":
+    import winreg
+
 def add_to_registry(cmd: str):
+    if os.name != "nt":
+        return
+
     try:
         key = winreg.OpenKey(
             winreg.HKEY_CURRENT_USER,
@@ -10,12 +16,21 @@ def add_to_registry(cmd: str):
             0,
             winreg.KEY_SET_VALUE
         )
-        winreg.SetValueEx(key, config["metadata"]["name"], 0, winreg.REG_SZ, cmd)
+        winreg.SetValueEx(
+            key,
+            config["metadata"]["name"],
+            0,
+            winreg.REG_SZ,
+            cmd
+        )
         winreg.CloseKey(key)
-    except:
+    except Exception:
         pass
 
 def remove_from_registry():
+    if os.name != "nt":
+        return
+
     try:
         key = winreg.OpenKey(
             winreg.HKEY_CURRENT_USER,
@@ -28,5 +43,5 @@ def remove_from_registry():
         except FileNotFoundError:
             pass
         winreg.CloseKey(key)
-    except:
+    except Exception:
         pass
