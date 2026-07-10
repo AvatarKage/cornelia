@@ -15,11 +15,11 @@ async def generate_folder(options: dict = None):
     if options is None:
         options = {}
 
-    style = options.get("style", "shaded")
+    style = options.get("style", "papirus")
     variant = options.get("variant", "left1")
-    base_color = get_color(options.get("baseColor", "#FFD65C"))
-    back_color = get_color(options.get("backColor", "#000000"))
-    icon_color = get_color(options.get("iconColor", "#000000"))
+    base_color = get_color(options.get("baseColor", "#16a085"))
+    back_color = get_color(options.get("backColor", "#12806a"))
+    icon_color = get_color(options.get("iconColor", "#08382e"))
     medium_icon = options.get("mediumIcon", "")
     small_icon = options.get("smallIcon", "")
     text = options.get("text", "")
@@ -29,14 +29,14 @@ async def generate_folder(options: dict = None):
     is_custom_back_color = options.get("isCustomBackColor", False)
     is_custom_icon_color = options.get("isCustomIconColor", False)
     folder = options.get("folder", "")
-    save_svg = options.get("saveSVG", False)
+    save_svg = options.get("saveSVG", True)
     save_png = options.get("savePNG", False)
-    save_ico = options.get("saveICO", True)
+    save_ico = options.get("saveICO", False)
     width = options.get("width", 256)
     height = options.get("height", 256)
 
-    font_dir = Path(config["folders"]["root"]) / "src" / "common" / "assets" / "fonts" / "jetbrains"
-    svg_dir = Path(config["folders"]["root"]) / "src" / "common" / "assets" / "svg" / style
+    font_dir = Path(config["folders"]["root"]) / "src" / "userdata" / "packs" / "official" / "assets" / "fonts"
+    svg_dir = Path(config["folders"]["root"]) / "src" / "userdata" / "packs" / "official" / "assets" / "folders" / style
     gen_folder = Path(config["folders"]["generated"]) / style / variant / folder
 
     for p in [font_dir, svg_dir, gen_folder]:
