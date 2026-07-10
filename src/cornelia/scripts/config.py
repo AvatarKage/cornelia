@@ -2,7 +2,8 @@ import os
 import tomllib
 from pathlib import Path
 
-from toasted import Toast
+if os.name == "nt":
+    from toasted import Toast
 
 CONFIG_PATH = Path(__file__).resolve().parents[2] / "config.toml"
 
@@ -16,11 +17,12 @@ config = get_config()
 BASE_DIR = Path(__file__).resolve().parents[3]
 
 config["folders"] = {
-    "root": str(BASE_DIR),
-    "watch": str(Path.home()),
-    "config": str(BASE_DIR / "config"),
-    "assets": str(BASE_DIR / "src" / "common" / "assets"),
-    "generated": str(BASE_DIR / "generated"),
+    "root": BASE_DIR,
+    "watch": Path.home(),
+    "config": BASE_DIR / "config",
+    "assets": BASE_DIR / "src" / "common" / "assets",
+    "generated": BASE_DIR / "generated",
+    "userdata": BASE_DIR / "src" / "userdata",
 }
 
 """
@@ -39,3 +41,15 @@ if os.name == "nt":
         display_name=config["metadata"]["cornelia"]["name"],
         icon_uri=icon_uri
     )
+
+"""
+————————————————————————————————————————————————————————————————
+Rules
+———————————————————————————————————————————————————————————————— 
+"""
+
+config["rules"] = {
+    "exact": {
+        "discord": config["folders"]["generated"] / "discord.svg"
+    }
+}
