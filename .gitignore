@@ -24,6 +24,7 @@ build/*
 downloads
 cache
 .cache
+.venv
 
 # Files
 .idea
