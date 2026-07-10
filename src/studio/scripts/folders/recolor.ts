@@ -100,7 +100,6 @@ async function recolor(
         overlayFill = isCustomIconColor
             ? adjustColor(iconColor, colorSaturation, colorBrightness, colorContrast)
             : adjustedBack;
-
     }
 
     let align: string = "middle";
