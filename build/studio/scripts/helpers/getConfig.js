@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { parse } from "../external/toml.js";
 let config;
 async function getConfig() {

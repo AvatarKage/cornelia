@@ -1,3 +1,4 @@
+// @ts-nocheck
 // @ts-ignore
 const isTauri = typeof window !== "undefined" && !!window.__TAURI__;
 const resolveResource = isTauri
