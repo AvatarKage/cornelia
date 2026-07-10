@@ -1,11 +1,131 @@
 import e from "../e.js";
-function getPreviewSVG() {
+async function getPreviewSVG(font) {
     const svg = e.svg.innerHTML.trim();
     if (!svg) {
         alert("No SVG available to download");
         return null;
     }
-    return svg;
+    const container = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    container.innerHTML = svg;
+    await convertTextToPaths(container, font);
+    container.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    return container.innerHTML.trim();
+}
+async function convertTextToPaths(svg, fontUrl) {
+    const response = await fetch(fontUrl);
+    if (!response.ok) {
+        throw new Error(`Font loading failed: ${response.status} ${fontUrl}`);
+    }
+    const buffer = await response.arrayBuffer();
+    const font = opentype.parse(buffer);
+    const texts = Array.from(svg.querySelectorAll("text"));
+    function buildGlyphPaths(value, x, y, fontSize) {
+        const paths = [];
+        let cursorX = x;
+        for (const char of Array.from(value)) {
+            const glyphPath = font.getPath(char, cursorX, y, fontSize);
+            paths.push(glyphPath);
+            const glyph = font.charToGlyph(char);
+            cursorX +=
+                // @ts-ignore
+                (glyph.advanceWidth *
+                    fontSize) /
+                    font.unitsPerEm;
+        }
+        return paths;
+    }
+    function getPathsBounds(paths) {
+        let x1 = Infinity;
+        let y1 = Infinity;
+        let x2 = -Infinity;
+        let y2 = -Infinity;
+        for (const path of paths) {
+            for (const cmd of path.commands) {
+                switch (cmd.type) {
+                    case "M":
+                    case "L":
+                    case "T":
+                        x1 = Math.min(x1, cmd.x);
+                        y1 = Math.min(y1, cmd.y);
+                        x2 = Math.max(x2, cmd.x);
+                        y2 = Math.max(y2, cmd.y);
+                        break;
+                    case "Q":
+                        x1 = Math.min(x1, cmd.x, cmd.x1);
+                        y1 = Math.min(y1, cmd.y, cmd.y1);
+                        x2 = Math.max(x2, cmd.x, cmd.x1);
+                        y2 = Math.max(y2, cmd.y, cmd.y1);
+                        break;
+                    case "C":
+                        x1 = Math.min(x1, cmd.x, cmd.x1, cmd.x2);
+                        y1 = Math.min(y1, cmd.y, cmd.y1, cmd.y2);
+                        x2 = Math.max(x2, cmd.x, cmd.x1, cmd.x2);
+                        y2 = Math.max(y2, cmd.y, cmd.y1, cmd.y2);
+                        break;
+                }
+            }
+        }
+        if (x1 === Infinity) {
+            return {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 0
+            };
+        }
+        return {
+            x1,
+            y1,
+            x2,
+            y2
+        };
+    }
+    texts.forEach((text) => {
+        const value = (text.textContent || "")
+            .replace(/[\u200B-\u200D\uFEFF]/g, "")
+            .replace(/^[\t\n\r ]+|[\t\n\r ]+$/g, "");
+        if (!value) {
+            text.remove();
+            return;
+        }
+        const x = Number(text.getAttribute("x") || 0);
+        const y = Number(text.getAttribute("y") || 0);
+        const fontSize = Number(text.getAttribute("font-size") || 16);
+        const anchor = text.getAttribute("text-anchor") ||
+            "start";
+        const measurePaths = buildGlyphPaths(value, 0, 0, fontSize);
+        const bbox = getPathsBounds(measurePaths);
+        const width = bbox.x2 - bbox.x1;
+        let offsetX = x - 0;
+        let offsetY = y + 29;
+        if (anchor === "middle") {
+            offsetX -= width / 2;
+        }
+        else if (anchor === "end") {
+            offsetX -= width;
+        }
+        offsetX -= bbox.x1;
+        offsetY -= bbox.y2;
+        const finalPaths = buildGlyphPaths(value, offsetX, offsetY, fontSize);
+        const pathData = finalPaths
+            .map((p) => p.toPathData(3))
+            .join(" ");
+        const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", pathData);
+        [
+            "fill",
+            "stroke",
+            "stroke-width",
+            "opacity",
+            "transform"
+        ].forEach((attr) => {
+            const val = text.getAttribute(attr);
+            if (val) {
+                path.setAttribute(attr, val);
+            }
+        });
+        text.replaceWith(path);
+    });
 }
 function downloadBlob(filename, blob) {
     const url = URL.createObjectURL(blob);
@@ -15,7 +135,15 @@ function downloadBlob(filename, blob) {
     a.click();
     URL.revokeObjectURL(url);
 }
-function svgToPNGBlob(svgString, width = 256, height = 256) {
+function getPreviewSVGForImage() {
+    const svg = e.svg.innerHTML.trim();
+    if (!svg) {
+        alert("No SVG available to download");
+        return null;
+    }
+    return svg;
+}
+function svgToPNGBlob(svgString, width = 1024, height = 1024) {
     return new Promise((resolve) => {
         const img = new Image();
         const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
@@ -97,4 +225,4 @@ async function svgToICO(svgString) {
         type: "image/x-icon",
     });
 }
-export { getPreviewSVG, downloadBlob, svgToPNGBlob, svgToICO, };
+export { getPreviewSVG, getPreviewSVGForImage, downloadBlob, svgToPNGBlob, svgToICO, };
