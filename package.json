@@ -12,6 +12,7 @@
     "dev:cornelia": "python -m src.main",
     "dev:server": "tsx src/server.ts",
     "build": "npm run clean && npm run copy:src && npm run copy:config && npm run copy:index && npm run copy:userdata:build && tsc",
+    "build:container": "podman build -t cornelia-studio:latest .",
     "copy:src": "cpx \"src/studio/**/!(*.ts|*.js)\" build/studio",
     "copy:config": "cpx \"src/config.toml\" build",
     "copy:index": "cpx \"src/index.html\" build",
